@@ -293,7 +293,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-12 16:44:14 / 修改时间：17:09:06" itemprop="dateCreated datePublished" datetime="2022-03-12T16:44:14+08:00">2022-03-12</time>
+              <time title="创建时间：2022-03-12 16:44:14 / 修改时间：17:14:57" itemprop="dateCreated datePublished" datetime="2022-03-12T16:44:14+08:00">2022-03-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -339,14 +339,14 @@
 </ol>
 </blockquote>
 <p>一维数组的前缀和</p>
-<p><img src="/.top//image-20220310181632054.png" alt="image-20220310181632054"></p>
+<p>![image-20220310181632054](刷题小知识：数组-链表/image-20220310181632054.png-&gt; <img src="/.top//a0fdfee0/image-20220310181632054.png" class="label">)</p>
 <p>新建一个<code>preSum</code>数组，<code>preSum[i]</code> 记录 <code>nums[0..i-1]</code> 的累加和</p>
 <p>如果我想求索引区间<code>[1, 4]</code> 内的所有元素之和，就可以通过 <code>preSum[5] - preSum[1] </code>得出。 </p>
 <p>核心代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrefixSum</span> &#123;</span></span><br><span class="line"> <span class="comment">// 前缀和数组</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">     vector&lt;<span class="keyword">int</span>&gt; prefix;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     <span class="comment">/* 输⼊⼀个数组，构造前缀和 */</span></span><br><span class="line">     <span class="built_in">PrefixSum</span>(vector&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">     prefix.<span class="built_in">resize</span>(nums.<span class="built_in">size</span>() + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">     <span class="comment">// 计算 nums 的累加和</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prefix.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">         prefix[i] = prefix[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">     	&#125;</span><br><span class="line">     &#125;</span><br><span class="line"> 	<span class="comment">/* 查询闭区间 [i, j] 的累加和 */</span></span><br><span class="line">     <span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line"> 	 	<span class="keyword">return</span> prefix[j + <span class="number">1</span>] - prefix[i];</span><br><span class="line"> 	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>二维数组前缀和</p>
-<img src="/.top//../../../Desktop/刷题笔记/01. 数组-链表/image-20220310183903115.png" alt="image-20220310183903115" style="zoom:33%;">
+<img src="/.top//image-20220310183903115.png" alt="image-20220310183903115" style="zoom:33%;">
 
 <p>如果我想计算红⾊的这个⼦矩阵的元素之和，可以⽤绿⾊矩阵减去蓝⾊矩阵减去橙⾊矩阵最后加上粉⾊矩 阵，⽽绿蓝橙粉这四个矩阵有⼀个共同的特点，就是左上⻆就是 (0, 0) 原点。 </p>
 <p>那么我们可以维护⼀个⼆维 <code>preSum </code>数组，专⻔记录以原点为顶点的矩阵的元素之和，就可以⽤⼏次加减运算算出任何⼀个⼦矩阵的元素和：</p>
