@@ -29,14 +29,14 @@
 <meta property="og:site_name" content="Tong&#39;s Blog">
 <meta property="og:description" content="数组&#x2F;链表数组链表代表着计算机最基本的两种存储形式：顺序存储和链式存储。 主要算法：双指针，可分为  中间向两端扩散 两端向中间收缩 快慢指针">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220311120935829.jpg">
+<meta property="og:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220310181632054.png">
 <meta property="og:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220310183903115.png">
 <meta property="og:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220311120935829.jpg">
 <meta property="article:published_time" content="2022-03-12T09:26:04.000Z">
-<meta property="article:modified_time" content="2022-03-12T15:08:07.632Z">
+<meta property="article:modified_time" content="2022-03-13T11:55:06.751Z">
 <meta property="article:author" content="Zhang Tong">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220311120935829.jpg">
+<meta name="twitter:image" content="https://silver-eagle.top/posts/a0fdfee0/image-20220310181632054.png">
 
 <link rel="canonical" href="https://silver-eagle.top/posts/a0fdfee0/">
 
@@ -225,10 +225,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-12 17:26:04 / 修改时间：23:08:07" itemprop="dateCreated datePublished" datetime="2022-03-12T17:26:04+08:00">2022-03-12</time>
+              <time title="创建时间：2022-03-12 17:26:04" itemprop="dateCreated datePublished" datetime="2022-03-12T17:26:04+08:00">2022-03-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-13 19:55:06" itemprop="dateModified" datetime="2022-03-13T19:55:06+08:00">2022-03-13</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -274,7 +280,8 @@
 </ol>
 </blockquote>
 <p>一维数组的前缀和</p>
-<p><img src="/posts/a0fdfee0/image-20220311120935829.jpg" alt="image-20220311120935829"></p>
+<img src="/posts/a0fdfee0/image-20220310181632054.png" alt="image-image-20220310181632054" style="zoom:50%;">
+
 <p>新建一个<code>preSum</code>数组，<code>preSum[i]</code> 记录 <code>nums[0..i-1]</code> 的累加和</p>
 <p>如果我想求索引区间<code>[1, 4]</code> 内的所有元素之和，就可以通过 <code>preSum[5] - preSum[1] </code>得出。 </p>
 <p>核心代码：</p>
@@ -298,7 +305,8 @@
 </blockquote>
 <p>差分数组的主要适⽤场景是<strong>频繁对原始数组的某个区间的元素进⾏增减</strong>。 </p>
 <p>对 <code>nums</code> 数组构造⼀个 <code>diff</code> 差分数组，**<code>diff[i]</code>** 就是 <strong><code>nums[i]</code></strong> 和 <strong><code>nums[i-1]</code></strong> 之差：</p>
-<p><img src="/posts/a0fdfee0/image-20220311120935829.jpg"></p>
+<img src="/posts/a0fdfee0/image-20220311120935829.jpg" alt="image-20220311120935829" style="zoom:50%;">
+
 <p>这样构造差分数组 **<code>diff</code>**，就可以快速进⾏区间增减的操作，如果你想对区间 <code>nums[i..j] </code>的元素全部加 3，那么只需要让 <code>diff[i] += 3</code>，然后再让<code> diff[j+1] -= 3</code> 即可：</p>
 <p>把差分数组抽象成⼀个类，包含 increment ⽅法和 result ⽅法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 差分数组⼯具类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Difference</span> &#123;</span>   </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; diff;	<span class="comment">//差分数组</span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Difference</span>(vector&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        assert nums.<span class="built_in">size</span>() &gt; <span class="number">0</span>;</span><br><span class="line">        diff,<span class="built_in">resize</span>(nums.<span class="built_in">size</span>());</span><br><span class="line">        <span class="comment">// 根据初始数组构造差分数组</span></span><br><span class="line">        diff[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        	diff[i] = nums[i] - nums[i - <span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 给闭区间 [i,j] 增加 val（可以是负数）*/</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">increment</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        diff[i] += val;</span><br><span class="line">        <span class="keyword">if</span> (j + <span class="number">1</span> &lt; diff.<span class="built_in">size</span>()) &#123; <span class="comment">//当 j+1 &gt;= diff.length 时，说明是对 nums[i] 及以后的整个数组都进⾏修改，那么就不需要再给 diff数组减 val 了。</span></span><br><span class="line">            diff[j + <span class="number">1</span>] -= val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 返回结果数组 */</span></span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">result</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(diff.size())</span></span>;</span><br><span class="line">        res[<span class="number">0</span>] = diff[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; diff.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            res[i] = res[i - <span class="number">1</span>] + diff[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
