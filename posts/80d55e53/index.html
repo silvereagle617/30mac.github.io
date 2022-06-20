@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="操作系统笔记01">
+<meta property="og:url" content="https://silver-eagle.top/posts/80d55e53/index.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silver-eagle.top/OS-1/image-20220527155653122.png">
+<meta property="og:image" content="https://silver-eagle.top/OS-1/image-20220527231741888.png">
+<meta property="og:image" content="https://silver-eagle.top/OS-1/image-20220528171527111.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220529153518116.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220529222250168.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220529222837516.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220530113613610.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220530160754572.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220530234435504.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220531103211795.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220531104923664.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220531115650409.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220531121115455.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/80d55e53/image-20220606180447319.png">
+<meta property="article:published_time" content="2022-05-27T04:52:00.000Z">
+<meta property="article:modified_time" content="2022-06-06T14:04:21.927Z">
+<meta property="article:author" content="Zhang Tong">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silver-eagle.top/OS-1/image-20220527155653122.png">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/80d55e53/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统笔记01 | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/80d55e53/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统笔记01
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-27 12:52:00" itemprop="dateCreated datePublished" datetime="2022-05-27T12:52:00+08:00">2022-05-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-06 22:04:21" itemprop="dateModified" datetime="2022-06-06T22:04:21+08:00">2022-06-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h1 id="OS概述"><a href="#OS概述" class="headerlink" title="OS概述"></a>OS概述</h1><h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><p><strong>操作系统的两个职责：</strong></p>
+<ul>
+<li><p><strong>对硬件进行管理与抽象</strong></p>
+<ul>
+<li><p>管理硬件：内存分配、设备驱动</p>
+</li>
+<li><p>对硬件进行抽象：将有限的、离散的资源高效地抽象为无限的、连续的资源。将硬件通过易用的接口提供给上层的</p>
+<p>应用，从而使应用无须关心硬件的具体细节。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>为应用提供服务并管理</strong></p>
+<ul>
+<li>服务于应用：提供接口（如系统调用），不同类型的访问控制、应用间交互等服务</li>
+<li>管理应用：应用生命周期管理，包括应用的加载、启动、切换、调度、销毁等。</li>
+</ul>
+</li>
+</ul>
+<p>狭义的OS：操作系统内核 + Shell(命令行界面)</p>
+<p>广义的OS：</p>
+<ul>
+<li><strong>操作系统内核</strong>（对硬件资源的管理与抽象，为操作系统框架提供基础的系统服务）</li>
+<li><strong>操作系统框架</strong>（基于操作系统内核提供的服务，为不同的应用领域提供编程接口与运行环境）</li>
+</ul>
+<p>OS发展历史：</p>
+<p>批处理操作系统 -&gt; 分时处理操作系统（UNIX), shell命令行交互 -&gt; 个人PC（macOS/Windows），人机交互更好</p>
+<h2 id="操作系统接口"><a href="#操作系统接口" class="headerlink" title="操作系统接口"></a>操作系统接口</h2><ul>
+<li><strong>系统调用接口</strong> 向内核申请服务</li>
+<li><strong>POSIX接口</strong> 可移植操作系统接口，通常通过C library（libc）来实现。</li>
+<li><strong>领域应用接口</strong> 封装面向不同领域的领域应用接口</li>
+</ul>
+<h2 id="硬件结构"><a href="#硬件结构" class="headerlink" title="硬件结构"></a>硬件结构</h2><p>计算机硬件结构主要为<strong>冯·诺伊曼结构</strong></p>
+<ul>
+<li>中央处理器 CPU</li>
+<li>存储器（内存）</li>
+<li>输入输出 I/O</li>
+</ul>
+<p>CPU缓存，比物理内存访问速度快。</p>
+<p><img src="/OS-1/image-20220527155653122.png" alt="image-20220527155653122"></p>
+<p>设备与中断</p>
+<p>内存映射输入输出 MIMO：</p>
+<p>把输入输出设备和物理内存放到同一个地址空间，为设备内部的内存和寄存器也分配相应的地址。</p>
+<p>轮询与中断</p>
+<p>让CPU不断通过MIMO查看是否有输入，但会使CPU长时间处于等待状态造成浪费。</p>
+<p>获得输入后，向CPU发送一个中断。</p>
+<p>MMIO使得CPU可以主动地访问设备,中断使得设备能够主动地通知CPU，这两种机制是CPU与设备之间交互的重要方式。</p>
+<p>内存</p>
+<p><img src="/OS-1/image-20220527231741888.png" alt="image-20220527231741888"></p>
+<h3 id="进程-Process"><a href="#进程-Process" class="headerlink" title="进程 Process"></a>进程 Process</h3><p>与每个进程相关的是<strong>地址空间</strong></p>
+<p>地址空间中存放可执行程序、程序所需要的数据和栈</p>
+<p>进程可以看作是容纳运行一个程序所有信息的容器</p>
+<p><strong>进程表：</strong> 数组或链表结构，存放进程信息</p>
+<p>进程树：一个进程可以创建多个进程（子进程），树形结构</p>
+<p>系统管理器授权每个进程一个给定的UID，子进程与父进程拥有一样的UID</p>
+<h3 id="地址空间"><a href="#地址空间" class="headerlink" title="地址空间"></a>地址空间</h3><p>管理进程，每个进程有一些可以使用的地址集合，典型值从0开始直到某个最大值。一个进程可以拥有的最大地址空间小于主存。</p>
+<p>虚拟内存：操作系统把部分地址空间装入主存，部分留在磁盘上，并在需要的时候交换回来</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>抽象文件模型</p>
+<p>创建文件、删除文件、读和写文件 都需要系统调用。</p>
+<p><strong>文件描述符：</strong> 读写文件前，检查权限可以打开，系统返回一个小整数，供后续操作使用；若禁止使用返回一个错误码</p>
+<p><strong>管道：</strong> 一种虚文件，可以连接两个进程</p>
+<p><img src="/OS-1/image-20220528171527111.png" alt="image-20220528171527111"></p>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>操作系统的两大功能：</p>
+<ul>
+<li>为用户提供应用程序抽象</li>
+<li>管理计算机资源</li>
+</ul>
+<p>只有<strong>系统调用能够进入内核态而过程调用则不能进行内核态</strong></p>
+<h4 id="用于进程管理的系统调用"><a href="#用于进程管理的系统调用" class="headerlink" title="用于进程管理的系统调用"></a>用于进程管理的系统调用</h4><p>UNIX中唯一可以在POSIX中创建进程的途径：fork</p>
+<p>fork调用返回一个值，在子进程中为0，在父进程中等于子进程的进程标识符PID。使用返回的PID可以看出哪个是父进程和子进程。</p>
+<p>POSIX：可移植操作系统接口</p>
+<p>waitpid系统调用：为等待子进程完成，父进程执行waitpid</p>
+<p>execve系统调用：实现系统执行，三个参数：将要执行的文件名称、一个指向变量数组的指针、一个指向环境数组的指针。</p>
+<p>一个shell指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp file1 file2</span><br></pre></td></tr></table></figure>
+
+<p>此命令将file1复制到file2文件中，在shell执行fork之后，子进程定位并执行文件拷贝，将将源文件和目标文件的名称传递给它。</p>
+<p>cp的主程序包含声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">main</span>(agrc, argv, envp)</span><br></pre></td></tr></table></figure>
+
+<p>argc：命令行中参数数目的计数，包括程序名称。对于上面的例子，argc是3。</p>
+<p>argv：数组的指针，该数组的元素i为第i个字符串的指针，例如，argc[0]指向字符串cp，argc[1]指向字符串file1，argc[2]指向字符串file2。</p>
+<p>envp：指向环境的指针，该环境是一个数组，含有name = value的赋值形式，例子中，没有环境参数传递给execve，所以execve的第三个参数为0。</p>
+<p>UNIX中的进程将内存划分为三部分：</p>
+<ul>
+<li>text segment，文本区，例如程序代码</li>
+<li>data segment，数据区，例如变量</li>
+<li>stack segment，栈区域，数据向上增长而堆栈向下增长。</li>
+</ul>
+<img src="/posts/80d55e53/image-20220529153518116.png" alt="image-20220529153518116" style="zoom:35%;">
+
+<h4 id="用于文件管理的系统调用"><a href="#用于文件管理的系统调用" class="headerlink" title="用于文件管理的系统调用"></a>用于文件管理的系统调用</h4><p>与某个文件有关的系统调用</p>
+<p>常用的调用read和write</p>
+<p>UNIX为每个文件保存了该文件的类型、大小、最后修改时间以及其他信息，程序可以通过stat系统调用查看这些信息。</p>
+<h4 id="用于目录管理的系统调用"><a href="#用于目录管理的系统调用" class="headerlink" title="用于目录管理的系统调用"></a>用于目录管理的系统调用</h4><p>与整个文件系统有关的系统调用</p>
+<p>mkdir和rmdir分别用于创建和删除空目录。</p>
+<p>mount系统调用将两个文件系统合并为一个。</p>
+<h4 id="其他系统调用"><a href="#其他系统调用" class="headerlink" title="其他系统调用"></a>其他系统调用</h4><p>chdir调用更改当前工作目录</p>
+<p>chmod系统调用提供改变文件模式的操作</p>
+<p>UNIX与Win32系统调用API</p>
+<table>
+<thead>
+<tr>
+<th>UNIX</th>
+<th>Win32</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fork</td>
+<td>CreateProcess</td>
+<td>创建一个进程</td>
+</tr>
+<tr>
+<td>waitpid</td>
+<td>WaitForSingleObject</td>
+<td>等待一个进程退出</td>
+</tr>
+<tr>
+<td>execve</td>
+<td>none</td>
+<td>CraeteProcess = fork + service</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>ExitProcess</td>
+<td>终止执行</td>
+</tr>
+<tr>
+<td>open</td>
+<td>CreateFile</td>
+<td>创建一个文件或打开一个已有的文件</td>
+</tr>
+<tr>
+<td>close</td>
+<td>CloseHandle</td>
+<td>关闭文件</td>
+</tr>
+<tr>
+<td>read</td>
+<td>ReadFile</td>
+<td>从单个文件中读取数据</td>
+</tr>
+<tr>
+<td>write</td>
+<td>WriteFile</td>
+<td>向单个文件中写数据</td>
+</tr>
+<tr>
+<td>lseek</td>
+<td>SetFilePointer</td>
+<td>移动文件指针</td>
+</tr>
+<tr>
+<td>stat</td>
+<td>GetFileAttributesEx</td>
+<td>获得不同的文件属性</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>CreateDirectory</td>
+<td>创建一个新的目录</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>RemoveDirectory</td>
+<td>移除一个空的目录</td>
+</tr>
+<tr>
+<td>link</td>
+<td>none</td>
+<td>Win32不支持link</td>
+</tr>
+<tr>
+<td>unlink</td>
+<td>DeleteFile</td>
+<td>销毁一个已有的文件</td>
+</tr>
+<tr>
+<td>mount</td>
+<td>none</td>
+<td>Win32不支持mount</td>
+</tr>
+<tr>
+<td>umount</td>
+<td>none</td>
+<td>Win32不支持mount</td>
+</tr>
+<tr>
+<td>chdir</td>
+<td>SetCurrentDirectory</td>
+<td>切换当前工作目录</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>none</td>
+<td>Win32不支持安全</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>none</td>
+<td>Win32不支持信号</td>
+</tr>
+<tr>
+<td>time</td>
+<td>GetLocalTime</td>
+<td>获取当前时间</td>
+</tr>
+</tbody></table>
+<h3 id="操作系统结构"><a href="#操作系统结构" class="headerlink" title="操作系统结构"></a>操作系统结构</h3><ul>
+<li>单体系统</li>
+<li>分层系统</li>
+<li>微内核</li>
+<li>客户-服务端系统</li>
+<li>虚拟机</li>
+<li>外核</li>
+</ul>
+<h4 id="单体系统"><a href="#单体系统" class="headerlink" title="单体系统"></a>单体系统</h4><p>整个系统在内核态以单一程序的方式运行</p>
+<p>整个操作系统是以程序集合来编写的，链接在一块形成一个大的二进制可执行文件</p>
+<p>在单体系统中构造实际目标程序时，会首先编译所有单个过程（或包含这些过程的文件），然后使用系统链接器将它们全部绑定到一个可执行文件中。</p>
+<p>三层模型：</p>
+<ul>
+<li>主程序：调用请求服务程序</li>
+<li>服务程序：执行系统调用</li>
+<li>实用程序：辅助服务过程调用</li>
+</ul>
+<h4 id="分层系统"><a href="#分层系统" class="headerlink" title="分层系统"></a>分层系统</h4><p>使用层来分隔不同的功能单元，每一层只与该层的上层和下层通信。</p>
+<p>每一层都使用下面的层来执行其功能，层之间的通信通过预定义的固定接口通信。</p>
+<table>
+<thead>
+<tr>
+<th>层号</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td>操作员</td>
+</tr>
+<tr>
+<td>4</td>
+<td>用户程序</td>
+</tr>
+<tr>
+<td>3</td>
+<td>输入/输出管理</td>
+</tr>
+<tr>
+<td>2</td>
+<td>操作员-进程通信</td>
+</tr>
+<tr>
+<td>1</td>
+<td>存储器和磁鼓管理</td>
+</tr>
+<tr>
+<td>0</td>
+<td>处理器分配和多道程序编程</td>
+</tr>
+</tbody></table>
+<h4 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h4><p>微内核运行在内核态，其余模块可以作为普通用户进程运行。</p>
+<img src="/posts/80d55e53/image-20220529222250168.png" alt="image-20220529222250168" style="zoom:60%;">
+
+<p>机制与策略分离，比如系统调度，一个简单的调度算法是对每个进程赋予优先级，让内核执行优先级最高的进程。内核的机制是寻找最高的优先级进程并运行，而策略（赋予进程优先级）可以在用户态中的进程完成。策略与机制分离，使得内核变得更小。</p>
+<h4 id="客户-服务器模式"><a href="#客户-服务器模式" class="headerlink" title="客户-服务器模式"></a>客户-服务器模式</h4><p>把进程划分为两类：</p>
+<ul>
+<li>服务器，每个服务器用来提供服务</li>
+<li>客户端，使用这些服务</li>
+</ul>
+<img src="/posts/80d55e53/image-20220529222837516.png" alt="image-20220529222837516" style="zoom:67%;">
+
+<p>两种载体：</p>
+<ul>
+<li>计算机既是客户端又是服务器</li>
+<li>客户端与服务器在不同机器上（普遍情况），通过局域网或广域网连接</li>
+</ul>
+<p>客户端发送请求并得到回应。</p>
+<h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程：对正在运行中的程序的抽象，操作系统最核心的概念。</p>
+<p><strong>伪并发</strong>：单核或多核处理器同时执行多个进程，从而使程序更快。以非常有限的时间间隔在程序之间快速切换CPU。</p>
+<p>缺点是CPU时间可能分配给下一个进程，也可能不分配给下一个进程。</p>
+<h3 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h3><p>计算机上运行的软件包括操作系统，被组织为若干<strong>顺序进程</strong> </p>
+<p>进程包括：程序计数器、寄存器、变量的当前值</p>
+<p>在进程不断切换的过程中，程序计数器也在不同的变化</p>
+<img src="/posts/80d55e53/image-20220530113613610.png" alt="image-20220530113613610" style="zoom:67%;">
+
+<p>任何一个给定的瞬间仅有一个进程真正运行</p>
+<p>一个CPU只能真正一次运行一个进程的时候，即使有2个核（或CPU），每一个核也只能一次运行一个线程。</p>
+<h3 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h3><ul>
+<li>系统初始化（init)</li>
+<li>正在运行的程序执行了创建进程的系统调用（比如fork）</li>
+<li>用户请求创建一个新进程</li>
+<li>初始化一个批处理工作</li>
+</ul>
+<h4 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h4><p>前台进程：同用户进行交互并替他们完成工作的进程</p>
+<p>守护进程：进程运行在后台用来处理一些活动如Email、web网页、打印等</p>
+<p>UNIX中，ps程序可以列出正在运行的进程，Windows中使用任务管理器</p>
+<h4 id="系统调用创建"><a href="#系统调用创建" class="headerlink" title="系统调用创建"></a>系统调用创建</h4><p>一个正在运行的进程会发出系统调用，用来创建一个或多个新进程来帮助其完成工作。</p>
+<p>多处理器中，每个进程运行在不同的CPU上可以使工作更快。</p>
+<p>UNIX中，仅有一个系统调用可以创建一个新进程：<strong>fork</strong> ，该调用会创建一个与调用进程相关的副本。</p>
+<h4 id="用户请求创建"><a href="#用户请求创建" class="headerlink" title="用户请求创建"></a>用户请求创建</h4><p>交互式系统中，输入一个命令或双击图标可以启动程序，这些操作可以选择开启一个新的进程。</p>
+<p>新进程将接管启动它的窗口，每个窗口都可以运行进程。</p>
+<h3 id="批处理创建"><a href="#批处理创建" class="headerlink" title="批处理创建"></a>批处理创建</h3><p>大型机的批处理系统</p>
+<p>用户提交批处理作业，当操作系统决定它有资源来运行另一个任务时，将创建一个新进程并从其中的输入队列中运行下一个作业。</p>
+<h3 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h3><ul>
+<li>正常退出（自愿的）</li>
+<li>错误退出（自愿的）</li>
+<li>严重错误（非自愿的）</li>
+<li>被其他进程杀死（非自愿的）</li>
+</ul>
+<h4 id="正常退出"><a href="#正常退出" class="headerlink" title="正常退出"></a>正常退出</h4><p>多数进程是由于完成了工作而终止</p>
+<p>UNIX调用是exit。</p>
+<h4 id="错误退出"><a href="#错误退出" class="headerlink" title="错误退出"></a>错误退出</h4><p>例如编译foo.c 但是该文件不存在，编译器会发出声明并退出。</p>
+<p>通常会弹出对话框告知用户发生系统错误</p>
+<h4 id="严重错误"><a href="#严重错误" class="headerlink" title="严重错误"></a>严重错误</h4><p>通常由于程序中的错误导致。例如，执行了一条非法指令，引用不存在的内存，除数为0等。</p>
+<p>UNIX中，这类错误，进程会收到信号（中断），而不是在这类错误出现时直接终止进程</p>
+<h4 id="被其他进程杀死"><a href="#被其他进程杀死" class="headerlink" title="被其他进程杀死"></a>被其他进程杀死</h4><p>UNIX中调用kill，某个进程执行系统调用告诉操作系统杀死某个进程。</p>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>每个进程是一个独立的实体，有其自己的程序计数器和内部状态。</p>
+<p>进程之间需要相互帮助，例如，一个进程的结果可以作为另一个进程的输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat chapter1 chapter2 chapter3 | grep tree</span><br></pre></td></tr></table></figure>
+
+<p>第一个进程cat，将三个文件级联并输出。</p>
+<p>第二个进程grep，从输入中选取包含有关键字tree的内容。</p>
+<p>可能出现grep准备就绪开始执行，但是输入还未完成，于是必须阻塞grep进程，直到输入完毕。</p>
+<p>进程状态的切换：</p>
+<img src="/posts/80d55e53/image-20220530160754572.png" alt="image-20220530160754572" style="zoom:50%;">
+
+<p>进程状态有三种：</p>
+<ul>
+<li><strong>运行态</strong>：进程实际占用CPU时间片运行时</li>
+<li><strong>就绪态</strong>：可运行，但因为其他进程正在运行而处于就绪状态</li>
+<li><strong>阻塞态</strong>：除非某种外部事件发生，否则进程不能运行</li>
+</ul>
+<p>运行态与就绪态很相似，都表示进程可运行，区别在于就绪状态没有获得CPU时间分片。</p>
+<p>阻塞态与前两个不同，进程不能运行，CPU空闲时也不能运行。</p>
+<p>在操作系统发现进程不能继续执行时发生转换1，某些系统执行系统调用如pause，获取一个阻塞的状态。UNIX中，当进程从管道或特殊文件（如终端）中读取没有可用的输入时，该进程自动终止。</p>
+<p>转换2和3由进程调度程序引起。</p>
+<p>进程等待一个外部事件发生（如从外部输入一些数据后），发生转换4；若此时没有其他进程在运行，则立即触发转换3，该进程开始运行，否则该进程处于就绪阶段，等待CPU空闲后再轮到它运行。</p>
+<p><strong>操作系统最底层的就是调度程序。</strong>所有关于中断处理、启动进程和停止进程的具体细节都隐藏在调度程序中。</p>
+<h3 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h3><p><strong>进程表</strong> 进程状态的重要信息，包括程序计数器、堆栈指针、内存分配状态、所打开文件的状态、调度信息，以及其他在进程由运行态转换到就绪态或阻塞态时所必须保存的信息，从而保证该进程随后可以再次启动，就像从未中断过一样。</p>
+<p>关键字段：</p>
+<ul>
+<li>进程管理</li>
+<li>存储管理</li>
+<li>文件管理</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h3 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h3><p>线程thread，线程也会有程序计数器、寄存器、堆栈。</p>
+<p>进程用于把资源集中到一起，<strong>线程是CPU上调度执行的实体</strong>。</p>
+<p>线程比进程创建快。</p>
+<p>线程不像进程那样有较强的独立性。由于每个线程都可以访问进程地址空间的每个内存地址，因此<strong>一个线程可以读取、写入甚至擦除另一个线程的堆栈。</strong></p>
+<img src="/posts/80d55e53/image-20220530234435504.png" alt="image-20220530234435504" style="zoom:50%;">
+
+<p>线程的状态：运行中、阻塞、就绪和终止。线程之间的状态转换与进程之间的状态转换是一样的。</p>
+<p>线程无法利用时钟中断强制让线程让出CPU。</p>
+<p>线程创建：调用库函数，线程创建函数会要求指定新创建线程的名称，创建的线程通常会返回一个线程标识符，该标识符就是新线程的名字。</p>
+<h3 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h3><p>主要三种实现方式</p>
+<ul>
+<li>在用户空间中实现线程</li>
+<li>在内核空间中实现线程</li>
+<li>在用户和内核空间中混合实现线程</li>
+</ul>
+<h4 id="在用户空间中实现线程"><a href="#在用户空间中实现线程" class="headerlink" title="在用户空间中实现线程"></a>在用户空间中实现线程</h4><p>把整个线程包放在用户空间中，内核对线程一无所知，它不知道线程的存在。</p>
+<img src="/posts/80d55e53/image-20220531103211795.png" alt="image-20220531103211795" style="zoom:50%;">
+
+<p>运行时系统：也叫运行时环境，提供了程序在其中运行的环境。</p>
+<p>线程在运行时系统之上运行，运行时系统是管理线程过程的集合。</p>
+<p>每个进程需要有其专用的线程表，用来跟踪该进程中的线程。</p>
+<p>优势：</p>
+<ul>
+<li>启动线程比内核调用效率更高，不需要切换到内核，也不需要上下文切换，不需要对内存高速缓存进行刷新，线程调用非常便捷，因此效率高</li>
+<li>允许每个进程有自己定制的调度算法，用户线程具有较好的可扩展性。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li>阻塞系统调用问题，使用线程的一个目标是能够让线程进行阻塞调用，并且要避免被阻塞的线程影响其他线程</li>
+<li>缺页中断问题，如果某个程序发生函数调用或跳转指令到了一条不在内存的指令上，会发生页面故障，而操作系统将到磁盘上取回这个丢失的指令，称为缺页故障。</li>
+<li>如果一个线程开始运行，该线程所在进程中的其他线程都不能运行，单进程内部没有时钟中断，不能使用轮转调度的方式调度线程。</li>
+</ul>
+<h4 id="在内核空间中实现线程"><a href="#在内核空间中实现线程" class="headerlink" title="在内核空间中实现线程"></a>在内核空间中实现线程</h4><p>不需要运行时环境，每个进程中也没有线程表，在内核中会有记录系统中所有线程的线程表。某个线程希望创建新线程或撤销一个已有线程，会执行一个系统调用，完成对线程表的更新。</p>
+<img src="/posts/80d55e53/image-20220531104923664.png" alt="image-20220531104923664" style="zoom:50%;">
+
+<p>所有能够阻塞的调用都会通过系统调用的方式来实现，当一个线程阻塞时，内核可以进行选择，例如运行同一个进程中的另一个线程或者运行另一个进程中的一个线程。</p>
+<p>内核中创建或销毁线程的开销比较大，某些系统会采用可循环利用的方式来回收线程。当某个线程被销毁时，就把他标志为不可运行的状态，但其内部结构没有收到影响，稍后在创建一个新线程时，就会重新启用旧线程，标志为可用状态。</p>
+<h3 id="混合实现"><a href="#混合实现" class="headerlink" title="混合实现"></a>混合实现</h3><p>内核级线程，将用户级线程与某些或全部内核线程多路复用起来。</p>
+<img src="/posts/80d55e53/image-20220531115650409.png" alt="image-20220531115650409" style="zoom:50%;">
+
+<p>编程人员可以自由控制用户线程和内核线程的数量，灵活度高。内核只识别内核级线程，对其进行调度，其中一些内核级线程会被多个用户级线程多路复用。</p>
+<h2 id="进程间通信IPC"><a href="#进程间通信IPC" class="headerlink" title="进程间通信IPC"></a>进程间通信IPC</h2><p>三个问题：</p>
+<ul>
+<li>进程如何传递消息给其他进程</li>
+<li>确保两个或多个线程之间不会相互干扰</li>
+<li>数据的先后顺序问题</li>
+</ul>
+<h3 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h3><p>存在共享资源、共享文件、共享内存</p>
+<p>两个或多个线程同时对一共享数据进行修改，从而影响程序运行的正确性。</p>
+<p>如何避免：</p>
+<p><strong>禁止一个或多个进程在同一时刻对共享资源（包括共享文件、共享内存等）进行读写。</strong></p>
+<p>需要<strong>互斥条件</strong>。</p>
+<h3 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h3><p>临界区（临界区域）：对共享内存进行访问的程序片。</p>
+<p>使两个不同进程不可能同时处于临界区，就能避免竞争条件。</p>
+<p>使用临界区的互斥</p>
+<img src="/posts/80d55e53/image-20220531121115455.png" alt="image-20220531121115455" style="zoom:50%;">
+
+<h3 id="忙等互斥"><a href="#忙等互斥" class="headerlink" title="忙等互斥"></a>忙等互斥</h3><h4 id="屏蔽中断"><a href="#屏蔽中断" class="headerlink" title="屏蔽中断"></a>屏蔽中断</h4><p>单核处理器，每个进程在进入临界区后立即<strong>屏蔽所有中断</strong>，并在离开临界区之前重新启用他们。屏蔽中断后CPU不会切换到其他进程。一旦某个进程屏蔽中断后，就可以检查和修改共享内存，而不担心其他进程介入访问共享数据。</p>
+<p>屏蔽中断对于操作系统本身是一种有用的技术，但是对于用户线程来说，屏蔽中断不是一项通用的互斥机制。</p>
+<h4 id="锁变量"><a href="#锁变量" class="headerlink" title="锁变量"></a>锁变量</h4><p>考虑有单个共享的锁变量，初始值为0。当一个线程想要进入关键区域时，会首先查看锁的值是否为0，如果锁的值为0，进程会把它设置为1并让进程进入关键区域；如果锁的状态为1，进程会等待直到锁变量的值为0。</p>
+<p>锁变量值为0，表示没有线程进入关键区域，如果为1，表示有进程在关键区域内。</p>
+<img src="/posts/80d55e53/image-20220606180447319.png" alt="image-20220606180447319" style="zoom:50%;">
+
+<p>会发生竞争条件，临界区可能会有两个进程同时运行，set-before-check 不是一种原子性操作。</p>
+<h4 id="严格轮询法"><a href="#严格轮询法" class="headerlink" title="严格轮询法"></a>严格轮询法</h4><p>先抛出一段代码，用c语言编写。</p>
+<p>进程0的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	<span class="keyword">while</span>(turn != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">/* 进入关键区域*/</span> </span><br><span class="line"> 		critical_region();</span><br><span class="line"> 		turn = <span class="number">1</span>;</span><br><span class="line">		<span class="comment">/* 离开关键区域*/</span> </span><br><span class="line"> 		noncritical_region();</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进程1的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(TRUE)&#123;</span><br><span class="line">	<span class="keyword">while</span>(turn != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">/* 进入关键区域*/</span> </span><br><span class="line"> 		critical_region();</span><br><span class="line"> 		turn = <span class="number">0</span>;</span><br><span class="line">		<span class="comment">/* 离开关键区域*/</span> </span><br><span class="line"> 		noncritical_region();</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>变量turn初始值为0，用于记录轮到哪个进程进入临界区，并检查或更新内存。</p>
+<p>忙等待：连续检查一个变量直到某个值出现为止，但是这种方式浪费CPU时间，通常应该避免。</p>
+<p>只有在有理由认为等待时间是非常短的情况下，才能使用忙等待。用于忙等待的锁，，称为自旋锁。</p>
+<p>可能会出现违反 <strong>位于临界区外的进程不得阻塞其他进程</strong> 的情况，不算一个好的方案。</p>
+<h3 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h3><p>互斥量mutex，一些共享资源和一段代码保持互斥。</p>
+<p>两种状态：解锁和加锁。</p>
+<p>当一个线程（或进程）需要访问关键区域时，会调用mutex_lock进行加锁。如果互斥锁处于解锁状态（表示关键区域可用），则调用成功，并且调用线程可以自由进入关键区域。</p>
+<p>如果mutex互斥量已经锁定，调用线程会阻塞直到关键区域内的线程执行完毕并且调用了mutex_unlock。如果多个线程在mutex互斥量上阻塞，将随机选择一个线程并选择一个线程并允许它获得锁。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/80d55e53/" title="操作系统笔记01">https://silver-eagle.top/posts/80d55e53/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/75bf15f1/" rel="prev" title="图论基础与拓补排序">
+      <i class="fa fa-chevron-left"></i> 图论基础与拓补排序
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OS%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">OS概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">操作系统接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">硬件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-Process"><span class="nav-number">1.3.1.</span> <span class="nav-text">进程 Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="nav-number">1.3.2.</span> <span class="nav-text">地址空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.3.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.4.</span> <span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">用于进程管理的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">用于文件管理的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">用于目录管理的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">其他系统调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.5.</span> <span class="nav-text">操作系统结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">单体系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">分层系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">客户-服务器模式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">进程模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.2.</span> <span class="nav-text">进程的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">系统初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">系统调用创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%AF%B7%E6%B1%82%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">用户请求创建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.3.</span> <span class="nav-text">批处理创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-number">2.1.4.</span> <span class="nav-text">进程的终止</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E9%80%80%E5%87%BA"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">正常退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E9%80%80%E5%87%BA"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">错误退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A5%E9%87%8D%E9%94%99%E8%AF%AF"><span class="nav-number">2.1.4.3.</span> <span class="nav-text">严重错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A2%AB%E5%85%B6%E4%BB%96%E8%BF%9B%E7%A8%8B%E6%9D%80%E6%AD%BB"><span class="nav-number">2.1.4.4.</span> <span class="nav-text">被其他进程杀死</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">2.1.5.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.1.6.</span> <span class="nav-text">进程的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.1.</span> <span class="nav-text">线程模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.2.</span> <span class="nav-text">线程实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">在用户空间中实现线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">在内核空间中实现线程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.3.</span> <span class="nav-text">混合实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1IPC"><span class="nav-number">2.3.</span> <span class="nav-text">进程间通信IPC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%9E%E4%BA%89%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.3.1.</span> <span class="nav-text">竞争条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E7%95%8C%E5%8C%BA"><span class="nav-number">2.3.2.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%99%E7%AD%89%E4%BA%92%E6%96%A5"><span class="nav-number">2.3.3.</span> <span class="nav-text">忙等互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%AD"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">屏蔽中断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">锁变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A5%E6%A0%BC%E8%BD%AE%E8%AF%A2%E6%B3%95"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">严格轮询法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%87%8F"><span class="nav-number">2.3.4.</span> <span class="nav-text">互斥量</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">81k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:14</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>
