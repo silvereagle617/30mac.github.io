@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="华为刷题笔记">
+<meta property="og:url" content="https://silver-eagle.top/posts/1d3d6b4e/index.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silver-eagle.top/posts/1d3d6b4e/image-20220807181250174.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/1d3d6b4e/image-20220808115241997.png">
+<meta property="article:published_time" content="2022-08-06T15:39:00.000Z">
+<meta property="article:modified_time" content="2022-08-08T15:22:30.226Z">
+<meta property="article:author" content="Zhang Tong">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silver-eagle.top/posts/1d3d6b4e/image-20220807181250174.png">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/1d3d6b4e/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>华为刷题笔记 | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/1d3d6b4e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          华为刷题笔记
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-06 23:39:00" itemprop="dateCreated datePublished" datetime="2022-08-06T23:39:00+08:00">2022-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-08 23:22:30" itemprop="dateModified" datetime="2022-08-08T23:22:30+08:00">2022-08-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h2 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h2><h3 id="爱吃香蕉的珂珂"><a href="#爱吃香蕉的珂珂" class="headerlink" title="爱吃香蕉的珂珂"></a>爱吃香蕉的珂珂</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/koko-eating-bananas/">875. 爱吃香蕉的珂珂</a></p>
+<p>珂珂喜欢吃香蕉。这里有<code>n</code>堆香蕉，第<code>i</code>堆中有<code>piles[i]</code>根香蕉。警卫已经离开了，将在<code>h</code>小时后回来。<br>珂珂可以决定她吃香蕉的速度<code>k</code>（单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉k根。如果这堆香蕉少于<code>k</code>根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。<br>珂珂喜欢慢慢吃，但仍然想在警卫回来前吃掉所有的香蕉。<br>返回她可以在<code>h</code>小时内吃掉所有香蕉的最小速度<code>k</code>（<code>k</code>为整数）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：piles = [3,6,7,11], h = 8</span><br><span class="line">输出：4</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：piles = [30,11,23,4,20], h = 5</span><br><span class="line">输出：30</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：piles = [30,11,23,4,20], h = 6</span><br><span class="line">输出：23</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>设吃香蕉的速度为x，二分查找的下界为1，每小时最少吃一根；上界为一堆香蕉最多的总数目。当一堆香蕉的个数是pile，吃掉这堆香蕉需要[pile/x]小时，计算出吃掉所有香蕉的时间。如果在速度为x的情况下可以在h小时内吃完，则最小速度小于或等于x，调整上界为x；否则最小速度一定大于x，因此将下界调整为x+1。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minEatingSpeed</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; piles, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>, right = <span class="number">1000000001</span>;</span><br><span class="line">    <span class="comment">// 寻找最小速度，找左边界</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">f</span>(piles, mid, h)) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义：速度为 x 时，需要 f(x) 小时吃完所有香蕉</span></span><br><span class="line"><span class="comment">// 判断当前速度能否在h小时内完成</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; piles, <span class="keyword">int</span> x, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> hours = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; piles.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        hours += piles[i] / x;</span><br><span class="line">        <span class="keyword">if</span> (piles[i] % x &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            hours++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hours &lt;= h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="有序矩阵中第-K-小的元素"><a href="#有序矩阵中第-K-小的元素" class="headerlink" title="有序矩阵中第 K 小的元素"></a>有序矩阵中第 K 小的元素</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-smallest-element-in-a-sorted-matrix/">378. 有序矩阵中第 K 小的元素</a></p>
+<p>给你一个<code>n x n</code>矩阵<code>matrix</code>，其中每行和每列元素均按升序排序，找到矩阵中第<code>k</code>小的元素。<br>请注意，它是<strong>排序后</strong>的第<code>k</code>小元素，而不是第<code>k</code>个<strong>不同</strong>的元素。<br>你必须找到一个内存复杂度优于 O(n^2) 的解决方案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8</span><br><span class="line">输出：13</span><br><span class="line">解释：矩阵中的元素为 [1,5,9,10,11,12,13,13,15]，第 8 小元素是 13</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：matrix = [[-5]], k = 1</span><br><span class="line">输出：-5</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>二分查找，矩阵内元素从左上到右下递增。<code>matrix[0][0]</code> 为最小值，<code>matrix[n-1][n-1]</code>为最大值，现在我们将其分别记作l和r。可以发现一个性质：任取一个数 mid 满足 l ≤ mid ≤ r，那么矩阵中不大于mid的数，肯定全部分布在矩阵的左上角。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = matrix.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = matrix[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> right = matrix[n<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line">    <span class="comment">// 寻找左边界</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - mid) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(matrix, k, mid)) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 判断不大于mid的总数，是否大于k；</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k, <span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = matrix.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> tmp = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (tmp &gt;= <span class="number">0</span> &amp;&amp; matrix[tmp][i] &gt; mid) &#123;</span><br><span class="line">            tmp--;</span><br><span class="line">        &#125;</span><br><span class="line">        count += (tmp + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count &gt;= k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索旋转排序数组"><a href="#搜索旋转排序数组" class="headerlink" title="搜索旋转排序数组"></a>搜索旋转排序数组</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/search-in-rotated-sorted-array/">33. 搜索旋转排序数组</a></p>
+<p>整数数组<code>nums</code>按升序排列，数组中的值<strong>互不相同</strong> 。<br>在传递给函数之前，<code>nums </code>在预先未知的某个下标<code> k（0 &lt;= k &lt; nums.length）</code>上进行了 旋转，使数组变为<code> [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]</code>（下标 从 0 开始 计数）。例如，<code>[0,1,2,4,5,6,7]</code>在下标 3 处经旋转后可能变为<code>[4,5,6,7,0,1,2]</code>。<br>给你 旋转后 的数组<code>nums</code>和一个整数<code>target</code>，如果<code>nums</code>中存在这个目标值<code>target</code>，则返回它的下标，否则返回 -1 。<br>你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [4,5,6,7,0,1,2], target = 0</span><br><span class="line">输出：4</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [4,5,6,7,0,1,2], target = 3</span><br><span class="line">输出：-1</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：nums = [1], target = 0</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>数组局部有序，可以在常规二分查找的时候查看当前 mid 为分割位置分割出来的两个部分 [l, mid] 和 [mid + 1, r] 哪个部分是有序的，并根据有序的那个部分确定我们该如何改变二分查找的上下界，因为我们能够根据有序的那部分判断出 target 在不在这个部分。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = n;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] &gt;= nums[<span class="number">0</span>]) &#123; <span class="comment">// 左半区域有序</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt;= nums[<span class="number">0</span>] &amp;&amp; nums[mid] &gt; target) &#123;</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 右半区域有序</span></span><br><span class="line">            <span class="keyword">if</span> (target &lt;= nums[n<span class="number">-1</span>] &amp;&amp; nums[mid] &lt; target) &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/">81. 搜索旋转排序数组 II</a></p>
+<p>已知存在一个按非降序排列的整数数组 nums ，数组中的值不必互不相同。<br>在传递给函数之前，<code>nums </code>在预先未知的某个下标<code>k（0 &lt;= k &lt; nums.length）</code>上进行了 旋转 ，使数组变为<code> [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]</code>（下标 从 0 开始 计数）。例如，<code>[0,1,2,4,4,4,5,6,6,7]</code>在下标 5 处经旋转后可能变为<code>[4,5,6,6,7,0,1,2,4,4]</code>。<br>给你 旋转后 的数组<code>nums</code>和一个整数<code>target</code>，请你编写一个函数来判断给定的目标值是否存在于数组中。如果<code>nums</code>中存在这个目标值<code>target</code>，则返回<code>true</code>，否则返回<code> false</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [2,5,6,0,0,1,2], target = 0</span><br><span class="line">输出：true</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [2,5,6,0,0,1,2], target = 3</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>对于数组中有重复元素的情况，二分查找时可能会有<code> a[l]=a[mid]=a[r]</code>，此时无法判断区间 <code>[l,mid] </code>和区间<code>[mid+1,r]</code>哪个是有序的。例如<code>nums=[3,1,2,3,3,3,3]</code>，<code>target=2</code>，首次二分时无法判断区间<code>[0,3]</code>和区间<code>[4,6]</code>哪个是有序的。<br>对于这种情况，我们只能将当前二分区间的左边界加一，右边界减一，然后在新区间上继续二分查找。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = n;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[left] == nums[mid] &amp;&amp; nums[mid] == nums[right<span class="number">-1</span>]) &#123;</span><br><span class="line">            left++;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &gt;= nums[left]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (target &gt;= nums[left] &amp;&amp; nums[mid] &gt; target) &#123;</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (target &lt;= nums[right<span class="number">-1</span>] &amp;&amp; nums[mid] &lt; target) &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right = mid;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在-D-天内送达包裹的能力"><a href="#在-D-天内送达包裹的能力" class="headerlink" title="在 D 天内送达包裹的能力"></a>在 D 天内送达包裹的能力</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/capacity-to-ship-packages-within-d-days/">1011. 在 D 天内送达包裹的能力</a></p>
+<p>传送带上的包裹必须在 days 天内从一个港口运送到另一个港口。<br>传送带上的第 i 个包裹的重量为 weights[i]。每一天，我们都会按给出重量（weights）的顺序往传送带上装载包裹。我们装载的重量不会超过船的最大运载重量。<br>返回能在 days 天内将传送带上的所有包裹送达的船的最低运载能力。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：weights = [1,2,3,4,5,6,7,8,9,10], days = 5</span><br><span class="line">输出：15</span><br><span class="line">解释：</span><br><span class="line">船舶最低载重 15 就能够在 5 天内送达所有包裹，如下所示：</span><br><span class="line">第 1 天：1, 2, 3, 4, 5</span><br><span class="line">第 2 天：6, 7</span><br><span class="line">第 3 天：8</span><br><span class="line">第 4 天：9</span><br><span class="line">第 5 天：10</span><br><span class="line"></span><br><span class="line">请注意，货物必须按照给定的顺序装运，因此使用载重能力为 14 的船舶并将包装分成 (2, 3, 4, 5), (1, 6, 7), (8), (9), (10) 是不允许的。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：weights = [3,2,2,4,1,4], days = 3</span><br><span class="line">输出：6</span><br><span class="line">解释：</span><br><span class="line">船舶最低载重 6 就能够在 3 天内送达所有包裹，如下所示：</span><br><span class="line">第 1 天：3, 2</span><br><span class="line">第 2 天：2, 4</span><br><span class="line">第 3 天：1, 4</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：weights = [1,2,3,1,1], days = 4</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">第 1 天：1</span><br><span class="line">第 2 天：2</span><br><span class="line">第 3 天：3</span><br><span class="line">第 4 天：1, 1</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>二分查找转化为判定问题。假设当船的运载能力为x时，我们可以在days天内运送完所有包裹，那么只要运载能力大于x，我们同样可以在days天内运送完所有包裹：我们只需要使用运载能力为x时的运送方法即可。</p>
+<p>二分查找的左边界为一个包裹重量的最大值，即weights数组中的最大值；右边界为weights数组之和。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shipWithinDays</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; weights, <span class="keyword">int</span> days)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; w : weights) &#123;</span><br><span class="line">        left = <span class="built_in">max</span>(left, w);</span><br><span class="line">        right += w;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">getDays</span>(weights, mid) &lt;= days) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getDays</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; weights, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> days = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; weights.<span class="built_in">size</span>();) &#123;</span><br><span class="line">        <span class="keyword">int</span> cap = x;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; weights.<span class="built_in">size</span>()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cap &lt; weights[i]) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                cap -= weights[i++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        days++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> days;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="找出第-K-小的数对距离"><a href="#找出第-K-小的数对距离" class="headerlink" title="找出第 K 小的数对距离"></a>找出第 K 小的数对距离</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-k-th-smallest-pair-distance/">719. 找出第 K 小的数对距离</a></p>
+<p>数对<code> (a,b)</code>由整数 a 和 b 组成，其数对距离定义为 a 和 b 的绝对差值。<br>给你一个整数数组<code>nums</code>和一个整数 k ，数对由<code>nums[i]</code>和<code>nums[j]</code>组成且满足<code>0 &lt;= i &lt; j &lt; nums.length</code>。返回<strong>所有数对距离中</strong>第 k 小的数对距离。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [1,3,1], k = 1</span><br><span class="line">输出：0</span><br><span class="line">解释：数对和对应的距离如下：</span><br><span class="line">(1,3) -&gt; 2</span><br><span class="line">(1,1) -&gt; 0</span><br><span class="line">(3,1) -&gt; 2</span><br><span class="line">距离第 1 小的数对是 (1,1) ，距离为 0 。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [1,1,1], k = 2</span><br><span class="line">输出：0</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：nums = [1,6,1], k = 3</span><br><span class="line">输出：5</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>排序+二分+双指针</p>
+<p>先将数组排序，第k小的数对距离在区间[0, max(nums) - min(nums)]，令left = 0，right = max(nums) - min(nums)，在该区间内进行二分。对于当前搜索距离mid，计算所有距离小于等于mid的数对数目count，使用双指针：初始左端点i=0，从小到大枚举所有数对的右端点j，移动左端点直到nums[j] - nums[i] &lt;= mid，那么右端点为j且距离小于等于mid的数对数目为j-i，计算这些数目之和。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">smallestDistancePair</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums[n<span class="number">-1</span>] - nums[<span class="number">0</span>] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (nums[j] - nums[i] &gt; mid) &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            count += j - i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (count &gt;= k) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分割数组的最大值"><a href="#分割数组的最大值" class="headerlink" title="分割数组的最大值"></a>分割数组的最大值</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/split-array-largest-sum/">410. 分割数组的最大值</a></p>
+<p>给定一个非负整数数组<code>nums</code>和一个整数<code>m</code>，你需要将这个数组分成<code>m</code>个非空的连续子数组。</p>
+<p>设计一个算法使得这<code>m</code>个子数组各自和的最大值最小。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [7,2,5,10,8], m = 2</span><br><span class="line">输出：18</span><br><span class="line">解释：</span><br><span class="line">一共有四种方法将 nums 分割为 2 个子数组。 </span><br><span class="line">其中最好的方式是将其分为 [7,2,5] 和 [10,8] 。</span><br><span class="line">因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [1,2,3,4,5], m = 2</span><br><span class="line">输出：9</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：nums = [1,4,4], m = 3</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>二分查找+贪心（使……最大值尽可能的小）</p>
+<p>选定一个值x，线性的验证是否存在一种分割方案，满足最大分割子数组的和不超过x。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">splitArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>(), left = <span class="number">0</span>, right = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; a : nums) &#123;</span><br><span class="line">        left = <span class="built_in">max</span>(left, a);</span><br><span class="line">        right += a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = mid;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] &gt; sum) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    sum -= nums[i++];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (count &lt;= m) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="两球之间的磁力"><a href="#两球之间的磁力" class="headerlink" title="两球之间的磁力"></a>两球之间的磁力</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/magnetic-force-between-two-balls/">1552. 两球之间的磁力</a></p>
+<p>在代号为 C-137 的地球上，Rick 发现如果他将两个球放在他新发明的篮子里，它们之间会形成特殊形式的磁力。Rick 有<code>n</code>个空的篮子，第<code>i</code>个篮子的位置在<code>position[i]</code>，Morty 想把<code>m</code>个球放到这些篮子里，使得任意两球间 <strong>最小磁力</strong> 最大。<br>已知两个球如果分别位于<code>x</code>和<code>y</code>，那么它们之间的磁力为<code>|x - y|</code>。<br>给你一个整数数组<code>position</code>和一个整数<code>m</code>，请你返回最大化的最小磁力。</p>
+<img src="/posts/1d3d6b4e/image-20220807181250174.png" alt="image-20220807181250174" style="zoom: 67%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：position = [1,2,3,4,7], m = 3</span><br><span class="line">输出：3</span><br><span class="line">解释：将 3 个球分别放入位于 1，4 和 7 的三个篮子，两球间的磁力分别为 [3, 3, 6]。最小磁力为 3 。我们没办法让最小磁力大于 3 。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：position = [5,4,3,2,1,1000000000], m = 2</span><br><span class="line">输出：999999999</span><br><span class="line">解释：我们使用位于 1 和 1000000000 的篮子时最小磁力最大。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>假定最小磁力为ans，小于ans的答案也一定合法。既然我们存在一种放置的方法使得相邻小球间距的最小值大于等于 ans，那么也一定大于 [1,ans−1] 中的任意一个值，而大于 ans 的均不合法，因此我们可以对答案进行二分查找。在区间[left, right]之间查找，每次取mid为平均值：</p>
+<ul>
+<li>如果当前mid合法，令ans = mid，并将区间缩小为[mid + 1, right];</li>
+<li>如果当前mid不合法，则将区间缩小为[left, mid - 1].</li>
+</ul>
+<p>预先对给定的篮子的位置进行排序，那么从贪心的角度考虑，第一个小球放置的篮子一定是 position 最小的篮子，即排序后的第一个篮子。那么为了满足上述条件，第二个小球放置的位置一定要大于等于 position[0]+x，接下来同理。因此我们从前往后扫 position 数组，看在当前答案 x 下我们最多能在篮子里放多少个小球，我们记这个数量为 cnt，如果 cnt 大于等于 m，那么说明当前答案下我们的贪心策略能放下 m 个小球且它们间距均大于等于 x ，为合法的答案，否则不合法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxDistance</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; position, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">sort</span>(position.<span class="built_in">begin</span>(), position.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> n = position.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>, right = position[n<span class="number">-1</span>] - position[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">// 寻找满足成立条件的右边界</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(position, mid, m)) &#123;</span><br><span class="line">            ans = mid;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 检查以x为最小磁力，得到的分组cnt是否大于等于m</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; position, <span class="keyword">int</span> x, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pre = position[<span class="number">0</span>], cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; position.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (position[i] - pre &gt;= x) &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            pre = position[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt &gt;= m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小张刷题计划"><a href="#小张刷题计划" class="headerlink" title="小张刷题计划"></a>小张刷题计划</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/xiao-zhang-shua-ti-ji-hua/">LCP 12. 小张刷题计划</a></p>
+<p>为了提高自己的代码能力，小张制定了 LeetCode 刷题计划，他选中了 LeetCode 题库中的 n 道题，编号从 0 到 n-1，并计划在 m 天内按照题目编号顺序刷完所有的题目（注意，小张不能用多天完成同一题）。</p>
+<p>在小张刷题计划中，小张需要用 time[i] 的时间完成编号 i 的题目。此外，小张还可以使用场外求助功能，通过询问他的好朋友小杨题目的解法，可以省去该题的做题时间。为了防止“小张刷题计划”变成“小杨刷题计划”，小张每天最多使用一次求助。</p>
+<p>我们定义 m 天中做题时间最多的一天耗时为 T（小杨完成的题目不计入做题总时间）。请你帮小张求出最小的 T是多少。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line"></span><br><span class="line">输入：time = [1,2,3,3], m = 2</span><br><span class="line">输出：3</span><br><span class="line">解释：第一天小张完成前三题，其中第三题找小杨帮忙；第二天完成第四题，并且找小杨帮忙。这样做题时间最多的一天花费了 3 的时间，并且这个值是最小的。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line"></span><br><span class="line">输入：time = [999,999,999], m = 4</span><br><span class="line">输出：0</span><br><span class="line">解释：在前三天中，小张每天求助小杨一次，这样他可以在三天内完成所有的题目并不花任何时间。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>题意解析为：给定一个数组，将其划分为M份，使得每份元素之和的最大值最小，每份可以任意减去其中一个元素。</p>
+<p>如果不考虑每份可以任意减去一个元素，就是一个经典的二分问题，具有单调最优的性质：如果最大值为 t 可以满足条件划分，那么最大值为 t+1 也可以。所以就直接二分最大值 t，找到最小满足条件的 t 即可。</p>
+<p>本题加了一个条件：每份可以删除任意一个数组。为了能够让最大值最小，显然每份中删去的一定是最大元素，所以在二分判定可行性时，维护当前序列的最大值，然后记录删除最大值的结果，也就是说二分的判定是：是否可以让每组删除最大值之后，总和都小于等于 t。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minTime</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; time, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = time.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; t : time) &#123;</span><br><span class="line">        right += t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">getDays</span>(time, mid) &lt;= m) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getDays</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; time, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> useday = <span class="number">1</span>, totaltime = <span class="number">0</span>, maxtime = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; time.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> nextime = <span class="built_in">min</span>(maxtime, time[i]);</span><br><span class="line">        <span class="keyword">if</span> (nextime + totaltime &lt;= x) &#123;</span><br><span class="line">            totaltime += nextime;</span><br><span class="line">            maxtime = <span class="built_in">max</span>(maxtime, time[i]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            useday++;</span><br><span class="line">            totaltime = <span class="number">0</span>;</span><br><span class="line">            maxtime = time[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> useday;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><h3 id="航班预订统计"><a href="#航班预订统计" class="headerlink" title="航班预订统计"></a>航班预订统计</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/corporate-flight-bookings/">1109. 航班预订统计</a></p>
+<p>这里有 n 个航班，它们分别从 1 到 n 进行编号。</p>
+<p>有一份航班预订表 bookings ，表中第 i 条预订记录 bookings[i] = [firsti, lasti, seatsi] 意味着在从 firsti 到 lasti （包含 firsti 和 lasti ）的 每个航班 上预订了 seatsi 个座位。</p>
+<p>请你返回一个长度为 n 的数组 answer，里面的元素是每个航班预定的座位总数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：bookings = [[1,2,10],[2,3,20],[2,5,25]], n = 5</span><br><span class="line">输出：[10,55,45,25,25]</span><br><span class="line">解释：</span><br><span class="line">航班编号        1   2   3   4   5</span><br><span class="line">预订记录 1 ：   10  10</span><br><span class="line">预订记录 2 ：       20  20</span><br><span class="line">预订记录 3 ：       25  25  25  25</span><br><span class="line">总座位数：      10  55  45  25  25</span><br><span class="line">因此，answer = [10,55,45,25,25]</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：bookings = [[1,2,10],[2,2,15]], n = 2</span><br><span class="line">输出：[10,25]</span><br><span class="line">解释：</span><br><span class="line">航班编号        1   2</span><br><span class="line">预订记录 1 ：   10  10</span><br><span class="line">预订记录 2 ：       15</span><br><span class="line">总座位数：      10  25</span><br><span class="line">因此，answer = [10,25]</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>差分数组：第i个数即为原数组第i-1个元素和第i个元素的差值，也就是说对差分数组求前缀和即可得到原始数组。<br>遍历给定的预定数组，对差分数据进行更新，完成修改。对于预定记录booking=[l,r,inc]，我们需要让d[l−1] 增加 inc，d[r] 减少inc。特别地，当 r 为 n 时，我们无需修改d[r]，因为这个位置溢出了下标范围。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">corpFlightBookings</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; bookings, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bookings.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> first = bookings[i][<span class="number">0</span>] - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> last = bookings[i][<span class="number">1</span>];</span><br><span class="line">        res[first] += bookings[i][<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">if</span> (last &lt; n) &#123;</span><br><span class="line">            res[last] -= bookings[i][<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        res[i] += res[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="所有排列中的最大和"><a href="#所有排列中的最大和" class="headerlink" title="所有排列中的最大和"></a>所有排列中的最大和</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-sum-obtained-of-any-permutation/">1589. 所有排列中的最大和</a></p>
+<p>有一个整数数组 nums ，和一个查询数组 requests ，其中 requests[i] = [starti, endi] 。第 i 个查询求 nums[starti] + nums[starti + 1] + … + nums[endi - 1] + nums[endi] 的结果 ，starti 和 endi 数组索引都是 从 0 开始 的。</p>
+<p>你可以任意排列 nums 中的数字，请你返回所有查询结果之和的最大值。</p>
+<p>由于答案可能会很大，请你将它对 10^9 + 7 取余 后返回。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [1,2,3,4,5], requests = [[1,3],[0,1]]</span><br><span class="line">输出：19</span><br><span class="line">解释：一个可行的 nums 排列为 [2,1,3,4,5]，并有如下结果：</span><br><span class="line">requests[0] -&gt; nums[1] + nums[2] + nums[3] = 1 + 3 + 4 = 8</span><br><span class="line">requests[1] -&gt; nums[0] + nums[1] = 2 + 1 = 3</span><br><span class="line">总和为：8 + 3 = 11。</span><br><span class="line">一个总和更大的排列为 [3,5,4,2,1]，并有如下结果：</span><br><span class="line">requests[0] -&gt; nums[1] + nums[2] + nums[3] = 5 + 4 + 2 = 11</span><br><span class="line">requests[1] -&gt; nums[0] + nums[1] = 3 + 5  = 8</span><br><span class="line">总和为： 11 + 8 = 19，这个方案是所有排列中查询之和最大的结果。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [1,2,3,4,5,6], requests = [[0,1]]</span><br><span class="line">输出：11</span><br><span class="line">解释：一个总和最大的排列为 [6,5,4,3,2,1] ，查询和为 [11]。</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：nums = [1,2,3,4,5,10], requests = [[0,2],[1,3],[1,1]]</span><br><span class="line">输出：47</span><br><span class="line">解释：一个和最大的排列为 [4,10,5,3,2,1] ，查询结果分别为 [19,18,10]。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>利用差分数组，求解区间内每个下标被查询的次数，count数组记录每个下标的数据被查询的次数，在得到数组 counts 之后，对数组nums 和数组 counts 排序。倒序遍历数组，当查询次数大于0时，计算最大和 sum += nums[i] * count[i]。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSumRangeQuery</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; requests)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">count</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; req : requests) &#123;</span><br><span class="line">        <span class="keyword">int</span> first = req[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> last = req[<span class="number">1</span>];</span><br><span class="line">        count[first]++;</span><br><span class="line">        <span class="keyword">if</span> (last + <span class="number">1</span> &lt; n) count[last+<span class="number">1</span>]--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        count[i] += count[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">sort</span>(count.<span class="built_in">begin</span>(), count.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> Mod = <span class="number">1000000007</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; count[i] &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        sum += (<span class="keyword">long</span> <span class="keyword">long</span>) nums[i] * count[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)(sum % Mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="拼车"><a href="#拼车" class="headerlink" title="拼车"></a>拼车</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/car-pooling/">1094. 拼车</a></p>
+<p>车上最初有 capacity 个空座位。车 只能 向一个方向行驶（也就是说，不允许掉头或改变方向）</p>
+<p>给定整数 capacity 和一个数组 trips ,  trip[i] = [numPassengersi, fromi, toi] 表示第 i 次旅行有 numPassengersi 乘客，接他们和放他们的位置分别是 fromi 和 toi 。这些位置是从汽车的初始位置向东的公里数。</p>
+<p>当且仅当你可以在所有给定的行程中接送所有乘客时，返回 true，否则请返回 false。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：trips = [[2,1,5],[3,3,7]], capacity = 4</span><br><span class="line">输出：false</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：trips = [[2,1,5],[3,3,7]], capacity = 5</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>构建差分数组，对原始数组进行频繁的区间增减操作，根据trips数组对区间进行增减，1 &lt;= trips.length &lt;= 1000，因此差分数组的长度设为1001.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">carPooling</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; trips, <span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(<span class="number">1001</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; trip : trips) &#123;</span><br><span class="line">        <span class="keyword">int</span> first = trip[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> last = trip[<span class="number">2</span>];</span><br><span class="line">        res[first] += trip[<span class="number">0</span>];</span><br><span class="line">        res[last] -= trip[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">0</span>) res[i] += res[i<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span> (res[i] &gt; capacity) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="会议室"><a href="#会议室" class="headerlink" title="会议室"></a>会议室</h3><p>给定一个会议时间安排的数组，每个会议时间都会包括开始和结束的时间 [[s1,e1],[s2,e2],…] (si &lt; ei)， 为避免会议冲突，同时要考虑充分利用会议室资源，请你计算<strong>至少需要</strong>多少间会议室，才能满足这些会议安排。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line">输入: [[0, 30],[5, 10],[15, 20]]</span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">示例 2:</span><br><span class="line">输入: [[7,10],[2,4]]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p><strong>如果把每个会议的起始时间看做一个线段区间，那么题目就是让你求最多有几个重叠区间</strong></p>
+<p>把时间线想象成一个初始值为 0 的数组，每个时间区间 <code>[i, j]</code> 就相当于一个子数组，这个时间区间有一个会议，那我就把这个子数组中的元素都加一。最后遍历数组，求最大值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minMeetingRooms</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = intervals.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">begin</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">end</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        begin[i] = intervals[i][<span class="number">0</span>];</span><br><span class="line">        end[i] = intervals[i][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(begin.<span class="built_in">begin</span>(), begin.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">sort</span>(begin.<span class="built_in">begin</span>(), begin.<span class="built_in">end</span>());</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>, i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; n &amp;&amp; j &lt; n) &#123;</span><br><span class="line">        <span class="keyword">if</span> (begin[i] &lt; end[j]) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            count--;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122. 买卖股票的最佳时机 II</a></p>
+<p>给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。</p>
+<p>在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。</p>
+<p>返回 你能获得的 最大 利润 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：prices = [7,1,5,3,6,4]</span><br><span class="line">输出：7</span><br><span class="line">解释：在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4 。</span><br><span class="line">     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6 - 3 = 3 。</span><br><span class="line">     总利润为 4 + 3 = 7 。</span><br><span class="line">     </span><br><span class="line">示例 2：</span><br><span class="line">输入：prices = [1,2,3,4,5]</span><br><span class="line">输出：4</span><br><span class="line">解释：在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4 。</span><br><span class="line">     总利润为 4 。</span><br><span class="line">     </span><br><span class="line">示例 3：</span><br><span class="line">输入：prices = [7,6,4,3,1]</span><br><span class="line">输出：0</span><br><span class="line">解释：在这种情况下, 交易无法获得正利润，所以不参与交易可以获得最大利润，最大利润为 0 。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>构建差分数组，count记录获得利润，只加差分为正的值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> diff = prices[i] - prices[i - <span class="number">1</span>]; </span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           count += diff;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><h3 id="省份数量"><a href="#省份数量" class="headerlink" title="省份数量"></a>省份数量</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-provinces/">547. 省份数量</a></p>
+<p>有 <code>n</code> 个城市，其中一些彼此相连，另一些没有相连。如果城市 <code>a</code> 与城市 <code>b</code> 直接相连，且城市 <code>b</code> 与城市 <code>c</code> 直接相连，那么城市 <code>a</code> 与城市 <code>c</code> 间接相连。</p>
+<p><strong>省份</strong> 是一组直接或间接相连的城市，组内不含其他没有相连的城市。</p>
+<p>给你一个 <code>n x n</code> 的矩阵 <code>isConnected</code> ，其中 <code>isConnected[i][j] = 1</code> 表示第 <code>i</code> 个城市和第 <code>j</code> 个城市直接相连，而 <code>isConnected[i][j] = 0</code> 表示二者不直接相连。</p>
+<p>返回矩阵中 <strong>省份</strong> 的数量。</p>
+<img src="/posts/1d3d6b4e/image-20220808115241997.png" alt="image-20220808115241997">
+
+<p>解析：</p>
+<p>可以把 n 个城市和它们之间的相连关系看成图，城市是图中的节点，相连关系是图中的边，给定的矩阵 isConnected 即为图的邻接矩阵，省份即为图中的连通分量。</p>
+<p>使用并查集计算连通分量数，初始时，每个城市都属于不同的连通分量。遍历矩阵 isConnected，如果两个城市之间有相连关系，则它们属于同一个连通分量，对它们进行合并。遍历矩阵 isConnected 的全部元素之后，计算连通分量的总数，即为省份的总数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; parent, <span class="keyword">int</span> index)</span> </span>&#123; <span class="comment">// 寻找根节点</span></span><br><span class="line">    <span class="keyword">if</span> (parent[index] != index) &#123;</span><br><span class="line">        parent[index] = <span class="built_in">Find</span>(parent, parent[index]); </span><br><span class="line">        <span class="comment">// 递归进行路径压缩</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[index];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; parent, <span class="keyword">int</span> index1, <span class="keyword">int</span> index2)</span> </span>&#123; <span class="comment">// 建立连通性</span></span><br><span class="line">    parent[<span class="built_in">Find</span>(parent, index1)] = <span class="built_in">Find</span>(parent, index2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findCircleNum</span><span class="params">(vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; isConnected)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cities = isConnected.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">parent</span><span class="params">(cities, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cities; i++) &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cities; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; cities; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isConnected[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="built_in">Union</span>(parent, i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> provinces = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cities; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[i] == i) &#123;</span><br><span class="line">            provinces++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> provinces;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行交换操作后的最小汉明距离"><a href="#执行交换操作后的最小汉明距离" class="headerlink" title="执行交换操作后的最小汉明距离"></a>执行交换操作后的最小汉明距离</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-hamming-distance-after-swap-operations/">1722. 执行交换操作后的最小汉明距离</a></p>
+<p>给你两个整数数组 <code>source</code> 和 <code>target</code> ，长度都是 <code>n</code> 。还有一个数组 <code>allowedSwaps</code> ，其中每个 <code>allowedSwaps[i] = [ai, bi]</code> 表示你可以交换数组 <code>source</code> 中下标为 <code>ai</code> 和 <code>bi</code>（<strong>下标从 0 开始</strong>）的两个元素。注意，你可以按 <strong>任意</strong> 顺序 <strong>多次</strong> 交换一对特定下标指向的元素。</p>
+<p>相同长度的两个数组 <code>source</code> 和 <code>target</code> 间的 <strong>汉明距离</strong> 是元素不同的下标数量。形式上，其值等于满足 <code>source[i] != target[i]</code> （<strong>下标从 0 开始</strong>）的下标 <code>i</code>（<code>0 &lt;= i &lt;= n-1</code>）的数量。</p>
+<p>在对数组 <code>source</code> 执行 <strong>任意</strong> 数量的交换操作后，返回 <code>source</code> 和 <code>target</code> 间的 <strong>最小汉明距离</strong> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：source = [1,2,3,4], target = [2,1,4,5], allowedSwaps = [[0,1],[2,3]]</span><br><span class="line">输出：1</span><br><span class="line">解释：source 可以按下述方式转换：</span><br><span class="line">- 交换下标 0 和 1 指向的元素：source = [2,1,3,4]</span><br><span class="line">- 交换下标 2 和 3 指向的元素：source = [2,1,4,3]</span><br><span class="line">source 和 target 间的汉明距离是 1 ，二者有 1 处元素不同，在下标 3 。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：source = [1,2,3,4], target = [1,3,2,4], allowedSwaps = []</span><br><span class="line">输出：2</span><br><span class="line">解释：不能对 source 执行交换操作。</span><br><span class="line">source 和 target 间的汉明距离是 2 ，二者有 2 处元素不同，在下标 1 和下标 2 。</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：source = [5,1,2,4,3], target = [1,5,4,2,3], allowedSwaps = [[0,4],[4,2],[1,3],[1,4]]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>利用并查集建立连通性关系，遍历 allowedSwaps 数组中所有元素，从而构建 source 数组中位置之间的联通关系。需要使用哈希表记录为每个联通分支维护位置的集合，为每个联通分支 k 维护 target 中对应位置元素的集合。随后，汉明距离的最小值，就是这两个集合之间不同的元素的数量。<br>注意：<strong>允许集合中的元素出现重复</strong>，因此使用<code>C++</code>中的<code>unordered_multiset</code>数据结构。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; parent, <span class="keyword">int</span> index)</span> </span>&#123; <span class="comment">// 寻找根节点</span></span><br><span class="line">    <span class="keyword">if</span> (parent[index] != index) &#123;</span><br><span class="line">        parent[index] = <span class="built_in">Find</span>(parent, parent[index]); </span><br><span class="line">        <span class="comment">// 递归进行路径压缩</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parent[index];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; parent, <span class="keyword">int</span> index1, <span class="keyword">int</span> index2)</span> </span>&#123; <span class="comment">// 建立连通性</span></span><br><span class="line">    parent[<span class="built_in">Find</span>(parent, index1)] = <span class="built_in">Find</span>(parent, index2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minimumHammingDistance</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; source, vector&lt;<span class="keyword">int</span>&gt;&amp; target, vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt;&amp; allowedSwaps)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = source.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">parent</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        parent[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; allowed : allowedSwaps) &#123;</span><br><span class="line">        <span class="built_in">Union</span>(parent, allowed[<span class="number">0</span>], allowed[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, unordered_multiset&lt;<span class="keyword">int</span>&gt;&gt; s, t;</span><br><span class="line">    <span class="comment">// 为每个联通分支维护位置的集合</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> fa = <span class="built_in">Find</span>(parent, i);</span><br><span class="line">        s[fa].<span class="built_in">insert</span>(source[i]);</span><br><span class="line">        <span class="comment">//t[fa].insert(target[i]);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; </span><br><span class="line">        <span class="keyword">auto</span>&amp; m = s[<span class="built_in">Find</span>(parent, i)];</span><br><span class="line">        <span class="comment">// 如果通过下标找到的连通块中,有target[i]这个元素,那么将其删掉,反之res++</span></span><br><span class="line">        <span class="keyword">auto</span> t = m.<span class="built_in">find</span>(target[i]);</span><br><span class="line">        <span class="comment">// 不能使用 m.erase(x),不然会删掉所有的x,应该先定位到其具体位置,再删除</span></span><br><span class="line">        <span class="comment">//（因为该元素已经被用来对应了，后续无法再使用，所以要删除）</span></span><br><span class="line">        <span class="keyword">if</span> (t != m.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            m.<span class="built_in">erase</span>(t);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//if (s.find(i) == s.end()) continue;</span></span><br><span class="line">        <span class="comment">// for (int x : s[i]) &#123;</span></span><br><span class="line">        <span class="comment">//     if (t[i].find(x) == t[i].end()) &#123;</span></span><br><span class="line">        <span class="comment">//         res++;</span></span><br><span class="line">        <span class="comment">//     &#125; else &#123;</span></span><br><span class="line">        <span class="comment">//         t[i].erase(t[i].find(x));</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><h3 id="替换后的最长重复字符"><a href="#替换后的最长重复字符" class="headerlink" title="替换后的最长重复字符"></a>替换后的最长重复字符</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-repeating-character-replacement/">424. 替换后的最长重复字符</a></p>
+<p>给你一个字符串 <code>s</code> 和一个整数 <code>k</code> 。你可以选择字符串中的任一字符，并将其更改为任何其他大写英文字符。该操作最多可执行 <code>k</code> 次。</p>
+<p>在执行上述操作后，返回包含相同字母的最长子字符串的长度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：s = &quot;ABAB&quot;, k = 2</span><br><span class="line">输出：4</span><br><span class="line">解释：用两个&#x27;A&#x27;替换为两个&#x27;B&#x27;,反之亦然。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：s = &quot;AABABBA&quot;, k = 1</span><br><span class="line">输出：4</span><br><span class="line">解释：</span><br><span class="line">将中间的一个&#x27;A&#x27;替换为&#x27;B&#x27;,字符串变为 &quot;AABBBBA&quot;。</span><br><span class="line">子串 &quot;BBBB&quot; 有最长重复字母, 答案为 4。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>双指针加滑动窗口：</p>
+<p>right指针指向区间右端点，然后找到其最远的left左端点的位置，满足该区间内，出现次数最多的字符数量为maxCnt，区间长度减去maxCnt为剩余的字符数（即非最长重复字符）数量不超过k个。</p>
+<p>实际代码中，由于字符串中仅包含大写字母，我们可以使用一个长度为 26 的数组维护每一个字符的出现次数。每次区间右移，我们更新右移位置的字符出现的次数，然后尝试用它更新重复字符出现次数的历史最大值，最后我们使用该最大值计算出区间内非最长重复字符的数量，以此判断左指针是否需要右移即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">characterReplacement</span><span class="params">(string s, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">count</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(right &lt; s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        count[s[right] - <span class="string">&#x27;A&#x27;</span>]++;</span><br><span class="line">        maxCnt = <span class="built_in">max</span>(maxCnt, count[s[right] - <span class="string">&#x27;A&#x27;</span>]);</span><br><span class="line">        <span class="keyword">if</span> (right - left + <span class="number">1</span> &gt; maxCnt + k) &#123;</span><br><span class="line">            count[s[left] - <span class="string">&#x27;A&#x27;</span>]--;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, right - left + <span class="number">1</span>);</span><br><span class="line">        right++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串的排列"><a href="#字符串的排列" class="headerlink" title="字符串的排列"></a>字符串的排列</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/permutation-in-string/">567. 字符串的排列</a></p>
+<p>给你两个字符串 <code>s1</code> 和 <code>s2</code> ，写一个函数来判断 <code>s2</code> 是否包含 <code>s1</code> 的排列。如果是，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p>换句话说，<code>s1</code> 的排列之一是 <code>s2</code> 的 <strong>子串</strong> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：s1 = &quot;ab&quot; s2 = &quot;eidbaooo&quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：s2 包含 s1 的排列之一 (&quot;ba&quot;).</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：s1= &quot;ab&quot; s2 = &quot;eidboaoo&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>双指针+滑动窗口，保证窗口的大小为s1的长度n，用一个cnt数组记录s1中各个字符出现的次数，两个指针left和right， right每次右移动一次，统计一次进入区间的字符x，若此时cnt[x] &lt; 0，则向右移动左指针，增加离开区间的字符cnt值直到cnt[x] &gt;= 0。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkInclusion</span><span class="params">(string s1, string s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s1.<span class="built_in">size</span>(), m = s2.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (n &gt; m) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">count</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : s1) &#123;</span><br><span class="line">        count[c-<span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s2.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = (s2[right] - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">        right++;</span><br><span class="line">        count[x]--;</span><br><span class="line">        <span class="keyword">while</span> (count[x] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            count[s2[left] - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (right - left == n) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="划分字母区间"><a href="#划分字母区间" class="headerlink" title="划分字母区间"></a>划分字母区间</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-labels/">763. 划分字母区间</a></p>
+<p>字符串 <code>S</code> 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。返回一个表示每个字符串片段的长度的列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line"></span><br><span class="line">输入：S = &quot;ababcbacadefegdehijhklij&quot;</span><br><span class="line">输出：[9,7,8]</span><br><span class="line">解释：</span><br><span class="line">划分结果为 &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;。</span><br><span class="line">每个字母最多出现在一个片段中。</span><br><span class="line">像 &quot;ababcbacadefegde&quot;, &quot;hijhklij&quot; 的划分是错误的，因为划分的片段数较少。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>遍历字符串，count数组记录每个字符最后一次出现的位置，即出现最远的位置。双指针left和right初始指向0，对于right访问到的字符，更新right为该字符最后一次出现的位置，遍历left到right之间的窗口，如果窗口内的字符最后一次出现的位置更远则更新右端点right。窗口内的字符检查完毕后，计算窗口长度并记录在res中，将left和right更新到right+1的位置，重复以上步骤直到right到达末尾。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">partitionLabels</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">count</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        count[s[i]-<span class="string">&#x27;a&#x27;</span>] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        right = count[s[right] - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        <span class="keyword">int</span> index = left + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count[s[index]-<span class="string">&#x27;a&#x27;</span>] &gt; right) &#123;</span><br><span class="line">                right = count[s[index]-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        right++;</span><br><span class="line">        res.<span class="built_in">push_back</span>(right - left);</span><br><span class="line">        left = right;        </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><h3 id="连续的子数组和"><a href="#连续的子数组和" class="headerlink" title="连续的子数组和"></a>连续的子数组和</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/continuous-subarray-sum/">523. 连续的子数组和</a></p>
+<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，编写一个函数来判断该数组是否含有同时满足下述条件的连续子数组：</p>
+<ul>
+<li>子数组大小 <strong>至少为 2</strong> ，且</li>
+<li>子数组元素总和为 <code>k</code> 的倍数。</li>
+</ul>
+<p>如果存在，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p>如果存在一个整数 <code>n</code> ，令整数 <code>x</code> 符合 <code>x = n * k</code> ，则称 <code>x</code> 是 <code>k</code> 的一个倍数。<code>0</code> 始终视为 <code>k</code> 的一个倍数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">示例 1：</span><br><span class="line">输入：nums = [23,2,4,6,7], k = 6</span><br><span class="line">输出：true</span><br><span class="line">解释：[2,4] 是一个大小为 2 的子数组，并且和为 6 。</span><br><span class="line"></span><br><span class="line">示例 2：</span><br><span class="line">输入：nums = [23,2,6,4,7], k = 6</span><br><span class="line">输出：true</span><br><span class="line">解释：[23, 2, 6, 4, 7] 是大小为 5 的子数组，并且和为 42 。 </span><br><span class="line">42 是 6 的倍数，因为 42 = 7 * 6 且 7 是一个整数。</span><br><span class="line"></span><br><span class="line">示例 3：</span><br><span class="line">输入：nums = [23,2,6,4,7], k = 13</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>前缀和+哈希表</p>
+<p>计算前缀和数组元素与k的余数，当更新后的前缀和数组，出现两个元素的值（前缀和余数）相等，计算两个元素的距离如果大于2，表示存在子数组之和为k的整数倍。利用哈希表存储前缀和余数对应的位置索引。注意：哈希表中设置余数为0的下标为-1，方便计算子数组长度。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkSubarraySum</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    unordered_map&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; map;</span><br><span class="line">    map[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> remain = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        remain = (nums[i] + remain) % k;</span><br><span class="line">        <span class="keyword">if</span> (map.<span class="built_in">find</span>(remain) != map.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">int</span> index = map[remain];</span><br><span class="line">            <span class="keyword">if</span> (i - index &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map[remain] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/1d3d6b4e/" title="华为刷题笔记">https://silver-eagle.top/posts/1d3d6b4e/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/38e1db9d/" rel="prev" title="Linux多进程编程">
+      <i class="fa fa-chevron-left"></i> Linux多进程编程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">二分法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%B1%E5%90%83%E9%A6%99%E8%95%89%E7%9A%84%E7%8F%82%E7%8F%82"><span class="nav-number">1.1.</span> <span class="nav-text">爱吃香蕉的珂珂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.</span> <span class="nav-text">有序矩阵中第 K 小的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">搜索旋转排序数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-D-%E5%A4%A9%E5%86%85%E9%80%81%E8%BE%BE%E5%8C%85%E8%A3%B9%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="nav-number">1.4.</span> <span class="nav-text">在 D 天内送达包裹的能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E8%B7%9D%E7%A6%BB"><span class="nav-number">1.5.</span> <span class="nav-text">找出第 K 小的数对距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">1.6.</span> <span class="nav-text">分割数组的最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%90%83%E4%B9%8B%E9%97%B4%E7%9A%84%E7%A3%81%E5%8A%9B"><span class="nav-number">1.7.</span> <span class="nav-text">两球之间的磁力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E5%BC%A0%E5%88%B7%E9%A2%98%E8%AE%A1%E5%88%92"><span class="nav-number">1.8.</span> <span class="nav-text">小张刷题计划</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">差分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%88%AA%E7%8F%AD%E9%A2%84%E8%AE%A2%E7%BB%9F%E8%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text">航班预订统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%80%E6%9C%89%E6%8E%92%E5%88%97%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C"><span class="nav-number">2.2.</span> <span class="nav-text">所有排列中的最大和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%BC%E8%BD%A6"><span class="nav-number">2.3.</span> <span class="nav-text">拼车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%9A%E8%AE%AE%E5%AE%A4"><span class="nav-number">2.4.</span> <span class="nav-text">会议室</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II"><span class="nav-number">2.5.</span> <span class="nav-text">买卖股票的最佳时机 II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%81%E4%BB%BD%E6%95%B0%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">省份数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%BA%A4%E6%8D%A2%E6%93%8D%E4%BD%9C%E5%90%8E%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB"><span class="nav-number">3.2.</span> <span class="nav-text">执行交换操作后的最小汉明距离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-number">4.</span> <span class="nav-text">双指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E5%90%8E%E7%9A%84%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">替换后的最长重复字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97"><span class="nav-number">4.2.</span> <span class="nav-text">字符串的排列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%92%E5%88%86%E5%AD%97%E6%AF%8D%E5%8C%BA%E9%97%B4"><span class="nav-number">4.3.</span> <span class="nav-text">划分字母区间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">5.</span> <span class="nav-text">前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E5%92%8C"><span class="nav-number">5.1.</span> <span class="nav-text">连续的子数组和</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">314k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>

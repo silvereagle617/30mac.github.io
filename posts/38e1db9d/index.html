@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Linux多进程编程">
+<meta property="og:url" content="https://silver-eagle.top/posts/38e1db9d/index.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silver-eagle.top/posts/38e1db9d/image-20220802155324367.png">
+<meta property="og:image" content="https://silver-eagle.top/posts/38e1db9d/image-20220803103612426.png">
+<meta property="article:published_time" content="2022-08-02T01:45:08.000Z">
+<meta property="article:modified_time" content="2022-08-04T02:30:33.062Z">
+<meta property="article:author" content="Zhang Tong">
+<meta property="article:tag" content="Linux网络编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silver-eagle.top/posts/38e1db9d/image-20220802155324367.png">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/38e1db9d/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux多进程编程 | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/38e1db9d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux多进程编程
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-02 09:45:08" itemprop="dateCreated datePublished" datetime="2022-08-02T09:45:08+08:00">2022-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-04 10:30:33" itemprop="dateModified" datetime="2022-08-04T10:30:33+08:00">2022-08-04</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h2 id="fork系统调用"><a href="#fork系统调用" class="headerlink" title="fork系统调用"></a>fork系统调用</h2><p>fork系统调用：创建新进程</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/types.h＞</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜unistd.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	每次调用返回两次，在父进程中返回子进程的PID，在子进程中返回0。</span></span><br><span class="line"><span class="comment">	该返回值是判断当前进程是父进程还是子进程的依据。</span></span><br><span class="line"><span class="comment">	失败返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>fork函数复制当前进程，在内核进程表中创建一个新的进程表项。新的进程表项有很多属性与原进程相同，比如堆栈指针、标志寄存器的值。不同的属性有：该进程的PPID被设置成原进程的PID，信号位图被清除（原进程设置的信号处理函数不再对新进程起作用）。</p>
+<p>子进程的代码与父进程完全相同，同时会复制父进程的数据（堆数据、栈数据、静态数据）。数据的复制采用<strong>写时复制，读时共享</strong>。只有在任一进程（父进程或子进程）对数据执行了写操作时，复制才会发生（先是缺页中断，然后操作系统给子进程分配内存并复制父进程的数据）</p>
+<p>子进程fork创建后，父进程打开的文件描述符默认在子进程中也是打开的，而且文件描述符的引用计数加一。不仅如此，父进程的用户根目录、当前工作目录等变量的引用计数均会加1。</p>
+<h2 id="exec系列系统调用"><a href="#exec系列系统调用" class="headerlink" title="exec系列系统调用"></a>exec系列系统调用</h2><p>exec系列函数：在子进程中执行其他程序，即替换当前进程映像。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜unistd.h＞</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span>**environ;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*path,<span class="keyword">const</span> <span class="keyword">char</span>*arg,...)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execlp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*file,<span class="keyword">const</span> <span class="keyword">char</span>*arg,...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execle</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*path,<span class="keyword">const</span> <span class="keyword">char</span>*arg,...,<span class="keyword">char</span>*<span class="keyword">const</span> envp[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*path,<span class="keyword">char</span>*<span class="keyword">const</span> argv[])</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execvp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*file,<span class="keyword">char</span>*<span class="keyword">const</span> argv[])</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*path,<span class="keyword">char</span>*<span class="keyword">const</span> argv[],<span class="keyword">char</span>*<span class="keyword">const</span> envp[])</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	path：指定可执行文件的完整路径</span></span><br><span class="line"><span class="comment">	file：接受文件名，该文件的具体位置则在环境变量PATH中搜寻</span></span><br><span class="line"><span class="comment">	arg：接受可变参数</span></span><br><span class="line"><span class="comment">	argv：接受参数数组，传递给新程序（path或file指定的程序）的main函数</span></span><br><span class="line"><span class="comment">	envp：设置新程序的环境变量；未设置则新程序将使用全局变量environ指定的环境变量</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	一般情况下，exec函数是不返回的，除非出错。它出错时返回-1，并设置errno。</span></span><br><span class="line"><span class="comment">	如果没出错，则原程序中exec调用之后的代码都不会执行，</span></span><br><span class="line"><span class="comment">	因为此时原程序已经被exec的参数指定的程序完全替换（包括代码和数据）。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>exec函数不会关闭原程序打开的文件描述符，除非该文件描述符被设置了类似SOCK_CLOEXEC的属性。</p>
+<h2 id="处理僵尸进程"><a href="#处理僵尸进程" class="headerlink" title="处理僵尸进程"></a>处理僵尸进程</h2><p>子进程处于僵尸态：</p>
+<ul>
+<li>在子进程结束运行之后，父进程读取其退出状态之前，该子进程处于僵尸态。</li>
+<li>父进程结束或者异常终止，而子进程继续运行。此时子进程的PPID将被操作系统设置为1，即init进程。<br>init进程接管了该子进程，并等待它结束。在父进程退出之后，子进程退出之前，该子进程处于僵尸态。</li>
+</ul>
+<p>父进程未正确地处理子进程的返回信息，子进程都会停留在僵尸态，并占据着内核资源。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/types.h＞</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/wait.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">wait</span><span class="params">(<span class="keyword">int</span>* stat_loc)</span></span>; </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">作用：阻塞进程，直到该进程的某个子进程结束运行为止。</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	stat_loc：存储子进程的退出状态信息。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	返回结束运行的子进程的PID。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">waitpid</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span>* stat_loc, <span class="keyword">int</span> options)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">作用：只等待pid参数指定的子进程。pid为-1则与wait函数相同，等待任意一个子进程结束。</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	pid：进程pid</span></span><br><span class="line"><span class="comment">	stat_loc：存储子进程的退出状态信息。</span></span><br><span class="line"><span class="comment">	options：控制waitpid函数的行为。常用取值WNOHANG，waitpid调用将是非阻塞的。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	如果pid指定的目标子进程 还没有结束或意外终止，则waitpid立即返回0；</span></span><br><span class="line"><span class="comment">	如果目标子进程确实正常退出了，则waitpid返回该子进程的PID。</span></span><br><span class="line"><span class="comment">	waitpid调用失败时返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>在事件已经发生的情况下执行非阻塞调用才能提高程序的效率。waitpid函数最好在某个子进程退出之后再调用它。</p>
+<p>利用SIGCHLD信号，父进程可以得知某个子进程已经退出。当一个进程结束时，它将给其父进程发送一个SIGCHLD信号。可以在父进程中捕获SIGCHLD信号，并在信号处理函数中调用waitpid函数以“彻底结束”一个子进程：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handle_child</span><span class="params">(<span class="keyword">int</span> sig)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> pid; </span><br><span class="line">    <span class="keyword">int</span> stat; </span><br><span class="line">    <span class="keyword">while</span>((pid = <span class="built_in">waitpid</span>(<span class="number">-1</span>, ＆stat, WNOHANG)) ＞ <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">/*对结束的子进程进行善后处理*/</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>父进程与子进程间通信的常用手段：管道。</p>
+<p>管道能在父、子进程间传递数据，利用的是fork调用之后两个管道文件描述符（fd[0]和fd[1]）都保持打开。一对这样的文件描述符只能保证父、子进程间一个方向的数据传输，父进程和子进程必须有一个关闭 fd[0]，另一个关闭fd[1]。</p>
+<p>如果要实现父、子进程之间的双向数据传输，就必须使用两个管道。</p>
+<p>父进程通过管道向子进程写数据：</p>
+<img src="/posts/38e1db9d/image-20220802155324367.png" alt="image-20220802155324367" style="zoom: 67%;">
+
+<p>socket编程接口提供了一个创建全双工管道的系统调用：socketpair。</p>
+<p>管道只能用于有关联的两个进程（比如父、子进程）间的通信。System V IPC能用于无关联的多个进程之间的通信，因为它们都使用一个全局唯一的键值来标识一条信道。</p>
+<p>FIFO管道（First In First Out，先进先出），特殊的管道，也能用于无关联进程之间的通信。</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>临界区/关键代码段：程序对共享资源的访问的代码，这段代码引发了进程之间的竞态条件。</p>
+<p>信号量是一种特殊的变量，它只能取自然数值并且只支持两种操作：等待（wait）和信号（signal）。在Linux/UNIX中，“等待”和“信号”都已经具有特殊的含义，所以对信号量的这两种操作更常用的称呼是P、V操作。P：传递，进入临界区；V：释放，退出临界区。假设有信号量SV，则对它的P、V操作含义如下：</p>
+<ul>
+<li>P(SV)，如果SV的值大于0，就将它减1；如果SV的值为0，则挂起进程的执行。</li>
+<li>V(SV)，如果有其他进程因为等待SV而挂起，则唤醒之；如果没有，则将SV加1。</li>
+</ul>
+<p>最常用的、最简单的信号量是二进制信号量，它只能取0和1这两个值。</p>
+<img src="/posts/38e1db9d/image-20220803103612426.png" alt="image-20220803103612426" style="zoom:67%;">
+
+<p>当关键代码段可用时，二进制信号量SV的值为1，进程A和B都有机会进入关键代码段。如果此时进程A执行了P(SV)操作将SV减1，则进程B若再执行P(SV)操作就会被挂起。直到进程A离开关键代码段，并执行V(SV)操作将SV加1，关键代码段才重新变得可用。如果此时进程B因为等待SV而处于挂起状态，则它将被唤醒，并进入关键代码段。同样，这时进程A如果再执行P(SV)操作，则也只能被操作系统挂起以等待进程B退出关键代码段。</p>
+<p>Linux信号量的API都定义在sys/sem.h头文件中，主要包含3个系统调用：semget、semop和semctl。</p>
+<h3 id="semget系统调用"><a href="#semget系统调用" class="headerlink" title="semget系统调用"></a>semget系统调用</h3><p>semget系统调用创建一个新的信号量集，或者获取一个已经存在的信号量集。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/sem.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key,<span class="keyword">int</span> num_sems,<span class="keyword">int</span> sem_flags)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	key：一个键值，标识一个全局唯一的信号量集。</span></span><br><span class="line"><span class="comment">		通过信号量通信的进程需要使用相同的键值来创建/获取该信号量。</span></span><br><span class="line"><span class="comment">    num_sems：指定要创建/获取的信号量集中信号量的数目。</span></span><br><span class="line"><span class="comment">    	如果是创建信号量，则该值必须被指定；如果是获取已经存在的信号量，则可以把它设置为0</span></span><br><span class="line"><span class="comment">    sem_flags：指定一组标志。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回一个正整数值，它是信号量集的标识符；失败返回-1.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="semop系统调用"><a href="#semop系统调用" class="headerlink" title="semop系统调用"></a>semop系统调用</h3><p>semop系统调用改变信号量的值，即执行P、V操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 与每个信号量关联的一些重要的内核变量：</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> semval; <span class="comment">/*信号量的值*/</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> semzcnt; <span class="comment">/*等待信号量值变为0的进程数量*/</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> semncnt; <span class="comment">/*等待信号量值增加的进程数量*/</span></span><br><span class="line"><span class="keyword">pid_t</span> sempid; <span class="comment">/*最后一次执行semop操作的进程ID*/</span></span><br></pre></td></tr></table></figure>
+
+<p>semop对信号量的操作实际上就是对内核变量的操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/sem.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id,struct sembuf*sem_ops,<span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	sem_id：由semget调用返回的信号量集标识符，用以指定被操作的目标信号量集。</span></span><br><span class="line"><span class="comment">	sem_ops：指向一个sembuf结构体类型的数组。</span></span><br><span class="line"><span class="comment">	num_sem_ops：指定要执行的操作个数，即sem_ops数组中元素的个数。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回0，失败则返回-1并设置errno。</span></span><br><span class="line"><span class="comment">	失败的时候，sem_ops数组中指定的所有操作都不被执行。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sembuf结构体：</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span>&#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span> sem_num; <span class="comment">// 信号量集中信号量的编号，0表示信号量集中的第一个信号量</span></span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> sem_op; <span class="comment">// 指定操作类型，其可选值为正整数、0和负整数。</span></span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> sem_flg; <span class="comment">// 标志位。</span></span><br><span class="line">    	<span class="comment">// IPC_NOWAIT：无论信号量操作是否成功，semop调用都将立即返回，这类似于非阻塞I/O</span></span><br><span class="line">    	<span class="comment">// SEM_UNDO：当进程退出时取消正在进行的semop操作。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="semctl系统调用"><a href="#semctl系统调用" class="headerlink" title="semctl系统调用"></a>semctl系统调用</h3><p>semctl系统调用允许调用者对信号量进行直接控制。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/sem.h＞</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id,<span class="keyword">int</span> sem_num,<span class="keyword">int</span> command,...)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	sem_id：由semget调用返回的信号量集标识符，用以指定被操作的目标信号量集。</span></span><br><span class="line"><span class="comment">	sem_num：指定被操作的信号量在信号量集中的编号。</span></span><br><span class="line"><span class="comment">	command：指定要执行的命令。有的命令需要调用者传递第4个参数。</span></span><br><span class="line"><span class="comment">		第4个参数的类型由用户自己定义，但sys/sem.h头文件给出了它的推荐格式，</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时的返回值取决于command参数；失败时返回-1，并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>共享内存是最高效的IPC机制，因为它不涉及进程之间的任何数据传输。</p>
+<p>缺点：必须用其他辅助手段来同步进程对共享内存的访问，否则会产生竞态条件。因此，共享内存通常和其他进程间通信方式一起使用。</p>
+<p>Linux共享内存的API都定义在sys/shm.h头文件中，包括4个系统调用：shmget、shmat、shmdt和shmctl。</p>
+<h3 id="shmget系统调用"><a href="#shmget系统调用" class="headerlink" title="shmget系统调用"></a>shmget系统调用</h3><p>shmget系统调用创建一段新的共享内存，或者获取一段已经存在的共享内存。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/shm.h＞</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmget</span><span class="params">(<span class="keyword">key_t</span> key,<span class="keyword">size_t</span> size,<span class="keyword">int</span> shmflg)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	key：一个键值，标识一个全局唯一的共享内存。</span></span><br><span class="line"><span class="comment">	size：指定共享内存的大小，单位字节。</span></span><br><span class="line"><span class="comment">		创建新的共享内存，size需指定大小；获取已存在的共享内存，size设置为0</span></span><br><span class="line"><span class="comment">	shmflg：标志位。</span></span><br><span class="line"><span class="comment">		SHM_HUGETLB，类似于mmap的MAP_HUGETLB标志，系统将使用“大页面”来为共享内存分配空间。</span></span><br><span class="line"><span class="comment">		SHM_NORESERVE，类似于mmap的MAP_NORESERVE标志，不为共享内存保留交换分区（swap空间）。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回一个正整数值，它是共享内存的标识符。</span></span><br><span class="line"><span class="comment">	失败时返回-1，并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="shmat和shmdt系统调用"><a href="#shmat和shmdt系统调用" class="headerlink" title="shmat和shmdt系统调用"></a>shmat和shmdt系统调用</h3><p>共享内存被创建/获取之后，还不能立即访问它，而是需要先将它关联到进程的地址空间中。</p>
+<p>使用完共享内存之后，需要将它从进程地址空间中分离。这两项任务分别由如下两个系统调用实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/shm.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">shmat</span><span class="params">(<span class="keyword">int</span> shm_id,<span class="keyword">const</span> <span class="keyword">void</span>*shm_addr,<span class="keyword">int</span> shmflg)</span></span>; </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	shm_id：由shmget调用返回的共享内存标识符。</span></span><br><span class="line"><span class="comment">	shm_addr：指定将共享内存关联到进程的哪块地址空间。</span></span><br><span class="line"><span class="comment">		NULL，则被关联的地址由操作系统选择。（推荐）</span></span><br><span class="line"><span class="comment">		非空，并且SHM_RND标志未被设置，则共享内存被关联到addr指定的地址处。</span></span><br><span class="line"><span class="comment">		非空，设置了SHM_RND标志，关联地址向下圆整到离shm_addr最近的SHMLBA的整数倍地址处。</span></span><br><span class="line"><span class="comment">	shmflg：可选标志。</span></span><br><span class="line"><span class="comment">		SHM_RDONLY。进程仅能读取共享内存中的内容。</span></span><br><span class="line"><span class="comment">			若没有指定该标志，则进程可同时对共享内存进行读写操作。</span></span><br><span class="line"><span class="comment">		SHM_REMAP。如果地址shmaddr已经被关联到一段共享内存上，则重新关联。</span></span><br><span class="line"><span class="comment">		SHM_EXEC。它指定对共享内存段的执行权限。执行权限实际上和读权限是一样的。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回共享内存被关联到的地址，失败则返回(void*)-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmdt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>*shm_addr)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">作用：</span></span><br><span class="line"><span class="comment">	将关联到shm_addr处的共享内存从进程中分离。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回0，失败则返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="shmctl系统调用"><a href="#shmctl系统调用" class="headerlink" title="shmctl系统调用"></a>shmctl系统调用</h3><p>shmctl系统调用控制共享内存的某些属性。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/shm.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmctl</span><span class="params">(<span class="keyword">int</span> shm_id,<span class="keyword">int</span> command,struct shmid_ds*buf)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	shm_id：是由shmget调用返回的共享内存标识符</span></span><br><span class="line"><span class="comment">	command：指定要执行的命令</span></span><br><span class="line"><span class="comment">	buf：与之关联的内核数据结构</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时的返回值取决于command参数，失败时返回-1，并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="共享内存的POSIX方法"><a href="#共享内存的POSIX方法" class="headerlink" title="共享内存的POSIX方法"></a>共享内存的POSIX方法</h3><p>mmap函数，利用MAP_ANONYMOUS标志可以实现父、子进程之间的匿名内存共享。通过打开同一个文件，mmap也可以实现无关进程之间的内存共享。Linux提供了另外一种利用mmap在无关进程之间共享内存的方式。这种方式无须任何文件的支持，但它需要先使用如下函数来创建或打开一个POSIX共享内存对象：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/mman.h＞</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/stat.h＞ </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜fcntl.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shm_open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*name,<span class="keyword">int</span> oflag,<span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">使用：与open系统调用完全相同</span></span><br><span class="line"><span class="comment">	name：指定要创建/打开的共享内存对象。</span></span><br><span class="line"><span class="comment">	oflag：指定创建方式。一个或多个标志按位与。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回一个文件描述符。该文件描述符可用于后续的mmap调用，从而将共享内存关联到调用进程。</span></span><br><span class="line"><span class="comment">	失败返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>和打开的文件最后需要关闭一样，由shm_open创建的共享内存对象使用完之后也需要被删除。这个过程是通过如下函数实现的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/mman.h＞ </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/stat.h＞</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜fcntl.h＞</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shm_unlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>*name)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">作用：将name参数指定的共享内存对象标记为等待删除。</span></span><br><span class="line"><span class="comment">	当所有使用该共享内存对象的进程都使用ummap将它从进程中分离之后，</span></span><br><span class="line"><span class="comment">	系统将销毁这个共享内存对象所占据的资源。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>如果代码中使用了上述POSIX共享内存函数，则编译的时候需要指定链接选项-lrt。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>消息队列是在两个进程之间传递二进制块数据的一种简单有效的方式。每个数据块都有一个特定的类型，接收方可以根据类型来有选择地接收数据，而不一定像管道和命名管道那样必须以先进先出的方式接收数据。</p>
+<p>Linux消息队列的API都定义在sys/msg.h头文件中，包括4个系统调用：msgget、msgsnd、msgrcv和msgctl。</p>
+<h3 id="msgget系统调用"><a href="#msgget系统调用" class="headerlink" title="msgget系统调用"></a>msgget系统调用</h3><p>msgget系统调用创建一个消息队列，或者获取一个已有的消息队列。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/msg.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key,<span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	key：一个键值，用来标识一个全局唯一的消息队列。</span></span><br><span class="line"><span class="comment">	msgflg：与semget系统调用的sem_flags参数相同。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回一个正整数值，它是消息队列的标识符。</span></span><br><span class="line"><span class="comment">	失败时返回-1，并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>如果msgget用于创建消息队列，则与之关联的内核数据结构msqid_ds将被创建并初始化。</p>
+<h3 id="msgsnd系统调用"><a href="#msgsnd系统调用" class="headerlink" title="msgsnd系统调用"></a>msgsnd系统调用</h3><p>msgsnd系统调用把一条消息添加到消息队列中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/msg.h＞</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">(<span class="keyword">int</span> msqid,<span class="keyword">const</span> <span class="keyword">void</span>*msg_ptr,<span class="keyword">size_t</span> msg_sz,<span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	msqid：由msgget调用返回的消息队列标识符。</span></span><br><span class="line"><span class="comment">	msg_ptr：指向一个准备发送的消息。</span></span><br><span class="line"><span class="comment">	msg_sz：消息的数据部分（mtext）的长度。这个长度可以为0，表示没有消息数据。</span></span><br><span class="line"><span class="comment">	msgflg：控制msgsnd的行为。通常仅支持IPC_NOWAIT标志，即以非阻塞的方式发送消息。</span></span><br><span class="line"><span class="comment">		默认情况下，发送消息时如果消息队列满了，则msgsnd将阻塞。</span></span><br><span class="line"><span class="comment">		若IPC_NOWAIT标志被指定，则msgsnd将立即返回并设置errno为EAGAIN。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回0，失败则返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 消息定义类型</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msgbuf</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> mtype;<span class="comment">/*消息类型*/</span> </span><br><span class="line">    <span class="keyword">char</span> mtext[<span class="number">512</span>];<span class="comment">/*消息数据*/</span> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="msgrcv系统调用"><a href="#msgrcv系统调用" class="headerlink" title="msgrcv系统调用"></a>msgrcv系统调用</h3><p>msgrcv系统调用从消息队列中获取消息。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/msg·h＞</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgrcv</span><span class="params">(<span class="keyword">int</span> msqid,<span class="keyword">void</span>*msg_ptr,<span class="keyword">size_t</span> msg_sz,<span class="keyword">long</span> <span class="keyword">int</span> msgtype,<span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	msqid：由msgget调用返回的消息队列标识符。</span></span><br><span class="line"><span class="comment">	msg_ptr：用于存储接收的消息。</span></span><br><span class="line"><span class="comment">	msg_sz：消息数据部分的长度。</span></span><br><span class="line"><span class="comment">	msgtype：指定接收何种类型的消息。</span></span><br><span class="line"><span class="comment">		等于0。读取消息队列中的第一个消息。</span></span><br><span class="line"><span class="comment">		大于0。读取消息队列中第一个类型为msgtype的消息。</span></span><br><span class="line"><span class="comment">		小于0。读取消息队列中第一个类型值比msgtype的绝对值小的消息。</span></span><br><span class="line"><span class="comment">	msgflg：控制msgrcv函数的行为。</span></span><br><span class="line"><span class="comment">		IPC_NOWAIT。如果消息队列中没有消息，则msgrcv调用立即返回并设置errno为ENOMSG。 				MSG_EXCEPT。如果msgtype大于0，则接收消息队列中第一个非msgtype类型的消息。 					MSG_NOERROR。如果消息数据部分的长度超过了msg_sz，就将它截断。</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时返回0，失败则返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="msgctl系统调用"><a href="#msgctl系统调用" class="headerlink" title="msgctl系统调用"></a>msgctl系统调用</h3><p>msgctl系统调用控制消息队列的某些属性。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>＜sys/msg.h＞ </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgctl</span><span class="params">(<span class="keyword">int</span> msqid,<span class="keyword">int</span> command,struct msqid_ds*buf)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">参数：</span></span><br><span class="line"><span class="comment">	msqid：由msgget调用返回的消息队列标识符。</span></span><br><span class="line"><span class="comment">	command：指定要执行的命令。</span></span><br><span class="line"><span class="comment">	buf：指向内核数据结构msqid_ds</span></span><br><span class="line"><span class="comment">返回值：</span></span><br><span class="line"><span class="comment">	成功时的返回值取决于command参数。</span></span><br><span class="line"><span class="comment">	失败时返回-1并设置errno。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="IPC命令"><a href="#IPC命令" class="headerlink" title="IPC命令"></a>IPC命令</h2><p>信号量、共享内存、消息队列，这三种System V IPC进程间通信方式都使用一个全局唯一的键值（key）来描述一个共享资源。当程序调用semget、shmget或者msgget时，就创建了这些共享资源的一个实例。</p>
+<p>Linux提供了ipcs命令，以观察当前系统上拥有哪些共享资源实例。</p>
+<p>可以使用ipcrm命令来删除遗留在系统中的共享资源。</p>
+<h2 id="在进程间传递文件描述符"><a href="#在进程间传递文件描述符" class="headerlink" title="在进程间传递文件描述符"></a>在进程间传递文件描述符</h2><p>由于fork调用之后，父进程中打开的文件描述符在子进程中仍然保持打开，所以文件描述符可以很方便地从父进程传递到子进程。传递一个文件描述符并不是传递一个文件描述符的值，而是要在接收进程中创建一个新的文件描述符，并且该文件描述符和发送进程中被传递的文件描述符指向内核中相同的文件表项。</p>
+<p>如何把子进程中打开的文件描述符传递给父进程，或者说，如何在两个不相干的进程之间传递文件描述符，可以利用UNIX域socket在进程间传递特殊的辅助数据，以实现文件描述符的传递。</p>
+<p>在进程间传递文件描述符：子进程中打开一个文件描述符，然后将它传递给父进程，父进程则通过读取该文件描述符来获得文件的内容。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 13-5passfd.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> CONTROL_LEN = <span class="built_in">CMSG_LEN</span>( <span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>) );</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送文件描述符，fd为传递信息的UNIX域socket，fd_to_send为待发送的文件描述符</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send_fd</span><span class="params">( <span class="keyword">int</span> fd, <span class="keyword">int</span> fd_to_send )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[1];</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = buf;</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = <span class="number">1</span>;</span><br><span class="line">    msg.msg_name    = <span class="literal">NULL</span>;</span><br><span class="line">    msg.msg_namelen = <span class="number">0</span>;</span><br><span class="line">    msg.msg_iov     = iov;</span><br><span class="line">    msg.msg_iovlen = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    cmsghdr cm;</span><br><span class="line">    cm.cmsg_len = CONTROL_LEN;</span><br><span class="line">    cm.cmsg_level = SOL_SOCKET;</span><br><span class="line">    cm.cmsg_type = SCM_RIGHTS;</span><br><span class="line">    *(<span class="keyword">int</span> *)<span class="built_in">CMSG_DATA</span>( &amp;cm ) = fd_to_send;</span><br><span class="line">    msg.msg_control = &amp;cm; <span class="comment">// 设置辅助数据</span></span><br><span class="line">    msg.msg_controllen = CONTROL_LEN;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sendmsg</span>( fd, &amp;msg, <span class="number">0</span> );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收目标文件描述符</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">recv_fd</span><span class="params">( <span class="keyword">int</span> fd )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[1];</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = buf;</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = <span class="number">1</span>;</span><br><span class="line">    msg.msg_name    = <span class="literal">NULL</span>;</span><br><span class="line">    msg.msg_namelen = <span class="number">0</span>;</span><br><span class="line">    msg.msg_iov     = iov;</span><br><span class="line">    msg.msg_iovlen = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    cmsghdr cm;</span><br><span class="line">    msg.msg_control = &amp;cm;</span><br><span class="line">    msg.msg_controllen = CONTROL_LEN;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">recvmsg</span>( fd, &amp;msg, <span class="number">0</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> fd_to_read = *(<span class="keyword">int</span> *)<span class="built_in">CMSG_DATA</span>( &amp;cm );</span><br><span class="line">    <span class="keyword">return</span> fd_to_read;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> fd_to_pass = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 创建父、子进程之间的管道，文件描述符pipefd[0]和pipefd[1]都是UNIX域socket</span></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="built_in">socketpair</span>( PF_UNIX, SOCK_DGRAM, <span class="number">0</span>, pipefd );</span><br><span class="line">    <span class="built_in">assert</span>( ret != <span class="number">-1</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">    <span class="built_in">assert</span>( pid &gt;= <span class="number">0</span> );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( pid == <span class="number">0</span> ) <span class="comment">// 子进程</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">close</span>( pipefd[<span class="number">0</span>] );</span><br><span class="line">        fd_to_pass = <span class="built_in">open</span>( <span class="string">&quot;test.txt&quot;</span>, O_RDWR, <span class="number">0666</span> );</span><br><span class="line">        <span class="comment">// 子进程通过管道将文件描述符发送到父进程。</span></span><br><span class="line">        <span class="comment">// 如果文件test.txt打开失败，则子进程将标准输入文件描述符发送到父进程</span></span><br><span class="line">        <span class="built_in">send_fd</span>( pipefd[<span class="number">1</span>], ( fd_to_pass &gt; <span class="number">0</span> ) ? fd_to_pass : <span class="number">0</span> );</span><br><span class="line">        <span class="built_in">close</span>( fd_to_pass );</span><br><span class="line">        <span class="built_in">exit</span>( <span class="number">0</span> );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span>( pipefd[<span class="number">1</span>] );</span><br><span class="line">    fd_to_pass = <span class="built_in">recv_fd</span>( pipefd[<span class="number">0</span>] ); <span class="comment">// 父进程从管道接收目标文件描述</span></span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line">    <span class="built_in">memset</span>( buf, <span class="string">&#x27;\0&#x27;</span>, <span class="number">1024</span> );</span><br><span class="line">    <span class="built_in">read</span>( fd_to_pass, buf, <span class="number">1024</span> ); <span class="comment">// 读目标文件描述符，以验证其有效性</span></span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;I got fd %d and data %s\n&quot;</span>, fd_to_pass, buf );</span><br><span class="line">    <span class="built_in">close</span>( fd_to_pass );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/38e1db9d/" title="Linux多进程编程">https://silver-eagle.top/posts/38e1db9d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> Linux网络编程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/bbbdabf8/" rel="prev" title="I/O复用">
+      <i class="fa fa-chevron-left"></i> I/O复用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/1d3d6b4e/" rel="next" title="华为刷题笔记">
+      华为刷题笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fork%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">fork系统调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">exec系列系统调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">处理僵尸进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">4.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">信号量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#semget%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">5.1.</span> <span class="nav-text">semget系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#semop%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">5.2.</span> <span class="nav-text">semop系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#semctl%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">5.3.</span> <span class="nav-text">semctl系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shmget%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">6.1.</span> <span class="nav-text">shmget系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shmat%E5%92%8Cshmdt%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">6.2.</span> <span class="nav-text">shmat和shmdt系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shmctl%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">6.3.</span> <span class="nav-text">shmctl系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E7%9A%84POSIX%E6%96%B9%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">共享内存的POSIX方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">7.</span> <span class="nav-text">消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#msgget%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">7.1.</span> <span class="nav-text">msgget系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msgsnd%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">7.2.</span> <span class="nav-text">msgsnd系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msgrcv%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">7.3.</span> <span class="nav-text">msgrcv系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msgctl%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">7.4.</span> <span class="nav-text">msgctl系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPC%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">IPC命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">9.</span> <span class="nav-text">在进程间传递文件描述符</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">314k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:46</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>
