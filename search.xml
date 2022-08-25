@@ -89,6 +89,181 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Linux下的C++项目开发：聊天室（一）</title>
+    <url>/posts/afd28464/</url>
+    <content><![CDATA[<hr>
+<span id="more"></span>
+
+<h2 id="Linux-C-开发常用工具"><a href="#Linux-C-开发常用工具" class="headerlink" title="Linux C++ 开发常用工具"></a>Linux C++ 开发常用工具</h2><h3 id="使用g-编译代码"><a href="#使用g-编译代码" class="headerlink" title="使用g++编译代码"></a>使用g++编译代码</h3><h4 id="C-编译过程"><a href="#C-编译过程" class="headerlink" title="C++编译过程"></a>C++编译过程</h4><p>C++的编译过程主要有四个阶段：预处理、编译、汇编、链接：</p>
+<ul>
+<li>预处理：主要负责宏定义的替换、条件编译（防止重复包含头文件的宏#ifdef、#ifndef、#else、#endif等）、将include的头文件展开到正文等；</li>
+<li>编译：负责将源代码转化为汇编代码；</li>
+<li>汇编：负责将汇编代码转化为可重定位的目标二进制文件；<ul>
+<li>静态重定位：即在程序装入内存的过程中完成，是指在程序开始运行前，程序中的各个地址有关的项均已完成重定位，地址变换通常是在装入时一次完成的，以后不再改变，故称为静态重定位。</li>
+<li>动态重定位：它不是在程序装入内存时完成的，而是CPU每次访问内存时 由动态地址变换机构（硬件）自动进行把相对地址转换为绝对地址。动态重定位需要软件和硬件相互配合完成。</li>
+</ul>
+</li>
+<li>链接：负责将所有的目标文件（二进制目标文件、库文件等）连接起来，进行符号解析和重定位，最后生成可执行文件。<strong>静态链接和动态链接两者最大的区别就在于链接的时机不一样。</strong><ul>
+<li>静态链接：将多个源文件产生的目标文件进行链接，从而形成一个可以执行的程序，静态库也可以简单地看成是一组目标文件的集合，即很多目标文件经过压缩打包后形成的一个文件。<strong>静态链接是在形成可执行程序前。</strong></li>
+<li>动态链接：解决静态链接的两个问题，空间浪费和更新困难。动态链接把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件。<strong>动态链接的进行则是在程序执行时。</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="g-编译命令"><a href="#g-编译命令" class="headerlink" title="g++编译命令"></a>g++编译命令</h4><p>假设有test.cpp文件：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">add</span>(a,b)&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>预处理阶段的结果，直接在终端输出，命令为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -E test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>编译阶段可以得到汇编代码（.s 文件），可由以下命令直接得到汇编代码文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -S test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>可重定位的目标文件（.o 文件）由以下命令直接得到：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -c test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>需要得到最终的可执行文件时可使用下面这条命令，需要自己指定目标文件名，下面这条命令最终得到名为 work 的可执行文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -o work test.cpp</span><br><span class="line">g++ test.cpp -o work</span><br></pre></td></tr></table></figure>
+
+<p>两种写法都可以，注意命令中-o后面是生成可执行文件的名字。</p>
+<p>在实际开发过程中，往往需要使用 gdb 进行调试，可以在编译时加上-g 选项，如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -g -o work test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>如果在开发过程中加入自己指定使用的动态链接库，比如我们需要使用 pthread 线程库，需要加上 -l 选项。下例中编译器会到 <code>lib</code> 目录下找 <code>libpthread.so</code> 文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -o work test.cpp -lpthread</span><br></pre></td></tr></table></figure>
+
+<h4 id="多文件编译"><a href="#多文件编译" class="headerlink" title="多文件编译"></a>多文件编译</h4><p>多个源码文件进行一起编译，例如有三个cpp文件：a.cpp、b.h、b.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// a.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;b.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">add</span>(a,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> BH</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BH</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// b.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;b.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以采用以下的编译命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -o test a.cpp b.cpp</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令运行程序：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./test</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行可执行文件"><a href="#运行可执行文件" class="headerlink" title="运行可执行文件"></a>运行可执行文件</h4><p>使用 g++ 编译得到的可执行文件，使用如下格式执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./可执行文件名</span><br></pre></td></tr></table></figure>
+
+<p>如果程序需要传入参数，则以下述格式执行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./可执行文件名 参数1 参数2</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用gdb进行调试"><a href="#使用gdb进行调试" class="headerlink" title="使用gdb进行调试"></a>使用gdb进行调试</h3><h4 id="安装gdb"><a href="#安装gdb" class="headerlink" title="安装gdb"></a>安装gdb</h4><p>安装分为编译安装和 <code>apt</code> 命令安装，因为 Ubuntu 的软件包仓库内置了 gdb，所以可以直接使用命令安装。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install gdb</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后查看gdb版本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gdb -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="gdb常用调试命令"><a href="#gdb常用调试命令" class="headerlink" title="gdb常用调试命令"></a>gdb常用调试命令</h4><p>为了能使用 gdb 调试，在用 g++ 编译时要将 -g 参数加上，然后进行gdb调试：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -g -o test a.cpp b.cpp</span><br><span class="line">gdb test</span><br></pre></td></tr></table></figure>
+
+<p>常用的调试命令：</p>
+<ul>
+<li><code>l</code>：查看代码</li>
+<li><code>b 5</code>：在程序的第 5 行添加断点</li>
+<li><code>info break</code>：查看断点</li>
+<li><code>r</code>：开始运行</li>
+<li><code>s</code>：进入函数内部</li>
+<li><code>n</code>：进入下一步</li>
+<li><code>finish</code>：跳出函数内部</li>
+<li><code>c</code>：运行到下一个断点</li>
+</ul>
+<p>最后退出调试，可以直接输入 <code>quit</code> 命令。</p>
+<h3 id="编写-makefile-进行自动编译"><a href="#编写-makefile-进行自动编译" class="headerlink" title="编写 makefile 进行自动编译"></a>编写 makefile 进行自动编译</h3><p>在大型项目中有大量的源代码文件，不可能每次都逐个敲 g++ 命令来进行编译，而是采用编写 makefile 的方式来进行自动编译，提高效率。</p>
+<h4 id="创建makefile"><a href="#创建makefile" class="headerlink" title="创建makefile"></a>创建makefile</h4><p>和创建源代码文件一样，可以直接用 vi 编辑器来创建 makefile：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi makefile</span><br></pre></td></tr></table></figure>
+
+<p>写好 makefile 内容后，命令模式输入 <code>wq</code> 保存离开即可。</p>
+<h4 id="makefile基本格式"><a href="#makefile基本格式" class="headerlink" title="makefile基本格式"></a>makefile基本格式</h4><p>一般格式为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">目标名1：依赖文件1，依赖文件2，依赖文件3</span><br><span class="line">    g++ 编译命令</span><br><span class="line">目标名2：依赖文件4，依赖文件5</span><br><span class="line">    g++ 编译命令</span><br></pre></td></tr></table></figure>
+
+<p>其中目标名可以由自己定义，也可以是一个文件的名字；依赖文件就是说要达成这个目标所需要的文件。 仍以前面的“多文件编译”代码为例，可以写出如下的 makefile 文件（注意：makefile 文件中要使用 tab 键，不能使用空格键，否则会报错）：</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">target:a.cpp b.o</span></span><br><span class="line">    g++ -o test a.cpp b.o</span><br><span class="line"><span class="section">b.o:b.cpp</span></span><br><span class="line">    g++ -c b.cpp</span><br></pre></td></tr></table></figure>
+
+<p>target 依赖于 <code>a.cpp</code> 和 <code>b.o</code>，而 <code>b.o</code> 依赖于 <code>b.cpp</code>，因此编译时发现 <code>b.cpp</code> 更新了的话就会先执行后面的命令来更新 <code>b.o</code>。保存好 makefile 文件之后，我们用命令行输入 <code>make</code> 即可进行自动编译：</p>
+<h4 id="快速清理目标文件"><a href="#快速清理目标文件" class="headerlink" title="快速清理目标文件"></a>快速清理目标文件</h4><p>有时候我们想要删掉 makefile 产生出来的所有目标文件，如果逐个去删显得过于麻烦，因此我们可以借助<code> make clean</code>。仍然是在前面的 makefile 文件中修改，在后面补上一个 <code>clean：</code>，以及相应的清除命令：</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">target:a.cpp b.o</span></span><br><span class="line">    g++ -o test a.cpp b.o</span><br><span class="line"><span class="section">b.o:b.cpp</span></span><br><span class="line">    g++ -c b.cpp</span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm *.o</span><br><span class="line">    rm test</span><br></pre></td></tr></table></figure>
+
+<p>在命令行执行 <code>make clean</code> 就可删掉所有目标文件。</p>
+<h2 id="TCP通信"><a href="#TCP通信" class="headerlink" title="TCP通信"></a>TCP通信</h2><h3 id="传输层基本概念"><a href="#传输层基本概念" class="headerlink" title="传输层基本概念"></a>传输层基本概念</h3><p>TCP/IP 四层参考模型中，从上往下有四种层次：应用层、传输层、网络层、网络接口层，应用层包括 HTTP、FTP、DNS 等协议，而传输层包括 TCP、UDP 两种协议，网络层则包含 IP、ARP 等协议，网络接口层较为底层，一般不是我们研究的对象。其中，传输层是我们在编程开发中较为重要的一层，需要对其中的两种协议尤其是 TCP 理解透彻。</p>
+<p><img src="/20220825/9195a5673454d7fd8f457fb1e07c7701-0" alt="图片描述"></p>
+<h3 id="传输层的作用"><a href="#传输层的作用" class="headerlink" title="传输层的作用"></a>传输层的作用</h3><p>根本目的：在网络层提供的数据通信服务基础上，实现主机的进程间通信的可靠服务。<br>主要有以下两个要点：为位于两个主机内部的两个应用进程之间提供通信服务、提供可靠的通信服务。</p>
+<h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p>“套接字”表示一个 IP 地址与对应的一个端口号。例如，一个 IP 地址为 172.31.75.8 的客户端使用 8050 端口号，那么标识客户端的套接字为“172.31.75.8:8050”。</p>
+<h3 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h3><p>端口号为 0-65535 之间的整数，有3种类型：熟知端口号、注册端口号、临时端口号。</p>
+<ul>
+<li><p>熟知端口号：给每种服务器分配确定的全局端口号。每个用户进程都知道相应的服务器进程的熟知端口号，范围为 0-1023，它是统一分配和控制的。</p>
+</li>
+<li><p>注册端口号：在 IANA 注册的端口号，数值范围为 1024-49151。</p>
+</li>
+<li><p>临时端口号：客户端程序使用临时端口号，它是运行在客户端上的 TCP/IP 软件随机选取的，范围为 49152-65535。</p>
+</li>
+</ul>
+<p>平时进行网络编程时服务器最好使用注册端口号，而客户端的端口号则是系统随机分配的，即临时端口号。</p>
+<h3 id="UDP用户数据协议"><a href="#UDP用户数据协议" class="headerlink" title="UDP用户数据协议"></a>UDP用户数据协议</h3><p>UDP协议的特点：</p>
+<ul>
+<li><strong>无连接的：</strong>发送数据之前不需要建立连接，因此减少了开销和发送数据之前的时延。</li>
+<li><strong>尽最大努力交付：</strong>即不保证可靠交付，因此主机不需要维持复杂的连接状态表。</li>
+<li><strong>面向报文的：</strong>UDP 对应用层传递下来的报文，既不合并，也不拆分，而是保留这些报文的边界。UDP 对于应用程序提交的报文，添加头部后就向下提交给网络层。</li>
+<li><strong>没有拥塞控制：</strong>网络出现的拥塞时，UDP 不会使源主机的发送速率降低。这对某些实时应用是很重要的，很适合多媒体通信的要求。</li>
+<li>支<strong>持多对多的交互通信。</strong></li>
+</ul>
+<p>UDP的适用场景：</p>
+<ul>
+<li>适用于少量（几百个字节）的数据。</li>
+<li>对性能的要求高于对数据完整性的要求，如视频播放、P2P、DNS 等。</li>
+<li>需要“简短快捷”的数据交换 简单的请求与应答报文交互，如在线游戏。</li>
+<li>需要多播和广播的应用，源主机以恒定速率发送报文，拥塞发生时允许丢弃部分报文，如本地广播、隧道 VPN。</li>
+</ul>
+<h3 id="TCP传输控制协议"><a href="#TCP传输控制协议" class="headerlink" title="TCP传输控制协议"></a>TCP传输控制协议</h3><p>TCP协议的特点：</p>
+<ul>
+<li><strong>面向连接</strong>的传输服务。打电话式、会话式通信。</li>
+<li><strong>面向字节流传输服务</strong>（而 UDP 是面向报文）。字节管道、字节按序传输和到达。</li>
+<li><strong>全双工通信。</strong>一个应用进程可以同时接收和发送数据、捎带确认；通信双方都设置有发送和接收缓冲区，应用程序将要发送的数据字节提交给发送缓冲区，实际发送由 TCP 协议控制，接收方收到数据字节后将它存放在接收缓冲区，等待高层应用程序读取。</li>
+<li><strong>可建立多个并发的 TCP 连接。</strong>如 Web 服务器可同时与多个客户端建立的连接会话。</li>
+<li><strong>可靠传输服务</strong>。不丢失数据、保持数据有序、向上层不重复提交数据（通过确认机制、拥塞控制等方式实现）， 想象一下 ATM 机转帐应用就需要上述可靠性。</li>
+</ul>
+<p>TCP的报文结构图：</p>
+<img src="/posts/afd28464/544e589943a8426e0f4f4c16981663e7-0" alt="图片描述">
+
+<p>重点关注的标志位：</p>
+<table>
+<thead>
+<tr>
+<th align="center">标志</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SYN</td>
+<td align="center">当SYN=1，ACK=0，是一个建立连接请求的报文；<br>当SYN=1，ACK=1，是一个同意建立连接请求的报文；</td>
+</tr>
+<tr>
+<td align="center">ACK</td>
+<td align="center">当ACK=1时，确认序号字段才有意义</td>
+</tr>
+<tr>
+<td align="center">FIN</td>
+<td align="center">FIN=1说明数据发送完毕，请求释放连接</td>
+</tr>
+<tr>
+<td align="center">RST</td>
+<td align="center">RST=1说明出现严重错误，必须释放连接再重新建立连接</td>
+</tr>
+<tr>
+<td align="center">URG</td>
+<td align="center">URG=1说明此报文是紧急数据，要尽快传送出去</td>
+</tr>
+<tr>
+<td align="center">PSH</td>
+<td align="center">PSH=1请求接收方TCP软件将该报文立即推送给应用程序</td>
+</tr>
+</tbody></table>
+<p>TCP 连接包括连接建立、报文传输、连接释放三个阶段，其中连接建立的三次握手过程较为重要。</p>
+<p><strong>建立连接的三次握手过程：</strong></p>
+<p>（1）当客户端准备发起一次 TCP 连接，首先向服务器发送第一个“SYN”报文（控制位 SYN=1）。</p>
+<p>（2）服务器收到 SYN 报文后，如果同意建立连接，则向客户端发送第二个“SYN+ACK”报文（控制位 SYN=1，ACK=1），该报文表示对第一个 SYN 报文请求的确认。</p>
+<p>（3）接收到 SYN+ACK 报文后，客户端发送第三个 ACK 报文，表示对 SYN+ACK 报文的确认。</p>
+<img src="/posts/afd28464/3c83420afc02fdd2a2e7639275d1d863-0" alt="图片描述" style="zoom:80%;">]]></content>
+  </entry>
+  <entry>
     <title>大疆笔试：加权区间调度</title>
     <url>/posts/993cd50e/</url>
     <content><![CDATA[<hr>
