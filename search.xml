@@ -94,7 +94,8 @@
     <content><![CDATA[<hr>
 <span id="more"></span>
 
-<p><video src="/images/2022.mp4" position="absolute" width="100%" height="100%" controls="controls"></video></p>
+<iframe width="100%" height="100%" src="/20221230/2022.mp4" position="absolute" controls="controls"></iframe>
+
 ]]></content>
   </entry>
   <entry>
