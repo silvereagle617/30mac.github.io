@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Linux下的C++项目开发：聊天室（一）">
+<meta property="og:url" content="https://silver-eagle.top/posts/afd28464.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silver-eagle.top/20220825/9195a5673454d7fd8f457fb1e07c7701-0">
+<meta property="og:image" content="https://silver-eagle.top/posts/544e589943a8426e0f4f4c16981663e7-0">
+<meta property="og:image" content="https://silver-eagle.top/posts/3c83420afc02fdd2a2e7639275d1d863-0">
+<meta property="og:image" content="https://silver-eagle.top/posts/e1413de95f7af4c44f7d10a2f09d49d4-0">
+<meta property="og:image" content="https://silver-eagle.top/posts/e6a08660699bd4f0e26119e7de2c20bd-0">
+<meta property="og:image" content="https://silver-eagle.top/posts/87c29545a64eed3b2b2338ef5f901fc4-0">
+<meta property="article:published_time" content="2022-08-25T14:29:07.000Z">
+<meta property="article:modified_time" content="2022-08-26T14:34:07.000Z">
+<meta property="article:author" content="Zhang Tong">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silver-eagle.top/20220825/9195a5673454d7fd8f457fb1e07c7701-0">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/afd28464.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux下的C++项目开发：聊天室（一） | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/afd28464.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux下的C++项目开发：聊天室（一）
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-25 22:29:07" itemprop="dateCreated datePublished" datetime="2022-08-25T22:29:07+08:00">2022-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-26 22:34:07" itemprop="dateModified" datetime="2022-08-26T22:34:07+08:00">2022-08-26</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h2 id="Linux-C-开发常用工具"><a href="#Linux-C-开发常用工具" class="headerlink" title="Linux C++ 开发常用工具"></a>Linux C++ 开发常用工具</h2><h3 id="使用g-编译代码"><a href="#使用g-编译代码" class="headerlink" title="使用g++编译代码"></a>使用g++编译代码</h3><h4 id="C-编译过程"><a href="#C-编译过程" class="headerlink" title="C++编译过程"></a>C++编译过程</h4><p>C++的编译过程主要有四个阶段：预处理、编译、汇编、链接：</p>
+<ul>
+<li>预处理：主要负责宏定义的替换、条件编译（防止重复包含头文件的宏#ifdef、#ifndef、#else、#endif等）、将include的头文件展开到正文等；</li>
+<li>编译：负责将源代码转化为汇编代码；</li>
+<li>汇编：负责将汇编代码转化为可重定位的目标二进制文件；<ul>
+<li>静态重定位：即在程序装入内存的过程中完成，是指在程序开始运行前，程序中的各个地址有关的项均已完成重定位，地址变换通常是在装入时一次完成的，以后不再改变，故称为静态重定位。</li>
+<li>动态重定位：它不是在程序装入内存时完成的，而是CPU每次访问内存时 由动态地址变换机构（硬件）自动进行把相对地址转换为绝对地址。动态重定位需要软件和硬件相互配合完成。</li>
+</ul>
+</li>
+<li>链接：负责将所有的目标文件（二进制目标文件、库文件等）连接起来，进行符号解析和重定位，最后生成可执行文件。<strong>静态链接和动态链接两者最大的区别就在于链接的时机不一样。</strong><ul>
+<li>静态链接：将多个源文件产生的目标文件进行链接，从而形成一个可以执行的程序，静态库也可以简单地看成是一组目标文件的集合，即很多目标文件经过压缩打包后形成的一个文件。<strong>静态链接是在形成可执行程序前。</strong></li>
+<li>动态链接：解决静态链接的两个问题，空间浪费和更新困难。动态链接把程序按照模块拆分成各个相对独立部分，在程序运行时才将它们链接在一起形成一个完整的程序，而不是像静态链接一样把所有程序模块都链接成一个单独的可执行文件。<strong>动态链接的进行则是在程序执行时。</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="g-编译命令"><a href="#g-编译命令" class="headerlink" title="g++编译命令"></a>g++编译命令</h4><p>假设有test.cpp文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">add</span>(a,b)&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>预处理阶段的结果，直接在终端输出，命令为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>编译阶段可以得到汇编代码（.s 文件），可由以下命令直接得到汇编代码文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>可重定位的目标文件（.o 文件）由以下命令直接得到：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -c test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>需要得到最终的可执行文件时可使用下面这条命令，需要自己指定目标文件名，下面这条命令最终得到名为 work 的可执行文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -o work test.cpp</span><br><span class="line">g++ test.cpp -o work</span><br></pre></td></tr></table></figure>
+
+<p>两种写法都可以，注意命令中-o后面是生成可执行文件的名字。</p>
+<p>在实际开发过程中，往往需要使用 gdb 进行调试，可以在编译时加上-g 选项，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -g -o work test.cpp</span><br></pre></td></tr></table></figure>
+
+<p>如果在开发过程中加入自己指定使用的动态链接库，比如我们需要使用 pthread 线程库，需要加上 -l 选项。下例中编译器会到 <code>lib</code> 目录下找 <code>libpthread.so</code> 文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -o work test.cpp -lpthread</span><br></pre></td></tr></table></figure>
+
+<h4 id="多文件编译"><a href="#多文件编译" class="headerlink" title="多文件编译"></a>多文件编译</h4><p>多个源码文件进行一起编译，例如有三个cpp文件：a.cpp、b.h、b.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;b.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">add</span>(a,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// b.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> BH</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BH</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// b.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;b.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以采用以下的编译命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -o test a.cpp b.cpp</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令运行程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./test</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行可执行文件"><a href="#运行可执行文件" class="headerlink" title="运行可执行文件"></a>运行可执行文件</h4><p>使用 g++ 编译得到的可执行文件，使用如下格式执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./可执行文件名</span><br></pre></td></tr></table></figure>
+
+<p>如果程序需要传入参数，则以下述格式执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./可执行文件名 参数1 参数2</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用gdb进行调试"><a href="#使用gdb进行调试" class="headerlink" title="使用gdb进行调试"></a>使用gdb进行调试</h3><h4 id="安装gdb"><a href="#安装gdb" class="headerlink" title="安装gdb"></a>安装gdb</h4><p>安装分为编译安装和 <code>apt</code> 命令安装，因为 Ubuntu 的软件包仓库内置了 gdb，所以可以直接使用命令安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gdb</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后查看gdb版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb -v</span><br></pre></td></tr></table></figure>
+
+<h4 id="gdb常用调试命令"><a href="#gdb常用调试命令" class="headerlink" title="gdb常用调试命令"></a>gdb常用调试命令</h4><p>为了能使用 gdb 调试，在用 g++ 编译时要将 -g 参数加上，然后进行gdb调试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -g -o test a.cpp b.cpp</span><br><span class="line">gdb test</span><br></pre></td></tr></table></figure>
+
+<p>常用的调试命令：</p>
+<ul>
+<li><code>l</code>：查看代码</li>
+<li><code>b 5</code>：在程序的第 5 行添加断点</li>
+<li><code>info break</code>：查看断点</li>
+<li><code>r</code>：开始运行</li>
+<li><code>s</code>：进入函数内部</li>
+<li><code>n</code>：进入下一步</li>
+<li><code>finish</code>：跳出函数内部</li>
+<li><code>c</code>：运行到下一个断点</li>
+</ul>
+<p>最后退出调试，可以直接输入 <code>quit</code> 命令。</p>
+<h3 id="编写-makefile-进行自动编译"><a href="#编写-makefile-进行自动编译" class="headerlink" title="编写 makefile 进行自动编译"></a>编写 makefile 进行自动编译</h3><p>在大型项目中有大量的源代码文件，不可能每次都逐个敲 g++ 命令来进行编译，而是采用编写 makefile 的方式来进行自动编译，提高效率。</p>
+<h4 id="创建makefile"><a href="#创建makefile" class="headerlink" title="创建makefile"></a>创建makefile</h4><p>和创建源代码文件一样，可以直接用 vi 编辑器来创建 makefile：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi makefile</span><br></pre></td></tr></table></figure>
+
+<p>写好 makefile 内容后，命令模式输入 <code>wq</code> 保存离开即可。</p>
+<h4 id="makefile基本格式"><a href="#makefile基本格式" class="headerlink" title="makefile基本格式"></a>makefile基本格式</h4><p>一般格式为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">目标名1：依赖文件1，依赖文件2，依赖文件3</span><br><span class="line">    g++ 编译命令</span><br><span class="line">目标名2：依赖文件4，依赖文件5</span><br><span class="line">    g++ 编译命令</span><br></pre></td></tr></table></figure>
+
+<p>其中目标名可以由自己定义，也可以是一个文件的名字；依赖文件就是说要达成这个目标所需要的文件。 仍以前面的“多文件编译”代码为例，可以写出如下的 makefile 文件（注意：makefile 文件中要使用 tab 键，不能使用空格键，否则会报错）：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">target:a.cpp b.o</span></span><br><span class="line">    g++ -o test a.cpp b.o</span><br><span class="line"><span class="section">b.o:b.cpp</span></span><br><span class="line">    g++ -c b.cpp</span><br></pre></td></tr></table></figure>
+
+<p>target 依赖于 <code>a.cpp</code> 和 <code>b.o</code>，而 <code>b.o</code> 依赖于 <code>b.cpp</code>，因此编译时发现 <code>b.cpp</code> 更新了的话就会先执行后面的命令来更新 <code>b.o</code>。保存好 makefile 文件之后，我们用命令行输入 <code>make</code> 即可进行自动编译：</p>
+<h4 id="快速清理目标文件"><a href="#快速清理目标文件" class="headerlink" title="快速清理目标文件"></a>快速清理目标文件</h4><p>有时候我们想要删掉 makefile 产生出来的所有目标文件，如果逐个去删显得过于麻烦，因此我们可以借助<code> make clean</code>。仍然是在前面的 makefile 文件中修改，在后面补上一个 <code>clean：</code>，以及相应的清除命令：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">target:a.cpp b.o</span></span><br><span class="line">    g++ -o test a.cpp b.o</span><br><span class="line"><span class="section">b.o:b.cpp</span></span><br><span class="line">    g++ -c b.cpp</span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm *.o</span><br><span class="line">    rm test</span><br></pre></td></tr></table></figure>
+
+<p>在命令行执行 <code>make clean</code> 就可删掉所有目标文件。</p>
+<h2 id="TCP通信"><a href="#TCP通信" class="headerlink" title="TCP通信"></a>TCP通信</h2><h3 id="传输层基本概念"><a href="#传输层基本概念" class="headerlink" title="传输层基本概念"></a>传输层基本概念</h3><p>TCP/IP 四层参考模型中，从上往下有四种层次：应用层、传输层、网络层、网络接口层，应用层包括 HTTP、FTP、DNS 等协议，而传输层包括 TCP、UDP 两种协议，网络层则包含 IP、ARP 等协议，网络接口层较为底层，一般不是我们研究的对象。其中，传输层是我们在编程开发中较为重要的一层，需要对其中的两种协议尤其是 TCP 理解透彻。</p>
+<p><img src="/20220825/9195a5673454d7fd8f457fb1e07c7701-0" alt="图片描述"></p>
+<h4 id="传输层的作用"><a href="#传输层的作用" class="headerlink" title="传输层的作用"></a>传输层的作用</h4><p>根本目的：在网络层提供的数据通信服务基础上，实现主机的进程间通信的可靠服务。<br>主要有以下两个要点：为位于两个主机内部的两个应用进程之间提供通信服务、提供可靠的通信服务。</p>
+<h4 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h4><p>“套接字”表示一个 IP 地址与对应的一个端口号。例如，一个 IP 地址为 172.31.75.8 的客户端使用 8050 端口号，那么标识客户端的套接字为“172.31.75.8:8050”。</p>
+<h4 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h4><p>端口号为 0-65535 之间的整数，有3种类型：熟知端口号、注册端口号、临时端口号。</p>
+<ul>
+<li><p>熟知端口号：给每种服务器分配确定的全局端口号。每个用户进程都知道相应的服务器进程的熟知端口号，范围为 0-1023，它是统一分配和控制的。</p>
+</li>
+<li><p>注册端口号：在 IANA 注册的端口号，数值范围为 1024-49151。</p>
+</li>
+<li><p>临时端口号：客户端程序使用临时端口号，它是运行在客户端上的 TCP/IP 软件随机选取的，范围为 49152-65535。</p>
+</li>
+</ul>
+<p>平时进行网络编程时服务器最好使用注册端口号，而客户端的端口号则是系统随机分配的，即临时端口号。</p>
+<h4 id="UDP用户数据协议"><a href="#UDP用户数据协议" class="headerlink" title="UDP用户数据协议"></a>UDP用户数据协议</h4><p>UDP协议的特点：</p>
+<ul>
+<li><strong>无连接的：</strong>发送数据之前不需要建立连接，因此减少了开销和发送数据之前的时延。</li>
+<li><strong>尽最大努力交付：</strong>即不保证可靠交付，因此主机不需要维持复杂的连接状态表。</li>
+<li><strong>面向报文的：</strong>UDP 对应用层传递下来的报文，既不合并，也不拆分，而是保留这些报文的边界。UDP 对于应用程序提交的报文，添加头部后就向下提交给网络层。</li>
+<li><strong>没有拥塞控制：</strong>网络出现的拥塞时，UDP 不会使源主机的发送速率降低。这对某些实时应用是很重要的，很适合多媒体通信的要求。</li>
+<li>支<strong>持多对多的交互通信。</strong></li>
+</ul>
+<p>UDP的适用场景：</p>
+<ul>
+<li>适用于少量（几百个字节）的数据。</li>
+<li>对性能的要求高于对数据完整性的要求，如视频播放、P2P、DNS 等。</li>
+<li>需要“简短快捷”的数据交换 简单的请求与应答报文交互，如在线游戏。</li>
+<li>需要多播和广播的应用，源主机以恒定速率发送报文，拥塞发生时允许丢弃部分报文，如本地广播、隧道 VPN。</li>
+</ul>
+<h4 id="TCP传输控制协议"><a href="#TCP传输控制协议" class="headerlink" title="TCP传输控制协议"></a>TCP传输控制协议</h4><p>TCP协议的特点：</p>
+<ul>
+<li><strong>面向连接</strong>的传输服务。打电话式、会话式通信。</li>
+<li><strong>面向字节流传输服务</strong>（而 UDP 是面向报文）。字节管道、字节按序传输和到达。</li>
+<li><strong>全双工通信。</strong>一个应用进程可以同时接收和发送数据、捎带确认；通信双方都设置有发送和接收缓冲区，应用程序将要发送的数据字节提交给发送缓冲区，实际发送由 TCP 协议控制，接收方收到数据字节后将它存放在接收缓冲区，等待高层应用程序读取。</li>
+<li><strong>可建立多个并发的 TCP 连接。</strong>如 Web 服务器可同时与多个客户端建立的连接会话。</li>
+<li><strong>可靠传输服务</strong>。不丢失数据、保持数据有序、向上层不重复提交数据（通过确认机制、拥塞控制等方式实现）， 想象一下 ATM 机转帐应用就需要上述可靠性。</li>
+</ul>
+<p>TCP的报文结构图：</p>
+<img src="/posts/544e589943a8426e0f4f4c16981663e7-0" alt="图片描述">
+
+<p>重点关注的标志位：</p>
+<table>
+<thead>
+<tr>
+<th align="center">标志</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SYN</td>
+<td align="center">当SYN=1，ACK=0，是一个建立连接请求的报文；<br>当SYN=1，ACK=1，是一个同意建立连接请求的报文；</td>
+</tr>
+<tr>
+<td align="center">ACK</td>
+<td align="center">当ACK=1时，确认序号字段才有意义</td>
+</tr>
+<tr>
+<td align="center">FIN</td>
+<td align="center">FIN=1说明数据发送完毕，请求释放连接</td>
+</tr>
+<tr>
+<td align="center">RST</td>
+<td align="center">RST=1说明出现严重错误，必须释放连接再重新建立连接</td>
+</tr>
+<tr>
+<td align="center">URG</td>
+<td align="center">URG=1说明此报文是紧急数据，要尽快传送出去</td>
+</tr>
+<tr>
+<td align="center">PSH</td>
+<td align="center">PSH=1请求接收方TCP软件将该报文立即推送给应用程序</td>
+</tr>
+</tbody></table>
+<p>TCP 连接包括连接建立、报文传输、连接释放三个阶段，其中连接建立的三次握手过程较为重要。</p>
+<p><strong>建立连接的三次握手过程：</strong></p>
+<p>（1）当客户端准备发起一次 TCP 连接，首先向服务器发送第一个“SYN”报文（控制位 SYN=1）。</p>
+<p>（2）服务器收到 SYN 报文后，如果同意建立连接，则向客户端发送第二个“SYN+ACK”报文（控制位 SYN=1，ACK=1），该报文表示对第一个 SYN 报文请求的确认。</p>
+<p>（3）接收到 SYN+ACK 报文后，客户端发送第三个 ACK 报文，表示对 SYN+ACK 报文的确认。</p>
+<img src="/posts/3c83420afc02fdd2a2e7639275d1d863-0" alt="图片描述" style="zoom:80%;">
+
+<h3 id="TCP套接字网络编程"><a href="#TCP套接字网络编程" class="headerlink" title="TCP套接字网络编程"></a>TCP套接字网络编程</h3><p>网络编程一般采用C/S架构，即服务器端和客户端。</p>
+<h4 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h4><p>服务器端一般先用 socket 创建一个套接字，然后用 bind 给这个套接字绑定地址（即 ip+端口号），然后调用 listen 把这个套接字置为监听状态，随后调用 accept 函数从已完成连接队列中取出成功建立连接的套接字，以后就在这个新的套接字上调用 send、recv 来发送数据、接收数据，最后调用 close 来断开连接释放资源即可。整个过程如下：</p>
+<img src="/posts/e1413de95f7af4c44f7d10a2f09d49d4-0" alt="图片描述" style="zoom: 67%;">
+
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>与服务器不同，客户端并不需要 bind 绑定地址，因为端口号是系统自动分配的，而且客户端也不需要设置监听的套接字，因此也不需要 listen。客户端在用 socket 创建套接字后直接调用 connect 向服务器发起连接即可，connect 函数通知 Linux 内核完成 TCP 三次握手连接，最后把连接的结果作为返回值。成功建立连接后就可以调用 send 和 recv 来发送数据、接收数据，最后调用 close 来断开连接释放资源。整个过程如下：</p>
+<img src="/posts/e6a08660699bd4f0e26119e7de2c20bd-0" alt="图片描述" style="zoom:67%;">
+
+<h4 id="完整流程"><a href="#完整流程" class="headerlink" title="完整流程"></a>完整流程</h4><p>TCP网络编程的完整流程如下：</p>
+<img src="/posts/87c29545a64eed3b2b2338ef5f901fc4-0" alt="图片描述" style="zoom: 67%;">
+
+<h4 id="TCP相关的数据结构"><a href="#TCP相关的数据结构" class="headerlink" title="TCP相关的数据结构"></a>TCP相关的数据结构</h4><p>地址结构：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> sin_family; <span class="comment">/* 地址族 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">int</span> sin_port; <span class="comment">/* 端口号 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span> <span class="comment">/* ip地址 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> sin_zero[<span class="number">8</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> s_addr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>TCP网络编程函数：</p>
+<p>socket函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">( <span class="keyword">int</span> domain, <span class="keyword">int</span> type,<span class="keyword">int</span> protocol)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：创建一个新的套接字，返回套接字描述符</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">domain：域类型，指明使用的协议栈，如TCP/IP使用的是PF_INET，其他还有AF_INET6、AF_UNIX</span></span></span><br><span class="line"><span class="comment"><span class="function">type:指明需要的服务类型, 如</span></span></span><br><span class="line"><span class="comment"><span class="function">	SOCK_DGRAM:数据报服务，UDP协议</span></span></span><br><span class="line"><span class="comment"><span class="function">	SOCK_STREAM:流服务，TCP协议</span></span></span><br><span class="line"><span class="comment"><span class="function">protocol:一般都取0(由系统根据服务类型选择默认的协议)</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>bind函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">(<span class="keyword">int</span> sockfd,struct sockaddr* my_addr,<span class="keyword">int</span> addrlen)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：为套接字绑定地址</span></span></span><br><span class="line"><span class="comment"><span class="function">TCP/IP协议使用sockaddr_in结构，包含IP地址和端口号，服务器使用它来指明熟知的端口号，然后等待连接</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">sockfd:套接字描述符，指明创建连接的套接字</span></span></span><br><span class="line"><span class="comment"><span class="function">my_addr:本地地址，IP地址和端口号</span></span></span><br><span class="line"><span class="comment"><span class="function">addrlen:地址长度</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>listen函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd,<span class="keyword">int</span> backlog)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：</span></span></span><br><span class="line"><span class="comment"><span class="function">将一个套接字置为监听模式，准备接收传入连接。用于服务器，指明某个套接字连接是被动的监听状态。</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">Sockfd:套接字描述符，指明创建连接的套接字</span></span></span><br><span class="line"><span class="comment"><span class="function">backlog: linux内核2.2之前，backlog参数=半连接队列长度+已连接队列长度；linux内核2.2之后，backlog参数=已连接队列（Accept队列）长度</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>accept函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, structsockaddr *addr, <span class="keyword">int</span> *addrlen)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：从已完成连接队列中取出成功建立连接的套接字，返回成功连接的套接字描述符。</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">Sockfd:套接字描述符，指明正在监听的套接字</span></span></span><br><span class="line"><span class="comment"><span class="function">addr:提出连接请求的主机地址</span></span></span><br><span class="line"><span class="comment"><span class="function">addrlen:地址长度</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>send函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">send</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> * data, <span class="keyword">int</span> data_len, <span class="keyword">unsigned</span> <span class="keyword">int</span> flags)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：在TCP连接上发送数据,返回成功传送数据的长度，出错时返回－1。send会将数据移到发送缓冲区中。</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">sockfd:套接字描述符</span></span></span><br><span class="line"><span class="comment"><span class="function">data:指向要发送数据的指针</span></span></span><br><span class="line"><span class="comment"><span class="function">data_len:数据长度</span></span></span><br><span class="line"><span class="comment"><span class="function">flags:通常为0</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>recv函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">recv</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, intbuf_len,<span class="keyword">unsigned</span> <span class="keyword">int</span> flags)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能：接收数据,返回实际接收的数据长度，出错时返回－1。</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">Sockfd:套接字描述符</span></span></span><br><span class="line"><span class="comment"><span class="function">Buf:指向内存块的指针</span></span></span><br><span class="line"><span class="comment"><span class="function">Buf_len:内存块大小，以字节为单位</span></span></span><br><span class="line"><span class="comment"><span class="function">flags:一般为0</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<p>close函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">close</span>(<span class="keyword">int</span> sockfd)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">功能：撤销套接字。如果只有一个进程使用，立即终止连接并撤销该套接字，如果多个进程共享该套接字，将引用数减一，如果引用数降到零，则关闭连接并撤销套接字。</span></span><br><span class="line"><span class="comment">参数说明：</span></span><br><span class="line"><span class="comment">sockfd:套接字描述符</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>connect函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd,structsockaddr *server_addr,<span class="keyword">int</span> sockaddr_len)</span></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="function">功能： 同远程服务器建立主动连接，成功时返回0，若连接失败返回－1。</span></span></span><br><span class="line"><span class="comment"><span class="function">参数说明：</span></span></span><br><span class="line"><span class="comment"><span class="function">Sockfd:套接字描述符，指明创建连接的套接字</span></span></span><br><span class="line"><span class="comment"><span class="function">Server_addr:指明远程端点：IP地址和端口号</span></span></span><br><span class="line"><span class="comment"><span class="function">sockaddr_len :地址长度</span></span></span><br><span class="line"><span class="comment"><span class="function">*/</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="服务器与客户端连接实例"><a href="#服务器与客户端连接实例" class="headerlink" title="服务器与客户端连接实例"></a>服务器与客户端连接实例</h3><p>编写两个程序：一个服务器与一个客户端，用户可以在客户端不断输入信息并发送到服务器终端上显示。</p>
+<h4 id="服务器程序编写"><a href="#服务器程序编写" class="headerlink" title="服务器程序编写"></a>服务器程序编写</h4><p>编写<code>server.cpp</code>, 代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//定义sockfd</span></span><br><span class="line">    <span class="keyword">int</span> server_sockfd = <span class="built_in">socket</span>(AF_INET,SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义sockaddr_in</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">server_sockaddr</span>;</span></span><br><span class="line">    server_sockaddr.sin_family = AF_INET;<span class="comment">//TCP/IP协议族</span></span><br><span class="line">    server_sockaddr.sin_port = <span class="built_in">htons</span>(<span class="number">8023</span>);<span class="comment">//端口号</span></span><br><span class="line">    server_sockaddr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(<span class="string">&quot;127.0.0.1&quot;</span>);<span class="comment">//ip地址，127.0.0.1是环回地址，相当于本机ip</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//bind，成功返回0，出错返回-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">bind</span>(server_sockfd,(struct sockaddr *)&amp;server_sockaddr,<span class="built_in"><span class="keyword">sizeof</span></span>(server_sockaddr))==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;bind&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//listen，成功返回0，出错返回-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">listen</span>(server_sockfd,<span class="number">20</span>) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;listen&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//客户端套接字</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_addr</span>;</span></span><br><span class="line">    <span class="keyword">socklen_t</span> length = <span class="built_in"><span class="keyword">sizeof</span></span>(client_addr);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//成功返回非负描述字，出错返回-1</span></span><br><span class="line">    <span class="keyword">int</span> conn = <span class="built_in">accept</span>(server_sockfd, (struct sockaddr*)&amp;client_addr, &amp;length);</span><br><span class="line">    <span class="keyword">if</span>(conn&lt;<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;connect&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;客户端成功连接\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//接收缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不断接收数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(buffer,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(buffer));</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">recv</span>(conn, buffer, <span class="built_in"><span class="keyword">sizeof</span></span>(buffer),<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//客户端发送exit或者异常结束时，退出</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(buffer,<span class="string">&quot;exit&quot;</span>)==<span class="number">0</span> || len&lt;=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;收到客户端信息：&quot;</span>&lt;&lt;buffer&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(conn);</span><br><span class="line">    <span class="built_in">close</span>(server_sockfd);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="客户端程序编写"><a href="#客户端程序编写" class="headerlink" title="客户端程序编写"></a>客户端程序编写</h4><p>编写<code>client.cpp</code>, 代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//定义sockfd</span></span><br><span class="line">    <span class="keyword">int</span> sock_cli = <span class="built_in">socket</span>(AF_INET,SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义sockaddr_in</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;servaddr, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;<span class="comment">//TCP/IP协议族</span></span><br><span class="line">    servaddr.sin_port = <span class="built_in">htons</span>(<span class="number">8023</span>);  <span class="comment">//服务器端口</span></span><br><span class="line">    servaddr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(<span class="string">&quot;127.0.0.1&quot;</span>);  <span class="comment">//服务器ip</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接服务器，成功返回0，错误返回-1</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">connect</span>(sock_cli, (struct sockaddr *)&amp;servaddr, <span class="built_in"><span class="keyword">sizeof</span></span>(servaddr)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;connect&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;连接服务器成功！\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> sendbuf[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">char</span> recvbuf[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(sendbuf, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(sendbuf));</span><br><span class="line">        cin&gt;&gt;sendbuf;</span><br><span class="line">        <span class="built_in">send</span>(sock_cli, sendbuf, <span class="built_in">strlen</span>(sendbuf),<span class="number">0</span>); <span class="comment">//发送</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(sendbuf,<span class="string">&quot;exit&quot;</span>)==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(sock_cli);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试运行"><a href="#测试运行" class="headerlink" title="测试运行"></a>测试运行</h4><p>编译两个cpp文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -o server server.cpp</span><br><span class="line">g++ -o client client.cpp</span><br></pre></td></tr></table></figure>
+
+<p>运行服务器程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./server</span><br></pre></td></tr></table></figure>
+
+<p>另开一个新的终端，运行客户端程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./client</span><br></pre></td></tr></table></figure>
+
+<p>连接成功，可以在客户端不断输入信息并且在服务器端显示。</p>
+<h2 id="多线程并发服务器"><a href="#多线程并发服务器" class="headerlink" title="多线程并发服务器"></a>多线程并发服务器</h2><p>上一个实例练习编写的服务器是单线程的，只能为单个客户端服务。而要设计一个聊天室的服务器就必须能够同时为多个客户端服务，因此需要将服务器升级为多线程版本。</p>
+<h3 id="进程与线程的基本概念"><a href="#进程与线程的基本概念" class="headerlink" title="进程与线程的基本概念"></a>进程与线程的基本概念</h3><ul>
+<li><p>进程：是程序的一次执行过程，是操作系统资源分配的基本单位。</p>
+<p>比如在实例中运行<code>./server</code>服务器程序，就会产生一个进程，可以使用 <code>ps -ef|grep ./server</code> 命令查看相关进程快照。其中的PID就是该进程的进程号。</p>
+</li>
+<li><p>线程：是任务调度和执行的基本单位，一个进程中可以有多个线程独立运行。线程没有自己独立的地址空间，会与其它属于同一进程的线程一起共享进程的资源，但是每个线程也会有自己的独立的栈和一组寄存器。在 Linux 当中，线程的实现比较特别，会把线程当做进程来实现，即将线程视为一个与其它进程共享资源的进程。</p>
+<p>可以使用 <code>ps -T -p XXX(进程号) </code>命令来查看一个进程的所有线程。</p>
+</li>
+</ul>
+<h3 id="C-11的thread线程库"><a href="#C-11的thread线程库" class="headerlink" title="C++11的thread线程库"></a>C++11的thread线程库</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p>C++11中提供了专门的线程库，可以很方便地进行调用。</p>
+<p>使用需要导入头文件：<code>#include&lt;thread&gt;</code></p>
+<p>创建一个新线程来执行 run 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">thread <span class="title">t</span><span class="params">(run)</span></span>;  <span class="comment">//实例化一个线程对象t，让该线程执行run函数，构造对象后线程就开始执行了</span></span><br></pre></td></tr></table></figure>
+
+<p>假如 run 函数需要传入参数 a 和 b，可以这样构造：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">thread <span class="title">t</span><span class="params">(run,a,b)</span></span>;  <span class="comment">//实例化一个线程对象t，让该线程执行run函数，传入a和b作为run的参数</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，<strong>传入的函数必须是全局函数或者静态函数，不能是类的普通成员函数。</strong></p>
+<p>join 函数会阻塞主线程，直到 join 函数的 thread 对象标识的线程执行完毕为止，join 函数使用方法如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.<span class="built_in">join</span>(); <span class="comment">//调用join后，主线程会一直阻塞，直到子线程的run函数执行完毕</span></span><br></pre></td></tr></table></figure>
+
+<p>但有时候需要主线程在继续完成其它的任务，而不是一直等待子线程结束，这时候我们可以使用 detach 函数。detach 函数会让子线程变为分离状态，主线程不会再阻塞等待子线程结束，而是让系统在子线程结束时自动回收资源。使用的方法如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.<span class="built_in">detach</span>();</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h4><p>构建两个线程，同时输出 1-10，实现简单的多线程编程：</p>
+<p>新建一个 <code>test_thread.cpp</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test_thread.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;i++)&#123;</span><br><span class="line">        cout&lt;&lt;i&lt;&lt;endl;</span><br><span class="line">        <span class="built_in">sleep</span>(<span class="number">1</span>);   <span class="comment">//休眠1秒钟</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">thread <span class="title">t1</span><span class="params">(print)</span>,<span class="title">t2</span><span class="params">(print)</span></span>;</span><br><span class="line">    t1.<span class="built_in">join</span>();</span><br><span class="line">    t2.<span class="built_in">join</span>();</span><br><span class="line">    <span class="comment">//也可以使用detach</span></span><br><span class="line">    <span class="comment">//t1.detach();</span></span><br><span class="line">    <span class="comment">//t2.detach();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用 g++ 进行编译，需要注意的是这里要用上 <code>-l</code> 来链接线程动态库，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -o test_thread test_thread.cpp -lpthread</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例：多线程并发服务器"><a href="#实例：多线程并发服务器" class="headerlink" title="实例：多线程并发服务器"></a>实例：多线程并发服务器</h3><h4 id="具体要求"><a href="#具体要求" class="headerlink" title="具体要求"></a>具体要求</h4><p>编写两个程序：一个多线程服务器、一个单线程客户端程序（可和上个实验一样），用一个终端运行服务器程序，多个终端运行客户端程序，让所有客户端发送的信息都能在服务器终端上显示。</p>
+<ol>
+<li>编写一个服务器类 server，该类可以创建多个线程为多个客户端服务，接收所有客户端发送的消息并打印出来。</li>
+<li>要编写多个源代码文件：<code>server.h</code> 头文件给出 server 类声明、<code>server.cpp</code> 给出类方法具体实现、<code>test_server.cpp</code> 中编写主函数创建 server 实例对象并测试。</li>
+<li>客户端程序可继续使用上个实验的，不用做修改。</li>
+<li>编写 Makefile 进行自动编译，使用 git 管理版本。</li>
+</ol>
+<h4 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h4><p>因为需要为每个客户端创建一个线程进行服务，所以我们要在每次 accept 取出新连接之后都创建一个线程，这个线程只负责服务这个新的连接，因此我们还要将这个连接对应的套接字描述符传入线程函数中。线程函数不断地调用 recv 接收信息并打印，直到收到客户端发来的 “exit” 或者 recv 返回值小于等于 0 为止。</p>
+<h4 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h4><p>编写 <code>server.h</code> 头文件，给出类的成员变量和成员函数声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SERVER_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SERVER_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">server</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">int</span> server_port;<span class="comment">//服务器端口号</span></span><br><span class="line">        <span class="keyword">int</span> server_sockfd;<span class="comment">//设为listen状态的套接字描述符</span></span><br><span class="line">        string server_ip;<span class="comment">//服务器ip</span></span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; sock_arr;<span class="comment">//保存所有套接字描述符</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">server</span>(<span class="keyword">int</span> port,string ip);<span class="comment">//构造函数</span></span><br><span class="line">        ~<span class="built_in">server</span>();<span class="comment">//析构函数</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//服务器开始服务</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>;<span class="comment">//子线程工作的静态函数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>server.cpp</code> 文件中给出函数具体的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;server.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line">server::<span class="built_in">server</span>(<span class="keyword">int</span> port,string ip):<span class="built_in">server_port</span>(port),<span class="built_in">server_ip</span>(ip)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//析构函数</span></span><br><span class="line">server::~<span class="built_in">server</span>()&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> conn:sock_arr)</span><br><span class="line">        <span class="built_in">close</span>(conn);</span><br><span class="line">    <span class="built_in">close</span>(server_sockfd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//服务器开始服务</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">server::run</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//定义sockfd</span></span><br><span class="line">    server_sockfd = <span class="built_in">socket</span>(AF_INET,SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义sockaddr_in</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">server_sockaddr</span>;</span></span><br><span class="line">    server_sockaddr.sin_family = AF_INET;<span class="comment">//TCP/IP协议族</span></span><br><span class="line">    server_sockaddr.sin_port = <span class="built_in">htons</span>(server_port);<span class="comment">//server_port;//端口号</span></span><br><span class="line">    server_sockaddr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(server_ip.<span class="built_in">c_str</span>());<span class="comment">//ip地址，127.0.0.1是环回地址，相当于本机ip</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//bind，成功返回0，出错返回-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">bind</span>(server_sockfd,(struct sockaddr *)&amp;server_sockaddr,<span class="built_in"><span class="keyword">sizeof</span></span>(server_sockaddr))==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;bind&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//listen，成功返回0，出错返回-1</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">listen</span>(server_sockfd,<span class="number">20</span>) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;listen&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//客户端套接字</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_addr</span>;</span></span><br><span class="line">    <span class="keyword">socklen_t</span> length = <span class="built_in"><span class="keyword">sizeof</span></span>(client_addr);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不断取出新连接并创建子线程为其服务</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> conn = <span class="built_in">accept</span>(server_sockfd, (struct sockaddr*)&amp;client_addr, &amp;length);</span><br><span class="line">        <span class="keyword">if</span>(conn&lt;<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">perror</span>(<span class="string">&quot;connect&quot;</span>);<span class="comment">//输出错误原因</span></span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//结束程序</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;文件描述符为&quot;</span>&lt;&lt;conn&lt;&lt;<span class="string">&quot;的客户端成功连接\n&quot;</span>;</span><br><span class="line">        sock_arr.<span class="built_in">push_back</span>(conn);</span><br><span class="line">        <span class="comment">//创建线程</span></span><br><span class="line">        <span class="function">thread <span class="title">t</span><span class="params">(server::RecvMsg,conn)</span></span>;</span><br><span class="line">        t.<span class="built_in">detach</span>();<span class="comment">//置为分离状态，不能用join，join会导致主线程阻塞</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子线程工作的静态函数</span></span><br><span class="line"><span class="comment">//注意，前面不用加static，否则会编译报错</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">server::RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>&#123;</span><br><span class="line">    <span class="comment">//接收缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1000</span>];</span><br><span class="line">    <span class="comment">//不断接收数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(buffer,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(buffer));</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">recv</span>(conn, buffer, <span class="built_in"><span class="keyword">sizeof</span></span>(buffer),<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//客户端发送exit或者异常结束时，退出</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(buffer,<span class="string">&quot;exit&quot;</span>)==<span class="number">0</span> || len&lt;=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;收到套接字描述符为&quot;</span>&lt;&lt;conn&lt;&lt;<span class="string">&quot;发来的信息：&quot;</span>&lt;&lt;buffer&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写主函数构建实例进行测试，<code>test_server.cpp</code> 文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test_server.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;server.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">server <span class="title">serv</span><span class="params">(<span class="number">8023</span>,<span class="string">&quot;127.0.0.1&quot;</span>)</span></span>;<span class="comment">//创建实例，传入端口号和ip作为构造函数参数</span></span><br><span class="line">    serv.<span class="built_in">run</span>();<span class="comment">//启动服务</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用makefile进行自动编译，makefile内容如下：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">test_server: test_server.cpp server.cpp server.h</span></span><br><span class="line">    g++ -o test_server test_server.cpp server.cpp -lpthread</span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm test_server</span><br></pre></td></tr></table></figure>
+
+<p>注意：makefile的缩进不能使用空格，要使用制表符（制表符长度4）。</p>
+<h2 id="多线程客户端"><a href="#多线程客户端" class="headerlink" title="多线程客户端"></a>多线程客户端</h2><h3 id="实例：多线程客户端"><a href="#实例：多线程客户端" class="headerlink" title="实例：多线程客户端"></a>实例：多线程客户端</h3><h4 id="具体要求-1"><a href="#具体要求-1" class="headerlink" title="具体要求"></a>具体要求</h4><p>将之前的单线程客户端升级为多线程客户端（一个线程用于接收并打印信息、一个线程用于输入并发送信息），为前面实验的多线程服务器添加自动回复客户端的代码，用一个终端运行服务器程序，多个终端运行客户端程序，多个客户端都能发送信息送达服务器并收到服务器的应答，并将应答打印到客户端终端上，当用户在客户端输入 exit 时，要结束两个线程之后再结束客户端进程。</p>
+<ol>
+<li>编写一个客户端类 client ，有发送线程和接收线程，可以同时发送消息和接收消息。</li>
+<li>要编写多个源代码文件：client 头文件给出 client 类声明、<code>client.cpp</code> 给出类方法具体实现、<code>test_client.cpp</code> 中编写主函数创建 client 实例对象并测试。</li>
+<li>当用户在客户端输入 exit 时，要结束发送线程和接收线程之后才退出主线程。</li>
+<li>服务器程序要在实验 3 的基础上进行一定修改，能够回复消息。</li>
+<li>编写 Makefile 进行自动编译，使用 git 管理版本。</li>
+</ol>
+<h4 id="设计思路-1"><a href="#设计思路-1" class="headerlink" title="设计思路"></a>设计思路</h4><p>客户端应先 connect 服务器建立连接，成功连接之后就创建发送线程和接收线程，与服务器类的设计同理，我们需要将发送线程和接收线程的函数设为静态成员函数，发送线程和接收线程中都使用 while(1) 的循环结构，循环终止的条件是用户输入了 exit 或者对端关闭了连接。</p>
+<h4 id="实现过程-1"><a href="#实现过程-1" class="headerlink" title="实现过程"></a>实现过程</h4><p>考虑到 client 类和 server 类会用到许多相同的头文件，因此我们没必要每次都重新写各种头文件，我们可以编写一个 <code>global.h</code>，在里面写上所有我们需要的头文件（甚至全局变量），让 <code>server.h</code> 和 <code>client.h</code> 都引入这个 <code>global.h</code> 即可，这样通过 <code>global.h</code> 就可以包含所有头文件，没那么容易乱。<code>global.h</code> 文件内容：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _GLOBAL_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _GLOBAL_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>client.h</code> 头文件中给出 client 类的成员变量和成员函数声明，该类有三个成员变量，同时有构造函数、析构函数、run 函数、发送线程函数、接收线程函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> CLIENT_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CLIENT_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;global.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">client</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">int</span> server_port;<span class="comment">//服务器端口</span></span><br><span class="line">        string server_ip;<span class="comment">//服务器ip</span></span><br><span class="line">        <span class="keyword">int</span> sock;<span class="comment">//与服务器建立连接的套接字描述符</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">client</span>(<span class="keyword">int</span> port,string ip);</span><br><span class="line">        ~<span class="built_in">client</span>();</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;<span class="comment">//启动客户端服务</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SendMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>;<span class="comment">//发送线程</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>;<span class="comment">//接收线程</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>client.cpp</code> 给出具体的函数定义。构造函数负责初始化服务器 ip 和端口号，析构函数负责关闭套接字描述符：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;client.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">client::<span class="built_in">client</span>(<span class="keyword">int</span> port,string ip):<span class="built_in">server_port</span>(port),<span class="built_in">server_ip</span>(ip)&#123;&#125;</span><br><span class="line">client::~<span class="built_in">client</span>()&#123;</span><br><span class="line">    <span class="built_in">close</span>(sock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run 函数负责建立与服务器的连接并且启动发送线程和接收线程</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">client::run</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义sockfd</span></span><br><span class="line">    sock = <span class="built_in">socket</span>(AF_INET,SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义sockaddr_in</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;servaddr, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = <span class="built_in">htons</span>(server_port);  <span class="comment">//服务器端口</span></span><br><span class="line">    servaddr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(server_ip.<span class="built_in">c_str</span>());  <span class="comment">//服务器ip</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接服务器，成功返回0，错误返回-1</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">connect</span>(sock, (struct sockaddr *)&amp;servaddr, <span class="built_in"><span class="keyword">sizeof</span></span>(servaddr)) &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;connect&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;连接服务器成功\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建发送线程和接收线程</span></span><br><span class="line">    <span class="function">thread <span class="title">send_t</span><span class="params">(SendMsg,sock)</span>,<span class="title">recv_t</span><span class="params">(RecvMsg,sock)</span></span>;</span><br><span class="line">    <span class="keyword">send_t</span>.<span class="built_in">join</span>();</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;发送线程已结束\n&quot;</span>;</span><br><span class="line">    <span class="keyword">recv_t</span>.<span class="built_in">join</span>();</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;接收线程已结束\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送线程负责接收用户的输入并且 send 到服务器端，如果用户输入 exit 或者出现异常时将结束线程</span></span><br><span class="line"><span class="comment">// 注意，前面不用加static！</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">client::SendMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> sendbuf[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(sendbuf, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(sendbuf));</span><br><span class="line">        cin&gt;&gt;sendbuf;</span><br><span class="line">        <span class="keyword">int</span> ret=<span class="built_in">send</span>(conn, sendbuf, <span class="built_in">strlen</span>(sendbuf),<span class="number">0</span>); <span class="comment">//发送</span></span><br><span class="line">        <span class="comment">//输入exit或者对端关闭时结束</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(sendbuf,<span class="string">&quot;exit&quot;</span>)==<span class="number">0</span>||ret&lt;=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收线程负责接收服务器发来的消息并且打印到终端</span></span><br><span class="line"><span class="comment">// 注意，前面不用加static！</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">client::RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>&#123;</span><br><span class="line">    <span class="comment">//接收缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1000</span>];</span><br><span class="line">    <span class="comment">//不断接收数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(buffer,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(buffer));</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">recv</span>(conn, buffer, <span class="built_in"><span class="keyword">sizeof</span></span>(buffer),<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//recv返回值小于等于0，退出</span></span><br><span class="line">        <span class="keyword">if</span>(len&lt;=<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;收到服务器发来的信息：&quot;</span>&lt;&lt;buffer&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端发送线程的结束很容易，输入 exit 之后 break 即可，但是接收线程无法得知用户是否输入了 exit，因此我们需要进行以下处理：服务器收到 exit 之后断开与客户端的连接，使得客户端接收线程的 recv 返回值为 0，这时再 break 即可退出接收线程。</p>
+<p>对服务器代码进行修改，让服务器收到exit后立即close掉套接字描述符，因此需要将<code>sock_arr</code>改为<code>vector&lt;bool&gt;</code>类型，初始化的时候就为其分配一定大小的空间，并全部置为 false 表示“未打开”。更改后的 <code>server.h</code> 如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SERVER_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SERVER_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;global.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">server</span>&#123;</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">int</span> server_port;</span><br><span class="line">        <span class="keyword">int</span> server_sockfd;</span><br><span class="line">        string server_ip;</span><br><span class="line">        <span class="keyword">static</span> vector&lt;<span class="keyword">bool</span>&gt; sock_arr;<span class="comment">//改为了静态成员变量，且类型变为vector&lt;bool&gt;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">server</span>(<span class="keyword">int</span> port,string ip);</span><br><span class="line">        ~<span class="built_in">server</span>();</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>server.cpp</code> 中开头加入下面这句代码为 <code>sock_arr</code> 完成初始化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="keyword">bool</span>&gt; <span class="title">server::sock_arr</span><span class="params">(<span class="number">10000</span>,<span class="literal">false</span>)</span></span>;    <span class="comment">//将10000个位置都设为false，sock_arr[i]=false表示套接字描述符i未打开（因此不能关闭）</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，具体的大小设为 10000 还是其它数字取决于系统能够打开的文件描述符数量，在 Linux 中我们可以使用 <code>ulimit -n</code> 命令来查看和修改文件描述符数量限制。</p>
+<p>接下来添加服务器收到 exit 关闭套接字描述符的代码，修改后的 <code>server::RecvMsg</code> 如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意，前面不用加static！</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">server::RecvMsg</span><span class="params">(<span class="keyword">int</span> conn)</span></span>&#123;</span><br><span class="line">    <span class="comment">//接收缓冲区</span></span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">1000</span>];</span><br><span class="line">    <span class="comment">//不断接收数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(buffer,<span class="number">0</span>,<span class="built_in"><span class="keyword">sizeof</span></span>(buffer));</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">recv</span>(conn, buffer, <span class="built_in"><span class="keyword">sizeof</span></span>(buffer),<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//客户端发送exit或者异常结束时，退出</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(buffer,<span class="string">&quot;exit&quot;</span>)==<span class="number">0</span> || len&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">close</span>(conn);</span><br><span class="line">            sock_arr[conn]=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;收到套接字描述符为&quot;</span>&lt;&lt;conn&lt;&lt;<span class="string">&quot;发来的信息：&quot;</span>&lt;&lt;buffer&lt;&lt;endl;</span><br><span class="line">        <span class="comment">//回复客户端</span></span><br><span class="line">        string ans=<span class="string">&quot;收到&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="built_in">send</span>(conn,ans.<span class="built_in">c_str</span>(),ans.<span class="built_in">length</span>(),<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//服务器收到exit或者异常关闭套接字描述符</span></span><br><span class="line">        <span class="keyword">if</span>(ret&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">close</span>(conn);</span><br><span class="line">            sock_arr[conn]=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，我们需要将 <code>server.cpp</code> 的析构函数改为如下形式，来关闭仍处于打开状态的套接字描述符：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server::~<span class="built_in">server</span>()&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;sock_arr.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sock_arr[i])</span><br><span class="line">            <span class="built_in">close</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(server_sockfd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，对服务器的修改也完成了，我们接下来编写一个 test_client.cpp 文件来测试客户端：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&quot;client.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">client <span class="title">clnt</span><span class="params">(<span class="number">8023</span>,<span class="string">&quot;127.0.0.1&quot;</span>)</span></span>;</span><br><span class="line">    clnt.<span class="built_in">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来修改 <code>makefile</code>：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">all: test_server.cpp server.cpp server.h test_client.cpp client.cpp client.h global.h</span></span><br><span class="line">    g++ -o test_client test_client.cpp client.cpp -lpthread</span><br><span class="line">    g++ -o test_server test_server.cpp server.cpp -lpthread</span><br><span class="line"><span class="section">test_server: test_server.cpp server.cpp server.h global.h</span></span><br><span class="line">    g++ -o test_server test_server.cpp server.cpp -lpthread</span><br><span class="line"><span class="section">test_client: test_client.cpp client.cpp client.h global.h</span></span><br><span class="line">    g++ -o test_client test_client.cpp client.cpp -lpthread</span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm test_server</span><br><span class="line">    rm test_client</span><br></pre></td></tr></table></figure>
+
+<p>接下来 <code>make</code> 并且进行测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">./test_server</span><br><span class="line"><span class="comment"># 新开一个终端</span></span><br><span class="line">./test_client</span><br><span class="line"><span class="comment"># 再新开一个终端</span></span><br><span class="line">./test_client</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/afd28464.html" title="Linux下的C++项目开发：聊天室（一）">https://silver-eagle.top/posts/afd28464.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/993cd50e.html" rel="prev" title="大疆笔试：加权区间调度">
+      <i class="fa fa-chevron-left"></i> 大疆笔试：加权区间调度
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/9fc468bc.html" rel="next" title="Linux下的C++项目开发：聊天室（二）">
+      Linux下的C++项目开发：聊天室（二） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-C-%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">Linux C++ 开发常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8g-%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">使用g++编译代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">C++编译过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#g-%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">g++编译命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="nav-number">1.1.3.</span> <span class="nav-text">多文件编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.4.</span> <span class="nav-text">运行可执行文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8gdb%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95"><span class="nav-number">1.2.</span> <span class="nav-text">使用gdb进行调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85gdb"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装gdb</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gdb%E5%B8%B8%E7%94%A8%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">gdb常用调试命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99-makefile-%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91"><span class="nav-number">1.3.</span> <span class="nav-text">编写 makefile 进行自动编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAmakefile"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建makefile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#makefile%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">makefile基本格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%B8%85%E7%90%86%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.3.</span> <span class="nav-text">快速清理目标文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E9%80%9A%E4%BF%A1"><span class="nav-number">2.</span> <span class="nav-text">TCP通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">传输层基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">传输层的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">2.1.2.</span> <span class="nav-text">套接字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">2.1.3.</span> <span class="nav-text">端口号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.1.4.</span> <span class="nav-text">UDP用户数据协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.1.5.</span> <span class="nav-text">TCP传输控制协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">TCP套接字网络编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="nav-number">2.2.1.</span> <span class="nav-text">服务器端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.2.2.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">完整流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E7%9B%B8%E5%85%B3%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.4.</span> <span class="nav-text">TCP相关的数据结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.3.</span> <span class="nav-text">服务器与客户端连接实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">2.3.1.</span> <span class="nav-text">服务器程序编写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">2.3.2.</span> <span class="nav-text">客户端程序编写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C"><span class="nav-number">2.3.3.</span> <span class="nav-text">测试运行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">多线程并发服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">进程与线程的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-11%E7%9A%84thread%E7%BA%BF%E7%A8%8B%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">C++11的thread线程库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.2.2.</span> <span class="nav-text">代码实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">实例：多线程并发服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E8%A6%81%E6%B1%82"><span class="nav-number">3.3.1.</span> <span class="nav-text">具体要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">3.3.2.</span> <span class="nav-text">设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">3.3.3.</span> <span class="nav-text">实现过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">多线程客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">4.1.</span> <span class="nav-text">实例：多线程客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E8%A6%81%E6%B1%82-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">具体要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B-1"><span class="nav-number">4.1.3.</span> <span class="nav-text">实现过程</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">504k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:38</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>

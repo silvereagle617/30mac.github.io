@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="华为机考复盘">
+<meta property="og:url" content="https://silver-eagle.top/posts/84f2e3b5.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-02T15:18:52.000Z">
+<meta property="article:modified_time" content="2022-11-05T00:40:18.000Z">
+<meta property="article:author" content="Zhang Tong">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/84f2e3b5.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>华为机考复盘 | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/84f2e3b5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          华为机考复盘
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-02 23:18:52" itemprop="dateCreated datePublished" datetime="2022-11-02T23:18:52+08:00">2022-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-05 08:40:18" itemprop="dateModified" datetime="2022-11-05T08:40:18+08:00">2022-11-05</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h2 id="相等的IPV6地址"><a href="#相等的IPV6地址" class="headerlink" title="相等的IPV6地址"></a>相等的IPV6地址</h2><p>IPV6地址首选表示法：<code>x:x:x:x:x:x:x:x</code>，分为8段，每段x是4个字符的十六进制值，每段x地址范围从0000 至 ffff，字母大小写等价。</p>
+<p>其他两种短格式缩写：</p>
+<ul>
+<li>省略前导零 通过省略前导零指定IPV6地址，例如，IPV6地址1050:0000:0000:0000:0005:0600:300c:326b 可写作 1050:0000:0:0:5:600:300c:326b 或 1050:0000:0:0000:5:600:300c:326b，都算为等价地址，但每一段需缩写完整，例如0030只能省略成30，不能省略成030.</li>
+<li>双冒号 通过双冒号(::)替换一系列零（不小于2段）来指定IPV6地址。例如，IPV6地址ff06:0:0:0:1:0:0:c3 可写作ff06::1:0:0:c3 或ff06:0:0:0:1::c3，都算作等价地址。一个IP地址中只可以使用一次双冒号，并要求一系列零缩写完整，例如0:0:0:0 只能省略成 ::，不能省略成0::或0::0等。</li>
+</ul>
+<p>输入：一个字符串，合法的IPV6地址</p>
+<p>输出：一个正整数，表示所有等价地址的数量</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">样例<span class="number">1</span></span><br><span class="line">输入：<span class="number">1050:0:1000:1234:12:3450:1234:3269</span></span><br><span class="line">输出：<span class="number">4</span></span><br><span class="line">解释：需要考虑省略前导零，等价地址有：</span><br><span class="line"><span class="number">1050:0:1000:1234:12:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0000:1000:1234:12:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0:1000:1234:0012:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0000:1000:1234:0012:3450:1234:3269</span></span><br><span class="line"></span><br><span class="line">样例<span class="number">2</span></span><br><span class="line">输入：<span class="number">1050:0:0:1234:6789:3450:3333:3261</span></span><br><span class="line">输出：<span class="number">5</span></span><br><span class="line">解释：需要考虑省略前导零和双冒号，等价地址有：</span><br><span class="line"><span class="number">1050:0:0:1234:6789:3450:3333:3261</span></span><br><span class="line"><span class="number">1050:0000:0:1234:6789:3450:3333:3261</span></span><br><span class="line"><span class="number">1050:0:0000:1234:6789:3450:3333:3261</span></span><br><span class="line"><span class="number">1050:0000:0000:1234:6789:3450:3333:3261</span></span><br><span class="line"><span class="number">1050::1234:6789:3450:3333:3261</span></span><br><span class="line"></span><br><span class="line">样例<span class="number">3</span></span><br><span class="line">输入：<span class="number">1050:0:1000:1234:a000:3450:1234:3269</span></span><br><span class="line">输出：<span class="number">4</span></span><br><span class="line">解释：需要考虑省略前导零和字母大小写，等价地址有：</span><br><span class="line"><span class="number">1050:0:1000:1234:a000:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0000:1000:1234:a000:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0:1000:1234:A000:3450:1234:3269</span></span><br><span class="line"><span class="number">1050:0000:1000:1234:A000:3450:1234:3269</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<ol>
+<li>字符串分割，方便后续操作，末尾加上一个’:’，分割后存储在字符串数组v里边；</li>
+<li>用一个tmp临时数组存储v，清空v，遍历tmp数组，将全为0的地址项置为”0”，遇到双冒号展开（某一地址项的长度为0），检测地址项长度和8的距离差，补全”0”。</li>
+<li>枚举可能的双冒号：<ol>
+<li>每一次可能的情况（哪几个0缩起来）进行一次枚举</li>
+<li>每次枚举，我们需要考虑，前导零和大小写，前导零（<code>*2</code>），大小写（<code>*2</code>）</li>
+</ol>
+</li>
+<li>累加所有的枚举</li>
+</ol>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include&lt;bits/stdc++.h&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回地址的组合数</span></span><br><span class="line"><span class="comment">// 遍历字符串数组，如果地址项长度小于4或地址项以0开头，res*=2，</span></span><br><span class="line"><span class="comment">// 遍历地址项，遇到字母（非数字字符）res*=2.</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve2</span><span class="params">(vector&lt;string&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(string str : v) &#123;</span><br><span class="line">		<span class="keyword">if</span>(str[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span> || str.<span class="built_in">size</span>() &lt; <span class="number">4</span>) &#123;</span><br><span class="line">			res *= <span class="number">2</span>;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">char</span> c : str) &#123;</span><br><span class="line">			<span class="keyword">if</span>(c &lt; <span class="string">&#x27;0&#x27;</span> || c &gt; <span class="string">&#x27;9&#x27;</span> ) res *= <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回地址分割后的数组，(pre, i)之间的地址不保留，保留[0, pre]和[i, n]的地址</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">getSub</span><span class="params">(vector&lt;string&gt;&amp; v, <span class="keyword">int</span> pre, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">	vector&lt;string&gt; tmp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= pre; j++) &#123;</span><br><span class="line">		tmp.<span class="built_in">push_back</span>(v[j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(; i &lt; v.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">		tmp.<span class="built_in">push_back</span>(v[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(string str)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// puts(&quot;hello&quot;);</span></span><br><span class="line">	str += <span class="string">&quot;:&quot;</span>;</span><br><span class="line">	vector&lt;string&gt; v;</span><br><span class="line">	string tmpStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="comment">// 字符串分割，得到输入的地址</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> c : str) &#123;</span><br><span class="line">		<span class="keyword">if</span>(c == <span class="string">&#x27;:&#x27;</span>) &#123;</span><br><span class="line">			v.<span class="built_in">push_back</span>(tmpStr);</span><br><span class="line">			tmpStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			tmpStr += c;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	vector&lt;string&gt; tmp = v;</span><br><span class="line">	v.<span class="built_in">clear</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输入的地址进行调整，全为0的地址项变为&quot;0&quot;，输入含有双冒号的话进行展开</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tmp.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(tmp[i] == <span class="string">&quot;00&quot;</span> || tmp[i] == <span class="string">&quot;000&quot;</span> || tmp[i] == <span class="string">&quot;0000&quot;</span>)&#123;</span><br><span class="line">			tmp[i] = <span class="string">&quot;0&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(tmp[i].<span class="built_in">size</span>()) v.<span class="built_in">push_back</span>(tmp[i]);</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">int</span> cnt = <span class="number">8</span> - tmp.<span class="built_in">size</span>() + <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(cnt--) v.<span class="built_in">push_back</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> pre = <span class="number">-1</span>; <span class="comment">//标记前一个不为&quot;0&quot;的地址项的位置</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(v[i] != <span class="string">&quot;0&quot;</span>) &#123; <span class="comment">// 地址项不为&quot;0&quot;</span></span><br><span class="line">			<span class="keyword">if</span>(i - pre &gt; <span class="number">2</span>) &#123; <span class="comment">// 可以写为双冒号的情形</span></span><br><span class="line">				tmp = <span class="built_in">getSub</span>(v, pre, i); <span class="comment">// 进行地址分割，删去地址为&quot;0&quot;项</span></span><br><span class="line">				ans += <span class="built_in">solve2</span>(tmp); <span class="comment">// 加上该地址下的组合数</span></span><br><span class="line">			&#125;</span><br><span class="line">			pre = i; <span class="comment">// 更新pre</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(v.<span class="built_in">size</span>()- pre &gt; <span class="number">2</span>) &#123; <span class="comment">// 末尾项有连续的0，即双冒号在末尾位置</span></span><br><span class="line">		tmp = <span class="built_in">getSub</span>(v, pre, v.<span class="built_in">size</span>());</span><br><span class="line">		ans += <span class="built_in">solve2</span>(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	ans += <span class="built_in">solve2</span>(v); <span class="comment">// 加上不考虑双冒号的地址组合情况</span></span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	string str;</span><br><span class="line">	cin &gt;&gt; str;</span><br><span class="line">	<span class="comment">// str = &quot;1050:0:1000:1234:12:3450:1234:3269&quot;;</span></span><br><span class="line">	<span class="comment">// str = &quot;1050:0:0:1234:6789:3450:3333:3261&quot;;</span></span><br><span class="line">	<span class="comment">// str = &quot;1050:0:1000:1234:a000:3450:1234:3269&quot;;</span></span><br><span class="line">	cout &lt;&lt; <span class="built_in">solve</span>(str) &lt;&lt; endl;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="游览小镇"><a href="#游览小镇" class="headerlink" title="游览小镇"></a>游览小镇</h2><p>需要规划一条路线，保证能游览完所有的小镇，同时走的路程（走过的路径之和）最短。</p>
+<p>假定：</p>
+<ol>
+<li>有些小镇之间有路径直接相连，有些小镇之间不直接相连；所有小镇都至少跟其他一个小镇相连；</li>
+<li>可以在任意小镇出发和停止，可以多次访问同一个小镇；</li>
+<li>路径无方向（可以从A到B，也可以从B到A）；可以多次通过同一条路径；相连接的小镇间的路径长度相当；</li>
+<li>小镇编号从1开始。</li>
+</ol>
+<p>输入</p>
+<ol>
+<li>假定有N个小镇（3&lt;=N&lt;=16），则输入N+1行数据</li>
+<li>第一行输入N，表示小镇的数量；接下去N行是各个小镇的邻接信息。</li>
+<li>第i+1行数据里包含n(1&lt;=n&lt;=N-1)个数据，且不会包含i本身，即不存在从i到i小镇的路径。</li>
+<li>如果存在联通i(1&lt;=i&lt;=N)与j(1&lt;=i&lt;=N)的路径，那么这条路径在第i+1行和第j+1行都会出现。</li>
+</ol>
+<p>输出</p>
+<p>能够访问所有小镇的最短路径长度；假如不存在可以访问所有小镇的路径，则输出-1</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">样例1</span><br><span class="line">输入：</span><br><span class="line">5</span><br><span class="line">2 4</span><br><span class="line">1 3</span><br><span class="line">2 4</span><br><span class="line">1<span class="number"> 3 </span>5</span><br><span class="line">4</span><br><span class="line">输出：</span><br><span class="line">4</span><br><span class="line">解释：一个5个点。1号与2、4相连，2号与1、3相连，3号与2、4相连，4号与1、3、5号相连，5号与4号相连。</span><br><span class="line"></span><br><span class="line">样例2</span><br><span class="line">输入：</span><br><span class="line">5</span><br><span class="line">2 4</span><br><span class="line">1 </span><br><span class="line">4</span><br><span class="line">1<span class="number"> 3 </span>5</span><br><span class="line">4</span><br><span class="line">输出：</span><br><span class="line">5</span><br><span class="line">解释：一个5个点。1号与2、4相连，2号与1相连，3号与4相连，4号与1、3、5号相连，5号与4号相连。</span><br></pre></td></tr></table></figure>
+
+<p>解析：</p>
+<p>状态压缩dp，用一个二进制数位上的0或1，代表不同的状态（取1代表位于集合中）。用二进制表示所有物品的放与不放的情况，这些二进制用十进制表示就一个维度，这个维度能表示所有物品放与不放的情况，即状态压缩。</p>
+<p>假设每个边的权值都为1，权值矩阵w存储每个节点直接的连接情况，两点之间存在边则权值为1，不存在边则权值为inf。</p>
+<p>初始化状态矩阵<code>dp[i][j]</code>，i表示状态，j表示结尾的地方。</p>
+<p>求最短的路径和，采用Floyd算法求最短路径，是一种插点法，通过3重循环，k为中转点，v为起点，w为终点，循环比较<code>D[v][w]</code> 和 <code>D[v][k] + D[k][w] </code>最小值，如果<code>D[v][k] + D[k][w] </code>为更小值，则把<code>D[v][k] + D[k][w] </code>覆盖保存在<code>D[v][w]</code>中。</p>
+<p>dp转移方程，首先枚举状态，再枚举这次要访问的点，第j位置上为1，循环遍历点k，如果k这个点在当前的状态（j不在状态集合）中，比较当前状态与从k这个点的状态转移过来的最小值，即<code>dp[i][j]=min(dp[i-(1&lt;&lt;j)][k]+w[k][j],dp[i][j]);</code></p>
+<p>循环遍历结尾点i，更新路径和最小值<code>mn = min(mn,dp[(1&lt;&lt;n)-1][i])</code>，<code>dp[(1&lt;&lt;n)-1][i]</code>指的是结尾点为i，n位集合上全为1，代表所有节点都访问过。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">50</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">1</span>&lt;&lt;<span class="number">20</span>][<span class="number">50</span>];<span class="comment">//i是状态，j是结尾的地方</span></span><br><span class="line"><span class="keyword">int</span> w[<span class="number">50</span>][<span class="number">50</span>]; <span class="comment">//边的权值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="built_in">memset</span>(w,<span class="number">0x3f</span>,<span class="keyword">sizeof</span> w); <span class="comment">//将边的权值初始化为无穷大</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        string str;</span><br><span class="line">        <span class="built_in">getline</span>(cin, str);</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(str[j] == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span>(tmp == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">//设置i与tmp-1的边，把点的id设为从0开始</span></span><br><span class="line">                w[i][tmp - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">                w[tmp - <span class="number">1</span>][i] = <span class="number">1</span>;</span><br><span class="line">                tmp = <span class="number">0</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//保存点的序号比如输入的是13</span></span><br><span class="line">                <span class="comment">/**</span></span><br><span class="line"><span class="comment">                那就是 tmp = 0*10 + 1</span></span><br><span class="line"><span class="comment">                           = 1*10 + 3</span></span><br><span class="line"><span class="comment">                */</span></span><br><span class="line">                tmp = tmp * <span class="number">10</span> + (str[j] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(tmp) &#123;</span><br><span class="line">            <span class="comment">//设置边，节点编号是从1开始的，因此需要减一</span></span><br><span class="line">            w[tmp - <span class="number">1</span>][i] = <span class="number">1</span>;</span><br><span class="line">            w[i][tmp - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Folyd求最短路</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(w[i][j] &gt; w[i][k] + w[k][j])&#123;</span><br><span class="line">                    w[i][j] = w[i][k] + w[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//初始化dp数组无穷大</span></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dp);</span><br><span class="line">    <span class="comment">//设置起点为i的坐标为0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n; i++) &#123;</span><br><span class="line">        dp[<span class="number">1</span> &lt;&lt; i][i]=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">//状压dp,枚举状态</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; (<span class="number">1</span>&lt;&lt;n); i++)&#123;</span><br><span class="line">        <span class="comment">//枚举这次要访问的点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>((i &gt;&gt; j) &amp; <span class="number">1</span>)&#123; <span class="comment">// 第j位置为1</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++)&#123;</span><br><span class="line">                    <span class="comment">//k这个点在当前状态中</span></span><br><span class="line">                    <span class="keyword">if</span>(((i - (<span class="number">1</span>&lt;&lt;j)) &gt;&gt; k) &amp; <span class="number">1</span>)&#123; <span class="comment">// 第k位置为1</span></span><br><span class="line">                        <span class="comment">//就是从排除k这个点的状态转移过来更小还是就是当前状态的更小</span></span><br><span class="line">                        dp[i][j] = <span class="built_in">min</span>(dp[i - (<span class="number">1</span>&lt;&lt;j)][k] + w[k][j], dp[i][j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mn = <span class="number">100000000</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">    	mn=<span class="built_in">min</span>(mn, dp[(<span class="number">1</span>&lt;&lt;n) - <span class="number">1</span>][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(mn == <span class="number">100000000</span>)  &#123;</span><br><span class="line">        cout &lt;&lt; <span class="number">-1</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout&lt;&lt;mn&lt;&lt;endl;    </span><br><span class="line">    &#125;                </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/84f2e3b5.html" title="华为机考复盘">https://silver-eagle.top/posts/84f2e3b5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/65fbd269.html" rel="prev" title="面试复习总结">
+      <i class="fa fa-chevron-left"></i> 面试复习总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/ceebbd88.html" rel="next" title="The End of 2022">
+      The End of 2022 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E7%AD%89%E7%9A%84IPV6%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">相等的IPV6地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B8%E8%A7%88%E5%B0%8F%E9%95%87"><span class="nav-number">2.</span> <span class="nav-text">游览小镇</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">504k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:38</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>

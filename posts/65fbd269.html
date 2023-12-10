@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/t.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/t.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"silver-eagle.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="面试复习总结">
+<meta property="og:url" content="https://silver-eagle.top/posts/65fbd269.html">
+<meta property="og:site_name" content="Tong&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silver-eagle.top/20220923/bVm1c3">
+<meta property="og:image" content="https://silver-eagle.top/20220923/bVm1c4">
+<meta property="og:image" content="https://silver-eagle.top/20220923/bVm1c5">
+<meta property="og:image" content="https://silver-eagle.top/20220923/bVm1c8">
+<meta property="og:image" content="https://silver-eagle.top/20220923/bVm1c9">
+<meta property="og:image" content="https://silver-eagle.top/20220923/%E7%B4%A2%E5%BC%95%E6%80%BB%E7%BB%93.drawio.png">
+<meta property="article:published_time" content="2022-09-23T15:13:59.000Z">
+<meta property="article:modified_time" content="2022-11-02T15:21:06.000Z">
+<meta property="article:author" content="Zhang Tong">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silver-eagle.top/20220923/bVm1c3">
+
+<link rel="canonical" href="https://silver-eagle.top/posts/65fbd269.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>面试复习总结 | Tong's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tong's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Welcome to my Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://silver-eagle.top/posts/65fbd269.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/curry.jpg">
+      <meta itemprop="name" content="Zhang Tong">
+      <meta itemprop="description" content="Veni, Vidi, Vici">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tong's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试复习总结
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-23 23:13:59" itemprop="dateCreated datePublished" datetime="2022-09-23T23:13:59+08:00">2022-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-02 23:21:06" itemprop="dateModified" datetime="2022-11-02T23:21:06+08:00">2022-11-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<span id="more"></span>
+
+<h2 id="Linux网络编程相关"><a href="#Linux网络编程相关" class="headerlink" title="Linux网络编程相关"></a>Linux网络编程相关</h2><h3 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h3><h4 id="用户空间与内核空间"><a href="#用户空间与内核空间" class="headerlink" title="用户空间与内核空间"></a>用户空间与内核空间</h4><p>对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。</p>
+<p>为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操心系统将虚拟空间划分为两部分，一部分为内核空间，一部分为用户空间。在Linux系统下：</p>
+<ul>
+<li>内核空间：最高的1G字节（从虚拟地址0xC0000000到0xFFFFFFFF），供内核使用。</li>
+<li>用户空间：将较低的3G字节（从虚拟地址0x00000000到0xBFFFFFFF），供各个进程使用。</li>
+</ul>
+<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><p>进程切换：为了控制进程的执行，内核必须有能力挂起正在CPU上运行的进程，并恢复以前挂起的某个进程的执行。从一个进程的运行转到另一个进程上运行，这个过程中经过下面这些变化：</p>
+<ol>
+<li>保存处理机上下文，包括程序计数器和其他寄存器。</li>
+<li>更新PCB信息。</li>
+<li>把进程的PCB移入相应的队列，如就绪、在某事件阻塞等队列。</li>
+<li>选择另一个进程执行，并更新其PCB。</li>
+<li>更新内存管理的数据结构。</li>
+<li>恢复处理机上下文。</li>
+</ol>
+<p>进程的切换<strong>很耗资源</strong>。</p>
+<h4 id="进程阻塞"><a href="#进程阻塞" class="headerlink" title="进程阻塞"></a>进程阻塞</h4><p>正在执行的进程，由于期待的某些事件未发生，如请求系统资源失败、等待某种操作的完成、新数据尚未到达或无新工作做等，则由系统自动执行阻塞原语(Block)，使自己由运行状态变为阻塞状态。</p>
+<p>进程的阻塞是进程自身的一种主动行为，也因此只有处于运行态的进程（获得CPU），才可能将其转为阻塞状态。<strong>当进程进入阻塞状态，是不占用CPU资源的。</strong></p>
+<h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><p>适用于UNIX，Linux系统。文件描述符（File descriptor）是计算机科学中的一个术语，是一个用于表述<strong>指向文件的引用</strong>的抽象化概念。</p>
+<p>文件描述符在形式上是一个<strong>非负整数</strong>。实际上，它是一个<strong>索引值</strong>，指向<strong>内核为每一个进程所维护的该进程打开文件的记录表</strong>。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。</p>
+<h4 id="缓存IO"><a href="#缓存IO" class="headerlink" title="缓存IO"></a>缓存IO</h4><p>缓存 I/O 又被称作标准 I/O，大多数文件系统的默认 I/O 操作都是缓存 I/O。</p>
+<p>在Linux的缓存 I/O 机制中，操作系统会将 I/O 的数据缓存在文件系统的<strong>页缓存（page cache）</strong>中，也就是说，<strong>数据会先被拷贝到操作系统内核的缓冲区中，然后才会从操作系统内核的缓冲区拷贝到应用程序的地址空间</strong>。</p>
+<p><strong>缓存IO缺点：</strong>数据在传输过程中需要在应用程序地址空间和内核进行多次数据拷贝操作，这些数据拷贝操作所带来的 CPU 以及内存开销是非常大的。</p>
+<h3 id="IO模式"><a href="#IO模式" class="headerlink" title="IO模式"></a>IO模式</h3><p>对于一次IO访问（以read举例），会经历两个阶段：</p>
+<ul>
+<li>等待数据准备 (Waiting for the data to be ready)</li>
+<li>将数据从内核拷贝到进程中 (Copying the data from the kernel to the process)</li>
+</ul>
+<p>Linux系统产生了下面五种网络模式：</p>
+<ul>
+<li>阻塞IO</li>
+<li>非阻塞IO</li>
+<li>IO多路复用</li>
+<li>信号驱动IO （实际中不常用）</li>
+<li>异步IO</li>
+</ul>
+<h4 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h4><p>Linux系统中默认情况下，所有的socket都是阻塞的，一个典型的读操作流程大概是这样：</p>
+<p><img src="/20220923/bVm1c3" alt="clipboard.png"></p>
+<p>当用户进程调用了recvfrom这个系统调用，kernel就开始了IO的第一个阶段：准备数据。</p>
+<p>数据被拷贝到操作系统内核的缓冲区中是需要一个过程的。而在用户进程这边，整个进程会被阻塞（当然，是进程自己选择的阻塞）。当kernel一直等到数据准备好了，它就会将数据从kernel中拷贝到用户内存，然后kernel返回结果，用户进程才解除block的状态，重新运行起来。</p>
+<p><strong>阻塞IO特点</strong>：在IO执行的两个阶段都被阻塞了。</p>
+<h4 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h4><p>设置socket为非阻塞的，当对一个非阻塞的socket执行读操作的流程：</p>
+<p><img src="/20220923/bVm1c4" alt="clipboard.png"></p>
+<p>当用户进程发出read操作时，如果kernel中的数据还没有准备好，那么它并不会block用户进程，而是立刻返回一个error。从用户进程角度讲 ，它发起一个read操作后，并不需要等待，而是马上就得到了一个结果。</p>
+<p>一旦kernel中的数据准备好了，并且又再次收到了用户进程的system call，那么它马上就将数据拷贝到了用户内存，然后返回。</p>
+<p><strong>非阻塞IO特点：</strong>用户进程需要<strong>不断的主动询问</strong>kernel数据好了没有。</p>
+<h4 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h4><p>IO多路复用主要指的就是select、poll、epoll这几个关键字。</p>
+<p>I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。但select，poll，epoll本质上都是<strong>同步I/O</strong>，因为他们都需要在读写事件就绪后，自己负责进行读写，也就是说这个<strong>读写过程是阻塞的</strong>，而异步I/O则无需自己负责进行读写，异步I/O的实现会负责把数据从内核拷贝到用户空间。</p>
+<p><img src="/20220923/bVm1c5" alt="clipboard.png"></p>
+<p><strong>当用户进程调用了select，那么整个进程会被阻塞</strong>，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。</p>
+<p><strong>IO多路复用的特点：</strong>通过一种机制一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读就绪状态，select()函数就可以返回。</p>
+<p>和非阻塞IO相比，用select的优势在于它可以同时处理多个connection。select/epoll的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。</p>
+<p>实际中，对于每一个socket，一般都设置成为非阻塞的，整个用户的process其实是一直被block的。只不过process是被select这个函数block，而不是被socket IO给block。</p>
+<h4 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h4><p>Linux下的异步IO使用较少。</p>
+<p><img src="/20220923/bVm1c8" alt="clipboard.png"></p>
+<p>用户进程发起read操作之后，立刻就可以开始去做其它的事。而另一方面，从kernel的角度，当它受到一个asynchronous read之后，首先它会立刻返回，所以不会对用户进程产生任何block。</p>
+<p>然后，kernel会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel会给用户进程发送一个signal，告诉它read操作完成了。</p>
+<p><strong>各个IO Model的比较如图所示：</strong></p>
+<p><img src="/20220923/bVm1c9" alt="clipboard.png"></p>
+<p>调用阻塞IO会一直阻塞住对应的进程直到操作完成，而非阻塞IO在内核还准备数据的情况下会立即返回。</p>
+<p>非阻塞IO虽然大部分时间都不会被阻塞，但它仍要求进程去主动的check，当数据准备完成后，也需要进程主动的再次调用recvfrom来将数据拷贝到用户内存。而异步IO完全不同，它就像是用户进程将整个IO操作交给了他人（kernel）完成，然后他人做完后发信号通知。在此期间，用户进程不需要去检查IO操作的状态，也不需要主动的去拷贝数据。</p>
+<h3 id="IO复用select、poll、epoll详解"><a href="#IO复用select、poll、epoll详解" class="headerlink" title="IO复用select、poll、epoll详解"></a>IO复用select、poll、epoll详解</h3><h4 id="select模式"><a href="#select模式" class="headerlink" title="select模式"></a>select模式</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span> <span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds。调用后select函数会阻塞，直到有描述符就绪（有数据可读可写或者有异常），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以 通过遍历fdset，来找到就绪的描述符。</p>
+<p>优点：几乎在所有的平台上支持，良好跨平台支持。</p>
+<p>缺点：单个进程能够监视的文件描述符的数量存在最大限制，在Linux上一般为1024，可以通过修改宏定义甚至重新编译内核的方式提升这一限制，但 是这样也会造成效率的降低。</p>
+<h4 id="poll模式"><a href="#poll模式" class="headerlink" title="poll模式"></a>poll模式</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span> <span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="keyword">short</span> events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    <span class="keyword">short</span> revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>不同于select使用三个位图来表示fdset，poll使用一个 pollfd的指针实现。</p>
+<p>pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式。</p>
+<p>同时，pollfd并没有最大数量限制（但是数量过大后性能也是会下降）。<strong>和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符。</strong></p>
+<p>从上面看，select和poll都需要在返回后，通过遍历文件描述符来获取已经就绪的socket。事实上，同时连接的大量客户端在一时刻可能只有很少的处于就绪状态，因此<strong>随着监视的描述符数量的增长，其效率也会线性下降。</strong></p>
+<h4 id="epoll模式"><a href="#epoll模式" class="headerlink" title="epoll模式"></a>epoll模式</h4><p>相对于select和poll来说，epoll更加灵活，没有描述符限制。<strong>epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。</strong></p>
+<h5 id="epoll操作过程："><a href="#epoll操作过程：" class="headerlink" title="epoll操作过程："></a><strong>epoll操作过程</strong>：</h5><p>epoll操作过程需要三个接口，分别如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span>；<span class="comment">//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span>；</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>int epoll_create(int size);</strong></p>
+<p>创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大，这个参数不同于select()中的第一个参数，给出最大监听的fd+1的值，<strong>参数size并不是限制了epoll所能监听的描述符最大个数，只是对内核初始分配内部数据结构的一个建议。</strong></p>
+<p>返回值：<strong>额外的文件描述符，唯一标识内核中的事件表。</strong></p>
+<p><strong>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</strong></p>
+<p>对指定描述符fd执行op操作。</p>
+<ul>
+<li>epfd：是epoll_create()的返回值。额外的文件描述符，唯一标识内核中的事件表。</li>
+<li>op：表示op操作，用三个宏来表示：添加EPOLL_CTL_ADD，删除EPOLL_CTL_DEL，修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件。</li>
+<li>fd：是需要监听的fd（文件描述符）</li>
+<li>epoll_event：指定事件，是告诉内核需要监听什么事，struct epoll_event结构如下：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">  <span class="keyword">__uint32_t</span> events;  <span class="comment">/* Epoll events */</span></span><br><span class="line">  <span class="keyword">epoll_data_t</span> data;  <span class="comment">/* User data variable */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//events可以是以下几个宏的集合：</span></span><br><span class="line">EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；</span><br><span class="line">EPOLLOUT：表示对应的文件描述符可以写；</span><br><span class="line">EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</span><br><span class="line">EPOLLERR：表示对应的文件描述符发生错误；</span><br><span class="line">EPOLLHUP：表示对应的文件描述符被挂断；</span><br><span class="line">EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。</span><br><span class="line">EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</span><br></pre></td></tr></table></figure>
+
+<p>返回值：成功返回0，失败返回-1并设置errno。</p>
+<p><strong>int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);</strong></p>
+<p>在一段超时时间内，等待一组文件描述符上的事件，等待epfd上的io事件，最多返回maxevents个事件（最多监听多少个事件，必须大于0）。</p>
+<p>参数events用来从内核得到事件的集合，maxevents告之内核这个events有多大，这个maxevents的值不能大于创建epoll_create()时的size，参数timeout是超时时间（毫秒，0会立即返回，-1将不确定，也有说法说是永久阻塞）。该函数返回需要处理的事件数目，如返回0表示已超时。</p>
+<p>所有就绪的事件从内核事件表（epfd指定）复制到events指向的数组，events输出 epoll_wait 检测到的就绪事件 ，而不像select和poll的数组参数，既用于传入用户注册添加的事件，又用于输出内核检测到的就绪事件。这极大提高了应用程序索引就绪文件描述符的效率。</p>
+<h5 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h5><p>epoll对文件描述符的操作有两种模式：<strong>LT（level trigger）水平触发</strong> 和<strong>ET（edge trigger）边缘触发</strong>。LT模式是默认模式，LT模式与ET模式的区别如下：</p>
+<ul>
+<li><strong>LT模式</strong>：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，<strong>应用程序可以不立即处理该事件</strong>。下次调用epoll_wait时，会再次响应应用程序并通知此事件。</li>
+<li><strong>ET模式</strong>：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，<strong>应用程序必须立即处理该事件</strong>。如果不处理，下次调用epoll_wait时，不会再次响应应用程序并通知此事件。</li>
+</ul>
+<ol>
+<li>LT模式</li>
+</ol>
+<p><strong>LT(level triggered)是缺省的工作方式，并且同时支持阻塞和非阻塞socket。</strong>在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的fd进行IO操作。如果你不作任何操作，内核还是会继续通知你的。</p>
+<ol start="2">
+<li>ET模式</li>
+</ol>
+<p><strong>ET(edge-triggered)是高速工作方式，只支持非阻塞socket。</strong>在这种模式下，当描述符从未就绪变为就绪时，内核通过epoll告诉你。然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了(比如，你在发送，接收或者接收请求，或者发送接收的数据少于一定量时导致了一个EWOULDBLOCK 错误）。但是请注意，如果一直不对这个fd作IO操作(从而导致它再次变成未就绪)，内核不会发送更多的通知(only once)</p>
+<p><strong>ET模式在很大程度上减少了epoll事件被重复触发的次数，因此效率要比LT模式高。epoll工作在ET模式的时候，必须使用非阻塞套接口，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</strong></p>
+<p><strong>epoll的优点</strong>主要是以下几个方面：</p>
+<p>1、<strong>监视的描述符数量不受限制，它所支持的FD上限是最大可以打开文件的数目</strong>，这个数字一般远大于2048,举个例子,在1GB内存的机器上大约是10万左 右，具体数目可以cat /proc/sys/fs/file-max察看,一般来说这个数目和系统内存关系很大。select的最大缺点就是进程打开的fd是有数量限制的。这对 于连接数量比较大的服务器来说根本不能满足。虽然也可以选择多进程的解决方案( Apache就是这样实现的)，不过虽然linux上面创建进程的代价比较小，但仍旧是不可忽视的，加上进程间数据同步远比不上线程间同步的高效，所以也不是一种完美的方案。</p>
+<p>2、IO的效率不会随着监视fd的数量的增长而下降。epoll不同于select和poll轮询的方式，而是<strong>通过每个fd定义的回调函数来实现的。只有就绪的fd才会执行回调函数</strong>。</p>
+<p>如果没有大量的idle -connection(空闲连接)或者dead-connection，epoll的效率并不会比select/poll高很多，但是当遇到大量的idle- connection，就会发现epoll的效率大大高于select/poll。</p>
+<h4 id="三组IO复用函数的比较"><a href="#三组IO复用函数的比较" class="headerlink" title="三组IO复用函数的比较"></a>三组IO复用函数的比较</h4><p>select、poll、epoll三组IO复用系统调用，都能同时监听多个文件描述符，等待timeout指定的超时时间，直到一个或多个文件描述符上有事件发生时返回，返回值是就绪的文件描述符的数量，返回0表示没有事件发生。这三组函数都是通过某种结构体变量来告诉内核监听哪些文件描述符上的哪些事件，并使用该结构体类型的参数来获取内核处理的结果。</p>
+<ul>
+<li>select的参数类型fd_set，<strong>没有将文件描述符与事件绑定</strong>，仅仅是一个文件描述符的集合，因此，select需提供3个这种类型的参数来分别传入和输出可读、可写、异常等事件。这使得select不能处理更多类型的事件，又由于内核对fd_set集合的在线修改，应用程序下次调用select前需要重置这3个fd_set集合。</li>
+<li>poll的参数类型pollfd，它把文件描述符和事件都定义在其中，统一处理所有事件类型，只需一个事件集参数。内核每次修改的都是pollfd结构体中的revents成员（反馈就绪的事件），而events成员（用户传入的感兴趣事件）保持不变，因此下次调用poll时应用程序无须重置pollfd类型的事件集参数。由于每次<strong>select和poll调用都是返回整个用户注册添加的事件集合（其中包括就绪与未就绪的），所以应用程序索引就绪文件描述符的时间复杂度为O(n)。</strong>select和poll都只能工作在相对低效的<strong>LT模式</strong>，实现原理上采用的都是<strong>轮询</strong>的方式检测就绪事件，每次调用都要扫描整个注册文件描述符集合，并将其中就绪的文件描述符返回给用户程序，所以**时间复杂度为O(n)**。</li>
+<li>epoll在内核中维护一个事件表，直接管理用户感兴趣的所有事件，并提供一个独立的系统调用epoll_ctl来控制往其中添加、修改、删除事件。每次<strong>epoll_wait调用都是直接从内核事件表中取得用户注册添加的事件，而无须反复从用户空间读入这些事件</strong>。epoll_wait系统调用的events参数仅用来返回就绪的事件，这使得<strong>应用程序索引就绪文件描述符的时间复杂度为O(1)。</strong>epoll可以工作在<strong>ET高效模式，</strong>还支持EPOLLONESHOT事件，进一步减少可读、可写和异常等事件被触发的次数。实现原理上采用的是<strong>回调</strong>的方式检测就绪事件，内核检测到就绪的文件描述符时，将触发回调函数，回调函数将该文件描述符上对应的事件插入到内核就绪事件队列，内核最后在合适的时机将该就绪队列中的内容拷贝到用户空间。因此，epoll_wait无须轮询整个文件描述符集合，**时间复杂度为O(1)**。</li>
+</ul>
+<h2 id="Mysql数据库"><a href="#Mysql数据库" class="headerlink" title="Mysql数据库"></a>Mysql数据库</h2><h3 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h3><p><strong>事务：</strong>一组数据库操作命令（sql语句），其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务把所有的命令作为一个整体一起向系统提交或撤销操作请求，即这一组数据库命令要么都执行，要么都不执行，因此事务是一个不可分割的工作逻辑单元。</p>
+<p>事务是保持 <strong>逻辑数据一致性</strong> 和 <strong>可恢复性</strong> 的重要利器。而锁是实现事务的关键，可以保证事务的完整性和并发性。</p>
+<h4 id="事务特性"><a href="#事务特性" class="headerlink" title="事务特性"></a>事务特性</h4><p>四个特性ACID，<strong>关系型数据库</strong> 需要遵循 ACID 规则。</p>
+<ul>
+<li>原子性：事务是最小的执行单位，不可分割的（原子的）。事务的原子性确保动作要么全部执行，要么全部不执行。</li>
+<li>一致性：当事务完成时，数据必须处于一致状态，多个事务对同一个数据读取的结果是相同的。</li>
+<li>隔离性：<strong>并发访问数据库</strong> 时，一个用户的事务不被其他事务所干扰，各个事务不干涉内部的数据。</li>
+<li>持久性：一个事务被提交之后，它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ul>
+<p><strong>事务特性的实现：</strong></p>
+<ul>
+<li>DBMS 采用 日志 来保证事务的 原子性、一致性 和 持久性。日志记录了事务对数据库所做的更新，如果某个事务在执行过程中发生错误，就可以根据日志，撤销事务对数据库已做的更新，使数据库退回到执行事务前的初始状态。</li>
+<li>DBMS 采用 锁机制 来实现事务的隔离性。当多个事务同时更新数据库中相同的数据时，只允许 持有锁的事务 能更新该数据，其他事务必须等待，直到前一个事务释放了锁，其他事务才有机会更新该数据。</li>
+</ul>
+<h4 id="事务之间的相互影响"><a href="#事务之间的相互影响" class="headerlink" title="事务之间的相互影响"></a>事务之间的相互影响</h4><p>在同时处理多个事务的时候，就可能出现脏读（dirty read）、不可重复读（non-repeatable read）、幻读（phantom read）的问题。</p>
+<ul>
+<li>脏读：一个事务读到了另一个事务未提交的数据。</li>
+<li>不可重复读：在一个事务内多次读取同一个数据，出现前后两次读到的数据不一样的情况。这是因为在此间隔内有其他事务对数据进行了修改。</li>
+<li>幻读：当事务 <strong>不是独立执行时</strong> 发生的一种现象。在一个事务内多次查询某个符合查询条件的「记录数量」，出现前后两次查询到的记录数量不一样的情况。</li>
+<li>丢失更新：两个事务同时读取同一条记录，事务 A 先修改记录，事务 B 也修改记录（B 是不知道 A 修改过），当 B 提交数据后， 其修改结果覆盖了 A 的修改结果，导致事务 A 更新丢失。</li>
+</ul>
+<h4 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h4><p>SQL 标准定义了 4 种不同的事务隔离级。即 <strong>并发事务对同一资源的读取深度层次</strong>，由低到高依次是 <strong>读取未提交</strong>（READ-UNCOMMITTED）、<strong>读取已提交</strong>（READ-COMMITTED）、可重复读（REPEATABLE-READ）、<strong>可串行化</strong>（SERIALIZABLE）</p>
+<ul>
+<li>读取未提交：指一个事务还没提交时，它做的变更就能被其他事务看到；最低的隔离级别。</li>
+<li>读取已提交：指一个事务提交之后，它做的变更才能被其他事务看到；可以解决 <strong>脏读问题</strong>。</li>
+<li>可重复读：指一个事务执行过程中看到的数据，一直跟这个事务启动时看到的数据是一致的，<strong>MySQL InnoDB 引擎的默认隔离级别</strong>；可以解决 <strong>脏读、不可重复读</strong>。</li>
+<li>串行化：会对记录加上读写锁，在多个事务对这条记录进行读写操作时，如果发生了读写冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行；隔离级别最高，完全服从 ACID，牺牲了系统的并发性。</li>
+</ul>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="索引数据结构"><a href="#索引数据结构" class="headerlink" title="索引数据结构"></a>索引数据结构</h4><p>根据结构分类：</p>
+<ul>
+<li>B+树索引： <strong>平衡树索引</strong>，是 MySQL 数据库中使用最频繁的索引类型，MySQL、Oracle 和 SQL Server 数据库默认的都是 B+ 树索引。</li>
+<li>Hash索引：采用一定的 <strong>哈希算法</strong>，将数据库字段数据转换成定长的 Hash 值，与这条数据的行指针一并存入 Hash 表的对应位置，如果发生 Hash 碰撞（两个不同关键字的 Hash 值相同），则在对应 Hash 键下以 链表形式 存储。</li>
+<li>位图索引：为存储在某列中的每个值生成一个位图，查询时一行行扫描所有记录。位图索引适合静态数据，而不适合索引频繁更新的列。</li>
+</ul>
+<p>根据字段特性：</p>
+<ul>
+<li><p>主键索引：建立在主键字段上的索引，通常在创建表的时候一起创建，一张表最多只有一个主键索引，索引列的值不允许有空值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE table_name  (</span><br><span class="line">  ....</span><br><span class="line">  PRIMARY KEY (index_column_1) USING BTREE</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+<li><p>唯一索引：建立在 UNIQUE 字段上的索引，一张表可以有多个唯一索引，索引列的值必须唯一，但是允许有空值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE table_name  (</span><br><span class="line">  ....</span><br><span class="line">  UNIQUE KEY(index_column_1,index_column_2,...) </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>建表后，如果要创建唯一索引，使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE UNIQUE INDEX index_name</span><br><span class="line">ON table_name(index_column_1,index_column_2,...); </span><br></pre></td></tr></table></figure></li>
+<li><p>普通索引：建立在普通字段上的索引，既不要求字段为主键，也不要求字段为 UNIQUE。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE table_name  (</span><br><span class="line">  ....</span><br><span class="line">  INDEX(index_column_1,index_column_2,...) </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>建表后，如果要创建普通索引，使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX index_name</span><br><span class="line">ON table_name(index_column_1,index_column_2,...); </span><br></pre></td></tr></table></figure></li>
+<li><p>前缀索引：对字符类型字段的前几个字符建立的索引，而不是在整个字段上建立的索引，前缀索引可以建立在字段类型为 char、 varchar、binary、varbinary 的列上。使用前缀索引的目的是为了减少索引占用的存储空间，提升查询效率。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE table_name(</span><br><span class="line">    column_list,</span><br><span class="line">    INDEX(column_name(length))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>建表后，如果要创建前缀索引，使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX index_name</span><br><span class="line">ON table_name(column_name(length)); </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>按字段个数：</p>
+<ul>
+<li><p>单列索引：建立在单列上的索引称为单列索引，比如主键索引；</p>
+</li>
+<li><p>建立在多列上的索引称为联合索引；使用联合索引时，存在<strong>最左匹配原则</strong>，也就是按照最左优先的方式进行索引的匹配。MySQL 会一直向右匹配直到遇到 <strong>范围查询</strong>（&gt;、&lt;、between、like）就停止匹配，<strong>范围列可以用到联合索引，但是范围列后面的列无法用到联合索引</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX index_product_no_name ON product(product_no, name);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/20220923/%E7%B4%A2%E5%BC%95%E6%80%BB%E7%BB%93.drawio.png" alt="img"></p>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p>根据加锁范围，可以分为全局锁、表级锁和行锁。</p>
+<h4 id="全局锁"><a href="#全局锁" class="headerlink" title="全局锁"></a>全局锁</h4><p>要使用全局锁，则要执行这条命：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush tables with read lock</span><br></pre></td></tr></table></figure>
+
+<p>执行后，<strong>整个数据库就处于只读状态了</strong>，这时其他线程执行以下操作，都会被阻塞：</p>
+<ul>
+<li>对数据的增删改操作，比如 insert、delete、update等语句；</li>
+<li>对表结构的更改操作，比如 alter table、drop table 等语句。</li>
+</ul>
+<p>如果要释放全局锁，则要执行这条命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables</span><br></pre></td></tr></table></figure>
+
+<p>当然，当会话断开了，全局锁会被自动释放。</p>
+<p>应用场景：全局锁主要应用于做<strong>全库逻辑备份</strong>，这样在备份数据库期间，不会因为数据或表结构的更新，而出现备份文件的数据与预期的不一样。</p>
+<p>缺点：加上全局锁，意味着整个数据库都是只读状态。如果数据库里有很多数据，备份就会花费很多的时间，关键是备份期间，业务只能读数据，而不能更新数据，这样会造成业务停滞。</p>
+<p>备份数据库的工具是 mysqldump，在使用 mysqldump 时加上 <code>–single-transaction</code> 参数的时候，就会在备份数据库之前先开启事务。这种方法只适用于支持「可重复读隔离级别的事务」的存储引擎。</p>
+<p>InnoDB 存储引擎默认的事务隔离级别正是可重复读，因此可以采用这种方式来备份数据库。</p>
+<p>但是，对于 MyISAM 这种不支持事务的引擎，在备份数据库时就要使用全局锁的方法。</p>
+<h4 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h4><p>MySQL 里面表级别的锁有这几种：</p>
+<ul>
+<li>表锁；</li>
+<li>元数据锁（MDL）;</li>
+<li>意向锁；</li>
+<li>AUTO-INC 锁；</li>
+</ul>
+<h5 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h5><p>如果我们想对学生表（t_student）加表锁，可以使用下面的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//表级别的共享锁，也就是读锁；</span><br><span class="line">lock tables t_student read;</span><br><span class="line"></span><br><span class="line">//表级别的独占锁，也就是写锁；</span><br><span class="line">lock tables t_stuent write;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，表锁除了会限制别的线程的读写外，也会限制本线程接下来的读写操作。</p>
+<p>也就是说如果本线程对学生表加了「共享表锁」，那么本线程接下来如果要对学生表执行写操作的语句，是会被阻塞的，当然其他线程对学生表进行写操作时也会被阻塞，直到锁被释放。</p>
+<p>要释放表锁，可以使用下面这条命令，会释放当前会话的所有表锁：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables</span><br></pre></td></tr></table></figure>
+
+<p>另外，当会话退出后，也会释放所有表锁。</p>
+<p>不过尽量避免在使用 InnoDB 引擎的表使用表锁，因为表锁的颗粒度太大，会影响并发性能，<strong>InnoDB 实现了颗粒度更细的行级锁</strong>。</p>
+<h5 id="元数据锁（MDL）"><a href="#元数据锁（MDL）" class="headerlink" title="元数据锁（MDL）"></a>元数据锁（MDL）</h5><p>不需要显示的使用 MDL，因为当我们对数据库表进行操作时，会自动给这个表加上 MDL：</p>
+<ul>
+<li>对一张表进行 CRUD 操作时，加的是 <strong>MDL 读锁</strong>；</li>
+<li>对一张表做结构变更操作的时候，加的是 <strong>MDL 写锁</strong>；</li>
+</ul>
+<p>MDL 是在事务提交后才会释放，这意味着<strong>事务执行期间，MDL 是一直持有的</strong>。</p>
+<p>申请 MDL 锁的操作会形成一个队列，队列中<strong>写锁获取优先级高于读锁</strong>，一旦出现 MDL 写锁等待，会阻塞后续该表的所有 CRUD 操作。</p>
+<h5 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a>意向锁</h5><ul>
+<li>在使用 InnoDB 引擎的表里对某些记录加上「共享锁」之前，需要先在表级别加上一个「意向共享锁」；</li>
+<li>在使用 InnoDB 引擎的表里对某些纪录加上「独占锁」之前，需要先在表级别加上一个「意向独占锁」；</li>
+</ul>
+<p>也就是，当执行插入、更新、删除操作，需要先对表加上「意向独占锁」，然后对该记录加独占锁。</p>
+<p>而普通的 select 是不会加行级锁的，普通的 select 语句是利用 MVCC 实现一致性读，是无锁的。</p>
+<p>不过，select 也是可以对记录加共享锁和独占锁的，具体方式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//先在表上加上意向共享锁，然后对读取的记录加共享锁</span><br><span class="line">select ... lock in share mode;</span><br><span class="line"></span><br><span class="line">//先表上加上意向独占锁，然后对读取的记录加独占锁</span><br><span class="line">select ... for update;</span><br></pre></td></tr></table></figure>
+
+<p><strong>意向共享锁和意向独占锁是表级锁，不会和行级的共享锁和独占锁发生冲突，而且意向锁之间也不会发生冲突，只会和共享表锁（*lock tables … read*）和独占表锁（*lock tables … write*）发生冲突。</strong></p>
+<p>表锁和行锁是满足读读共享、读写互斥、写写互斥的。</p>
+<p><strong>意向锁的目的是为了快速判断表里是否有记录被加锁</strong>。</p>
+<h5 id="AUTO-INC锁"><a href="#AUTO-INC锁" class="headerlink" title="AUTO-INC锁"></a>AUTO-INC锁</h5><p>在为某个字段声明 <code>AUTO_INCREMENT</code> 属性时，之后可以在插入数据时，可以不指定该字段的值，数据库会自动给该字段赋值递增的值，这主要是通过 AUTO-INC 锁实现的。</p>
+<p>AUTO-INC 锁是特殊的表锁机制，锁<strong>不是再一个事务提交后才释放，而是再执行完插入语句后就会立即释放</strong>。</p>
+<p><strong>在插入数据时，会加一个表级别的 AUTO-INC 锁</strong>，然后为被 <code>AUTO_INCREMENT</code> 修饰的字段赋值递增的值，等插入语句执行完成后，才会把 AUTO-INC 锁释放掉。</p>
+<p>InnoDB 存储引擎提供了一种<strong>轻量级的锁</strong>来实现自增。</p>
+<p>一样也是在插入数据的时候，会为被 <code>AUTO_INCREMENT</code> 修饰的字段加上轻量级锁，<strong>然后给该字段赋值一个自增的值，就把这个轻量级锁释放了，而不需要等待整个插入语句执行完后才释放锁</strong>。</p>
+<h4 id="行级锁"><a href="#行级锁" class="headerlink" title="行级锁"></a>行级锁</h4><p>InnoDB 引擎是支持行级锁的，而 MyISAM 引擎并不支持行级锁。</p>
+<p>普通的 select 语句是不会对记录加锁的，因为它属于快照读。如果要在查询时对记录加行锁，可以使用下面这两个方式，这种查询会加锁的语句称为<strong>锁定读</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//对读取的记录加共享锁</span><br><span class="line">select ... lock in share mode;</span><br><span class="line"></span><br><span class="line">//对读取的记录加独占锁</span><br><span class="line">select ... for update;</span><br></pre></td></tr></table></figure>
+
+<p>上面这两条语句必须在一个事务中，<strong>因为当事务提交了，锁就会被释放</strong>，所以在使用这两条语句的时候，要加上 begin、start transaction 或者 set autocommit = 0。</p>
+<p>共享锁（S锁）满足读读共享，读写互斥。独占锁（X锁）满足写写互斥、读写互斥。</p>
+<p>行级锁的类型主要有三类：</p>
+<ul>
+<li>Record Lock，记录锁，也就是仅仅把一条记录锁上；</li>
+<li>Gap Lock，间隙锁，锁定一个范围，但是不包含记录本身；</li>
+<li>Next-Key Lock：Record Lock + Gap Lock 的组合，锁定一个范围，并且锁定记录本身。</li>
+</ul>
+<h5 id="Record-Lock"><a href="#Record-Lock" class="headerlink" title="Record Lock"></a>Record Lock</h5><p>Record Lock 称为记录锁，锁住的是一条记录。而且记录锁是有 S 锁和 X 锁之分的：</p>
+<ul>
+<li>当一个事务对一条记录加了 S 型记录锁后，其他事务也可以继续对该记录加 S 型记录锁（S 型与 S 锁兼容），但是不可以对该记录加 X 型记录锁（S 型与 X 锁不兼容）;</li>
+<li>当一个事务对一条记录加了 X 型记录锁后，其他事务既不可以对该记录加 S 型记录锁（S 型与 X 锁不兼容），也不可以对该记录加 X 型记录锁（X 型与 X 锁不兼容）。</li>
+</ul>
+<h5 id="Gap-Lock"><a href="#Gap-Lock" class="headerlink" title="Gap Lock"></a>Gap Lock</h5><p>Gap Lock 称为间隙锁，只存在于可重复读隔离级别，目的是为了解决可重复读隔离级别下幻读的现象。</p>
+<p>假设，表中有一个范围 id 为（3，5）间隙锁，那么其他事务就无法插入 id = 4 这条记录了，这样就有效的防止幻读现象的发生。</p>
+<p>间隙锁虽然存在 X 型间隙锁和 S 型间隙锁，但是并没有什么区别，<strong>间隙锁之间是兼容的，即两个事务可以同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入幻影记录而提出的</strong>。</p>
+<h5 id="Next-Key-Lock"><a href="#Next-Key-Lock" class="headerlink" title="Next-Key Lock"></a>Next-Key Lock</h5><p>Next-Key Lock 称为临键锁，是 Record Lock + Gap Lock 的组合，锁定一个范围，并且锁定记录本身。</p>
+<p>假设，表中有一个范围 id 为（3，5] 的 next-key lock，那么其他事务即不能插入 id = 4 记录，也不能修改 id = 5 这条记录。next-key lock 即能保护该记录，又能阻止其他事务将新纪录插入到被保护记录前面的间隙中。</p>
+<p><strong>next-key lock 是包含间隙锁+记录锁的，如果一个事务获取了 X 型的 next-key lock，那么另外一个事务在获取相同范围的 X 型的 next-key lock 时，是会被阻塞的</strong>。</p>
+<h5 id="插入意向锁"><a href="#插入意向锁" class="headerlink" title="插入意向锁"></a>插入意向锁</h5><p>一个事务在插入一条记录的时候，需要判断插入位置是否已被其他事务加了间隙锁（next-key lock 也包含间隙锁）。</p>
+<p>如果有的话，插入操作就会发生<strong>阻塞</strong>，直到拥有间隙锁的那个事务提交为止（释放间隙锁的时刻），在此期间会生成一个<strong>插入意向锁</strong>，表明有事务想在某个区间插入新记录，但是现在处于等待状态。</p>
+<p>插入意向锁名字虽然有意向锁，但是它并<strong>不是意向锁，它是一种特殊的间隙锁，属于行级别锁</strong>。</p>
+<p>如果说间隙锁锁住的是一个区间，那么「插入意向锁」锁住的就是一个点。因而从这个角度来说，插入意向锁确实是一种特殊的间隙锁。</p>
+<p>插入意向锁与间隙锁的另一个非常重要的差别是：尽管「插入意向锁」也属于间隙锁，但两个事务却不能在同一时间内，一个拥有间隙锁，另一个拥有该间隙区间内的插入意向锁（当然，插入意向锁如果不在间隙锁区间内则是可以的）。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Tong
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://silver-eagle.top/posts/65fbd269.html" title="面试复习总结">https://silver-eagle.top/posts/65fbd269.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/ccb8439b.html" rel="prev" title="Redis学习记录（一）">
+      <i class="fa fa-chevron-left"></i> Redis学习记录（一）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/84f2e3b5.html" rel="next" title="华为机考复盘">
+      华为机考复盘 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">Linux网络编程相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">概念说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.1.</span> <span class="nav-text">用户空间与内核空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2"><span class="nav-number">1.1.2.</span> <span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%98%BB%E5%A1%9E"><span class="nav-number">1.1.3.</span> <span class="nav-text">进程阻塞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">1.1.4.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98IO"><span class="nav-number">1.1.5.</span> <span class="nav-text">缓存IO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">IO模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9EIO"><span class="nav-number">1.2.1.</span> <span class="nav-text">阻塞IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9EIO"><span class="nav-number">1.2.2.</span> <span class="nav-text">非阻塞IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">IO多路复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5IO"><span class="nav-number">1.2.4.</span> <span class="nav-text">异步IO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO%E5%A4%8D%E7%94%A8select%E3%80%81poll%E3%80%81epoll%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">IO复用select、poll、epoll详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#select%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">select模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#poll%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">poll模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#epoll%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">epoll模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#epoll%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">epoll操作过程：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">工作模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%BB%84IO%E5%A4%8D%E7%94%A8%E5%87%BD%E6%95%B0%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.3.4.</span> <span class="nav-text">三组IO复用函数的比较</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">Mysql数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">事务特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E5%BD%B1%E5%93%8D"><span class="nav-number">2.1.2.</span> <span class="nav-text">事务之间的相互影响</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">2.1.3.</span> <span class="nav-text">事务的隔离级别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">2.2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.1.</span> <span class="nav-text">索引数据结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81"><span class="nav-number">2.3.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E9%94%81"><span class="nav-number">2.3.1.</span> <span class="nav-text">全局锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%BA%A7%E9%94%81"><span class="nav-number">2.3.2.</span> <span class="nav-text">表级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E9%94%81"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">表锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E9%94%81%EF%BC%88MDL%EF%BC%89"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">元数据锁（MDL）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%8F%E5%90%91%E9%94%81"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">意向锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUTO-INC%E9%94%81"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">AUTO-INC锁</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%8C%E7%BA%A7%E9%94%81"><span class="nav-number">2.3.3.</span> <span class="nav-text">行级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Record-Lock"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">Record Lock</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gap-Lock"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">Gap Lock</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Next-Key-Lock"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">Next-Key Lock</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%84%8F%E5%90%91%E9%94%81"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">插入意向锁</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhang Tong"
+      src="/images/curry.jpg">
+  <p class="site-author-name" itemprop="name">Zhang Tong</p>
+  <div class="site-description" itemprop="description">Veni, Vidi, Vici</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zt_scut@163.com" title="E-Mail → mailto:zt_scut@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Tong</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">504k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:38</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/cursor/clicklove.js"></script>
+</body>
+</html>
